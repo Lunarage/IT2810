@@ -1,0 +1,31 @@
+.search-page {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-areas: "search-bar" "result" "navigation";
+
+  margin: 2em;
+
+
+  .search-bar {
+    grid-area: search-bar;
+  }
+
+  .search-result {
+    grid-area: result;
+  }
+
+  .search-navigation {
+    grid-area: navigation;
+    justify-self: center;
+
+    * {
+      margin: 0.5em;
+    }
+
+    a {
+      //Possibly fit these into a grid or something
+    }
+  }
+
+
+}

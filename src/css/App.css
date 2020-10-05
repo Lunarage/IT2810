@@ -155,6 +155,25 @@ input:focus {
   grid-template-areas: "label" "input";
 }
 
+.search-page {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-areas: "search-bar" "result" "navigation";
+  margin: 2em;
+}
+.search-page .search-bar {
+  grid-area: search-bar;
+}
+.search-page .search-result {
+  grid-area: result;
+}
+.search-page .search-navigation {
+  grid-area: navigation;
+  justify-self: center;
+}
+.search-page .search-navigation * {
+  margin: 0.5em;
+}
 .banner {
   background-color: #83C55C;
   grid-area: banner;
