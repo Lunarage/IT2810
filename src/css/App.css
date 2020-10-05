@@ -26,11 +26,22 @@ body * {
 .menu {
   background-color: #46967C;
   grid-area: menu;
+  display: grid;
+  grid-template-areas: "button1 button2";
+  justify-content: start;
+}
+.menu a {
+  margin: 0.5em 1em;
 }
 
 .content {
   grid-area: content;
   background-color: #BFD765;
+}
+.content .start {
+  align-self: center;
+  display: grid;
+  justify-content: center;
 }
 
 h1 {
@@ -62,7 +73,7 @@ button {
   box-shadow: 3px 3px 5px #71B49E;
   transition: 30ms;
   width: auto;
-  padding: 0.5em 1.5em 0.5em 1.5em;
+  padding: 0.5em 1.5em;
   cursor: pointer;
 }
 button:hover {

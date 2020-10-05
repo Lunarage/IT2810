@@ -1,17 +1,12 @@
 @import "colors";
 @import "fonts";
 
-
-
-
+// Global styling
 body {
-
   width: 95vw;    // only on small screens
   background-color: $color-primary-0;
   margin: auto;
   font-family: $standard-font;
-
-
 
   // Setting padding/margins for all children of body to 0.
   * {
@@ -20,7 +15,9 @@ body {
   }
 }
 
+// Styling app
 .app {
+  // CSS-grid app:
   display: grid;
   grid-template-areas:
           "banner"
@@ -36,11 +33,29 @@ body {
 .menu {
   background-color: $color-secondary-4;
   grid-area: menu;
+  display: grid;
+  grid-template-areas: "button1 button2";
+  justify-content: start;  // places the inner grid
+
+  // Styling menu children (links)
+  a {
+    margin: 0.5em 1em;
+  }
 }
 
 .content {
   grid-area: content;
   background-color: $color-tertiary-4;
+
+
+  // Styling the start page
+  .start {
+    align-self: center;
+    display: grid;
+    justify-content: center;    // Centering the search bar
+  }
+
+
 }
 
 
