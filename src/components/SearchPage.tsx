@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SearchBar from "./SearchBar";
 import SearchResult from "./SearchResult";
-import NavigateResults from "./NavigateResults";
+import SearchNavigation from "./SearchNavigation";
 
 class SearchPage extends Component<{}, {}> {
     render() {
@@ -9,7 +9,7 @@ class SearchPage extends Component<{}, {}> {
             <div className={"search-page"}>
                 <SearchBar/>
                 <SearchResult/>
-                <NavigateResults/>
+                <SearchNavigation/>
             </div>
 
         )
