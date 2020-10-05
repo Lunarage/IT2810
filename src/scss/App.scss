@@ -46,7 +46,7 @@ body {
 .content {
   grid-area: content;
   background-color: $color-tertiary-4;
-
+  justify-self: stretch;
 
   // Styling the start page
   .start {
@@ -78,6 +78,14 @@ h3 {
   font-weight: bold;
 }
 
+a {
+  &:hover {
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: 5px 3px 10px #333; // TODO update shadow color to complement background
+  }
+}
+
 
 @media only screen and (min-width: 600px) {
   body {
@@ -88,4 +96,5 @@ h3 {
 
 @import "button";
 @import "input";
+@import "login-page";
 @import "banner";

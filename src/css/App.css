@@ -37,6 +37,7 @@ body * {
 .content {
   grid-area: content;
   background-color: #BFD765;
+  justify-self: stretch;
 }
 .content .start {
   align-self: center;
@@ -59,6 +60,12 @@ h3 {
   font-weight: bold;
 }
 
+a:hover {
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 5px 3px 10px #333;
+}
+
 @media only screen and (min-width: 600px) {
   body {
     width: 85vw;
@@ -74,6 +81,7 @@ button {
   transition: 30ms;
   width: auto;
   padding: 0.5em 1.5em;
+  margin: 2px;
   cursor: pointer;
 }
 button:hover {
@@ -87,6 +95,7 @@ button:active {
   transition: 30ms;
 }
 button:focus {
+  border-width: 2px;
   border-color: #555;
   outline: none;
   transition: 30ms;
@@ -115,6 +124,35 @@ input:focus {
   border-color: #555;
   outline: none;
   transition: 30ms;
+}
+
+.login-page {
+  display: grid;
+  justify-content: center;
+}
+.login-page .login-section {
+  border-radius: 8px;
+  background-color: #EDFABE;
+  padding: 2em;
+  display: grid;
+  grid-template-areas: "title" "form";
+  justify-content: center;
+  grid-gap: 2em;
+}
+.login-page .login-section .login-page-title {
+  grid-area: title;
+  justify-self: center;
+}
+.login-page .login-section .login-page-form {
+  grid-area: form;
+  display: grid;
+  grid-gap: 1.4em;
+  grid-template-areas: "username" "password" "loginbutton";
+}
+
+.form-group {
+  display: grid;
+  grid-template-areas: "label" "input";
 }
 
 .banner {

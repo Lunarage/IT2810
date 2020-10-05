@@ -9,8 +9,10 @@ button {
 
   width: auto;
   padding: 0.5em 1.5em;
+  margin: 2px;
 
   cursor: pointer;
+
 
   &:hover {
     background-color: $color-secondary-0;
@@ -25,6 +27,7 @@ button {
   }
 
   &:focus {
+    border-width: 2px;
     border-color: #555;
     outline: none;
     transition: 30ms;
