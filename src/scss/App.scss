@@ -31,7 +31,7 @@ body {
 
 
 .menu {
-  background-color: $color-secondary-4;
+  background-color: $color-primary-3;
   grid-area: menu;
   display: grid;
   grid-template-areas: "button1 button2";
@@ -45,7 +45,7 @@ body {
 
 .content {
   grid-area: content;
-  background-color: $color-tertiary-4;
+  background-color: $color-primary-1;
   justify-self: stretch;
 
   // Styling the start page

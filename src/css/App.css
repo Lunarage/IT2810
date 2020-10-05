@@ -24,7 +24,7 @@ body * {
 }
 
 .menu {
-  background-color: #46967C;
+  background-color: #ADE38E;
   grid-area: menu;
   display: grid;
   grid-template-areas: "button1 button2";
@@ -36,7 +36,7 @@ body * {
 
 .content {
   grid-area: content;
-  background-color: #BFD765;
+  background-color: #F8FEF5;
   justify-self: stretch;
 }
 .content .start {
@@ -196,6 +196,7 @@ input:focus {
   grid-area: logo;
   font-family: "Merienda";
   font-size: 4em;
+  padding: 0.2em;
 }
 
 .banner-login {
@@ -205,6 +206,7 @@ input:focus {
   display: grid;
   grid-template-areas: "login-info login-button";
   grid-gap: 1em;
+  padding: 0.2em 0.5em;
 }
 .banner-login .login-info {
   grid-area: login-info;

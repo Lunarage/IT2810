@@ -15,6 +15,7 @@
   grid-area: logo;
   font-family: $logo-font;
   font-size: 4em;
+  padding: 0.2em;
 
 }
 
@@ -27,6 +28,8 @@
   display: grid;
   grid-template-areas: "login-info login-button";
   grid-gap: 1em;
+
+  padding: 0.2em 0.5em;
 
   .login-info {
     grid-area: login-info;
