@@ -1,0 +1,17 @@
+// Styling my-page
+.my-page {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-areas: "title" "saved-searches";
+
+  margin: 2em;
+
+  .my-page-title {
+    justify-self: center;
+  }
+
+  .saved-searches {
+    // Do something maybe
+  }
+
+}
