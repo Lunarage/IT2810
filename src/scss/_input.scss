@@ -1,0 +1,31 @@
+input {
+    border: solid;
+    border-color: $color-primary-3;
+    border-width: 2px;
+    border-radius: 8px;
+    background-color: $color-tertiary-1;
+    transition: 30ms;
+
+    width: auto;
+    padding: 0.5em;
+    margin: 1px;
+
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 1px 1px 3px $color-primary-4 ;
+      transition: 30ms;
+    }
+
+    &:active {
+      transition: 15ms;
+    }
+
+    &:focus {
+      border-color: #555;
+      outline: none;
+      transition: 30ms;
+    }
+
+
+}

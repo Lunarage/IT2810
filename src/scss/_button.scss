@@ -1,0 +1,32 @@
+button {
+  border: solid;
+  border-color: $color-secondary-0;
+  border-width: 1px;
+  border-radius: 8px;
+  background-color: $color-secondary-2;
+  box-shadow: 3px 3px 5px $color-secondary-3;
+  transition: 30ms;
+
+  width: auto;
+  padding: 0.5em 1.5em 0.5em 1.5em;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-secondary-0;
+    border-color: $color-secondary-3;
+    box-shadow: 2px 2px 4px $color-secondary-4;
+    transition: 30ms;
+  }
+
+  &:active {
+    box-shadow: 0px 0px;
+    transition: 30ms;
+  }
+
+  &:focus {
+    border-color: #555;
+    outline: none;
+    transition: 30ms;
+  }
+}

@@ -1,0 +1,38 @@
+// Styling of banner
+
+.banner {
+  background-color: $color-primary-4;
+  grid-area: banner;
+
+  display: grid;
+  grid-template-areas: "logo banner-login";
+  grid-template-rows: auto;
+  grid-template-columns: auto 1fr;
+}
+
+// Logo
+.logo {
+  grid-area: logo;
+  font-family: $logo-font;
+  font-size: 4em;
+
+}
+
+// Login-info + button
+.banner-login {
+  grid-area: banner-login;
+  align-self: start;
+  justify-self: end;
+
+  display: grid;
+  grid-template-areas: "login-info login-button";
+  grid-gap: 1em;
+
+  .login-info {
+    grid-area: login-info;
+  }
+
+  .login-button {
+    grid-area: login-button;
+  }
+}
