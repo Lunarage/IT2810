@@ -6,7 +6,7 @@ class MyPage extends Component<{}, {}> {
     render() {
         return (
             <div className={"my-page"}>
-                <h2>{"username"}</h2>
+                <h2>{"Min side"}</h2>
                 <h3>Lagrede søk</h3>
                 <div className={"saved-searches"}>
                     <ul>Lagret søk nr 1</ul>
