@@ -11,8 +11,6 @@ input {
     padding: 0.5em;
     margin: 1px;
 
-    cursor: pointer;
-
     &:hover {
       box-shadow: 1px 1px 3px $color-primary-4 ;
       transition: 30ms;

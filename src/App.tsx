@@ -6,7 +6,7 @@ import SearchPage from "./components/SearchPage";
 import LoginPage from "./components/LoginPage";
 import MyPage from "./components/MyPage";
 import Menu from "./components/Menu";
-import Start from "./components/Start";
+import StartPage from "./components/StartPage";
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
             <Banner/>
             <Menu/>
             <div className={"content"}>
-                <Start/>
+                <StartPage/>
                 <SearchPage/>
                 <LoginPage/>
                 <MyPage/>
