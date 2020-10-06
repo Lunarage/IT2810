@@ -39,7 +39,7 @@ body * {
   background-color: #F8FEF5;
   justify-self: stretch;
 }
-.content .start {
+.content .start-page {
   align-self: center;
   display: grid;
   justify-content: center;

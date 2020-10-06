@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar";
 class StartPage extends Component<{}, {}> {
     render() {
         return (
-            <div className={"start"}>
+            <div className={"start-page"}>
                 <SearchBar/>
             </div>
         );
