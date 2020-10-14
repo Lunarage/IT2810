@@ -6,7 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 body {
   width: 95vw;
-  background-color: #CBEFB6;
+  background-color: #E4EEDD;
   margin: auto;
   font-family: "Source Sans Pro";
 }
@@ -24,7 +24,7 @@ body * {
 }
 
 .menu {
-  background-color: #ADE38E;
+  background-color: #CBE2BD;
   grid-area: menu;
   display: grid;
   grid-template-areas: "button1 button2";
@@ -36,7 +36,7 @@ body * {
 
 .content {
   grid-area: content;
-  background-color: #F8FEF5;
+  background-color: #FFFFFF;
   justify-self: stretch;
 }
 .content .start-page {
@@ -73,11 +73,11 @@ a:hover {
 }
 button {
   border: solid;
-  border-color: #A2D4C4;
+  border-color: #C4D3CE;
   border-width: 1px;
   border-radius: 8px;
-  background-color: #D0ECE3;
-  box-shadow: 3px 3px 5px #71B49E;
+  background-color: #EAEEED;
+  box-shadow: 3px 3px 5px #95B2A9;
   transition: 30ms;
   width: auto;
   padding: 0.5em 1.5em;
@@ -85,9 +85,9 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background-color: #A2D4C4;
-  border-color: #71B49E;
-  box-shadow: 2px 2px 4px #46967C;
+  background-color: #C4D3CE;
+  border-color: #95B2A9;
+  box-shadow: 2px 2px 4px #6B9789;
   transition: 30ms;
 }
 button:active {
@@ -103,17 +103,17 @@ button:focus {
 
 input {
   border: solid;
-  border-color: #ADE38E;
+  border-color: #CBE2BD;
   border-width: 2px;
   border-radius: 8px;
-  background-color: #FDFFF6;
+  background-color: #FFFFFF;
   transition: 30ms;
   width: auto;
   padding: 0.5em;
   margin: 1px;
 }
 input:hover {
-  box-shadow: 1px 1px 3px #83C55C;
+  box-shadow: 1px 1px 3px #A2C78C;
   transition: 30ms;
 }
 input:active {
@@ -131,7 +131,7 @@ input:focus {
 }
 .login-page .login-section {
   border-radius: 8px;
-  background-color: #EDFABE;
+  background-color: #F6F9E8;
   padding: 2em;
   display: grid;
   grid-template-areas: "title" "form";
@@ -183,7 +183,7 @@ input:focus {
   justify-self: center;
 }
 .banner {
-  background-color: #83C55C;
+  background-color: #A2C78C;
   grid-area: banner;
   display: grid;
   grid-template-areas: "logo banner-login";
