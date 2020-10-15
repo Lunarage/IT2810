@@ -8,10 +8,8 @@ class Banner extends Component<{}, {}> {
                 <h1 className={"logo"}>Logo</h1>
                 {/* TODO Add logic for checking/displaying button and "logged in as" based on if user is logged in. */}
                 <div className={"banner-login"}>
-                    <p className={"login-info"}>{"Logged in as [Username]"}</p> {/*Todo get username*/}
-                    {/* Todo: if logged in: "logg ut", else "logg in"*/}
-                    {/*Todo: make login-button do stuff.*/}
-                    <button className={"login-button"}>Logg inn</button>
+                    <p className={"login-info"}>{"Logged in as"}</p> <p className={"login-info-username"}>{"username"}</p>
+                    {/*Todo get username*/}
                 </div>
             </div>
 

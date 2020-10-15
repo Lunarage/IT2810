@@ -22,20 +22,21 @@
 // Login-info + button
 .banner-login {
   grid-area: banner-login;
-  align-self: start;
+  align-self: end;
   justify-self: end;
+  padding: 0.2em 0.5em;
 
   display: grid;
-  grid-template-areas: "login-info login-button";
-  grid-gap: 1em;
-
-  padding: 0.2em 0.5em;
+  grid-template-areas: "login-info username";
+  grid-gap: 0.3em; // ca width of 'space'
 
   .login-info {
     grid-area: login-info;
   }
 
-  .login-button {
-    grid-area: login-button;
+  .login-info-username {
+    grid-area: username;
   }
+  color: $color-text-gray;
 }
+
