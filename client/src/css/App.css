@@ -200,7 +200,7 @@ input:focus {
 .logo {
   grid-area: logo;
   font-family: "Merienda";
-  font-size: 4em;
+  font-size: 2em;
   padding: 0.2em;
 }
 
@@ -209,16 +209,33 @@ input:focus {
   align-self: end;
   justify-self: end;
   padding: 0.2em 0.5em;
-  display: grid;
-  grid-template-areas: "login-info username";
-  grid-gap: 0.3em;
   color: #808080;
 }
 .banner-login .login-info {
-  grid-area: login-info;
+  display: none;
 }
 .banner-login .login-info-username {
-  grid-area: username;
+  font-style: italic;
+}
+
+@media only screen and (min-width: 375px) {
+  .banner-login {
+    display: grid;
+    grid-template-areas: "login-info username";
+    grid-gap: 0.3em;
+  }
+  .banner-login .login-info {
+    grid-area: login-info;
+    display: block;
+  }
+  .banner-login .login-info-username {
+    grid-area: username;
+  }
+}
+@media only screen and (min-width: 600px) and (min-height: 500px) {
+  .logo {
+    font-size: 4em;
+  }
 }
 
 /*# sourceMappingURL=App.css.map */
