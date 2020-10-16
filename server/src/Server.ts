@@ -20,7 +20,8 @@ class Server {
   }
 
   private routerConfig() {
-    this.app.use('/movies', router);
+    this.app.use('/movies/', router);
+    this.app.use('/movies/:movieId', router);
   }
 
   private dbConnect() {
