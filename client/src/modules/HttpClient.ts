@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { Movie } from "../types/Movie";
+import { Movie } from "../types/DatabaseTypes";
 
 class HttpClient {
   private baseURL: string;
@@ -24,12 +24,12 @@ class HttpClient {
     );
   }
 
-  public searchMovies(searchString: string): Promise<Movie[]> {
-    return this.get<Movie[]>(this.baseURL + "/movies/" + searchString).then(
-      (response) => {
-        return response;
-      }
-    );
+  public searchMovies(searchString: string, page: number): Promise<Movie[]> {
+    const searchURL =
+      this.baseURL + "/movie?title=" + searchString + "&page=" + page;
+    return this.get<Movie[]>(searchURL).then((response) => {
+      return response;
+    });
   }
 }
 
@@ -44,5 +44,11 @@ const client = new HttpClient(baseURL);
 //Ask for movie
 const movie = client.getMovie("tt0000001");
 movie.then((response) => {
+  console.log(response);
+});
+
+//Search for movies with title containing "Black"
+const search = client.searchMovies("Black", 1);
+search.then((response) => {
   console.log(response);
 });
