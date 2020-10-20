@@ -14,7 +14,7 @@
 .logo {
   grid-area: logo;
   font-family: $logo-font;
-  font-size: 4em;
+  font-size: 2em;
   padding: 0.2em;
 
 }
@@ -26,17 +26,43 @@
   justify-self: end;
   padding: 0.2em 0.5em;
 
-  display: grid;
-  grid-template-areas: "login-info username";
-  grid-gap: 0.3em; // ca width of 'space'
 
+  // Hiding login-info by default
   .login-info {
-    grid-area: login-info;
+    display: none;
   }
 
   .login-info-username {
-    grid-area: username;
+    font-style: italic;
   }
+
   color: $color-text-gray;
+}
+
+
+// Styling display and grid placement of login-info-elements for big screens
+@media only screen and (min-width: 375px) {
+  .banner-login {
+    display: grid;
+    grid-template-areas: "login-info username";
+    grid-gap: 0.3em; // ca width of 'space'
+
+    .login-info {
+      grid-area: login-info;
+      display: block;
+    }
+
+    .login-info-username {
+      grid-area: username;
+    }
+  }
+}
+
+// Styling logo size for big screens
+// Checking both width and height -> prevent big logo on small devices with rotated screen.
+@media only screen and (min-width: 600px) and (min-height: 500px) {
+  .logo {
+    font-size: 4em;
+  }
 }
 
