@@ -5,7 +5,7 @@ button {
   border-width: 1px;
   border-radius: 8px;
   background-color: $color-secondary-2;
-  box-shadow: 3px 3px 5px $color-secondary-3;
+  box-shadow: 3px 3px 3px $color-secondary-3;
   transition: 30ms;
 
   width: auto;
@@ -18,7 +18,7 @@ button {
   &:hover {
     background-color: $color-secondary-0;
     border-color: $color-secondary-3;
-    box-shadow: 2px 2px 4px $color-secondary-4;
+    box-shadow: 2px 2px 3px $color-secondary-4;
     transition: 30ms;
   }
 
