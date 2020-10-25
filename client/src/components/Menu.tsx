@@ -20,10 +20,10 @@ class Menu extends Component<Props, State> {
 export default Menu
 
 interface Props{
-    onHomePageClick: any;
-    onSearchPageClick: any;
-    onMyPageClick: any; 
-    onLoginPageClick: any;
+    onHomePageClick(): void;
+    onSearchPageClick(): void;
+    onMyPageClick(): void; 
+    onLoginPageClick(): void;
 }
 
 interface State{
