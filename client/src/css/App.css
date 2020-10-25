@@ -28,16 +28,26 @@ body * {
   background-color: #CBE2BD;
   grid-area: menu;
   display: grid;
-  grid-template-areas: "button1 button2 loginbutton";
-  grid-template-columns: auto auto 1fr;
+  grid-template-areas: "home search my-page loginbutton";
+  grid-template-columns: auto auto auto 1fr;
   justify-content: start;
   padding: 0.3em;
 }
 .menu a {
   margin: 0.5em 1em;
 }
+.menu .home-button {
+  grid-area: home;
+}
+.menu .search-button {
+  grid-area: search;
+}
+.menu .my-page-button {
+  grid-area: my-page;
+}
 .menu .login-button {
   justify-self: end;
+  grid-area: loginbutton;
 }
 
 .content {

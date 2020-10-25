@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 
 
-class LoginPage extends Component<{}, {}> {
+class LoginPage extends Component<Props, State> {
     render() {
         return (
-            <div className={"login-page"}>
+            <div className={"login-page"} >
                 <div className={"login-section"}>
-
 
                     <h2 className={"login-page-title"}>Logg inn</h2>
                     <form className={"login-page-form"}>
@@ -36,3 +35,11 @@ class LoginPage extends Component<{}, {}> {
 }
 
 export default LoginPage;
+
+interface Props{
+    
+}
+
+interface State{
+
+}
