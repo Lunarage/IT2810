@@ -1,10 +1,15 @@
-import React, {Component} from "react";
+import React, {Component, MouseEvent} from "react";
 
-class Menu extends Component<{}, {}> {
+class Menu extends Component<Props, State> {
+
+    
     render() {
         return (
             <div className={"menu"}>
-                <a tabIndex={0}>[Søk]</a> <a tabIndex={0}>[Min side]</a> <button className={"login-button"}>Logg inn</button>
+                <a tabIndex={0} className="home-button" onClick={this.props.onHomePageClick}> [Hjem] </a>
+                <a tabIndex={0} className="search-button" onClick={this.props.onSearchPageClick}>[Søk]</a> 
+                <a tabIndex={0} className="my-page-button" onClick={this.props.onMyPageClick}>[Min side]</a> 
+                <button className={"login-button"} onClick={this.props.onLoginPageClick}>Logg inn</button>
             </div>
         )
     }
@@ -13,3 +18,14 @@ class Menu extends Component<{}, {}> {
 
 
 export default Menu
+
+interface Props{
+    onHomePageClick: any;
+    onSearchPageClick: any;
+    onMyPageClick: any; 
+    onLoginPageClick: any;
+}
+
+interface State{
+
+}
