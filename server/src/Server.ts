@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import router from "./MoviesRouter";
+import movieRouter from "./MovieRouter";
 import pool from './dbconfig';
 
 
@@ -20,7 +20,7 @@ class Server {
   }
 
   private routerConfig() {
-    this.app.use('/movies', router);
+    this.app.use('/movie/', movieRouter);
   }
 
   private dbConnect() {

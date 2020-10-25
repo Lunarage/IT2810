@@ -7,6 +7,7 @@ body {
   background-color: $color-primary-0;
   margin: auto;
   font-family: $standard-font;
+  color: $color-text-black;
 
   // Setting padding/margins for all children of body to 0.
   * {
@@ -29,17 +30,39 @@ body {
 
 }
 
-
+// Styling the menu/nav-bar
 .menu {
   background-color: $color-primary-3;
   grid-area: menu;
+
   display: grid;
-  grid-template-areas: "button1 button2";
+  grid-template-areas: "home search my-page loginbutton";
+  grid-template-columns: auto auto auto 1fr;
   justify-content: start;  // places the inner grid
+  padding: 0.3em;
 
   // Styling menu children (links)
   a {
     margin: 0.5em 1em;
+  }
+  
+  //Sets grids for buttons in menu 
+  .home-button{
+    grid-area: home;
+  }
+
+  .search-button{
+    grid-area: search;
+  }
+
+  .my-page-button{
+    grid-area: my-page;
+  }
+
+  // styling menu child login-button
+  .login-button {
+    justify-self: end;
+    grid-area: loginbutton;
   }
 }
 

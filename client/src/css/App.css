@@ -9,6 +9,7 @@ body {
   background-color: #E4EEDD;
   margin: auto;
   font-family: "Source Sans Pro";
+  color: #000000;
 }
 body * {
   padding: 0;
@@ -27,11 +28,26 @@ body * {
   background-color: #CBE2BD;
   grid-area: menu;
   display: grid;
-  grid-template-areas: "button1 button2";
+  grid-template-areas: "home search my-page loginbutton";
+  grid-template-columns: auto auto auto 1fr;
   justify-content: start;
+  padding: 0.3em;
 }
 .menu a {
   margin: 0.5em 1em;
+}
+.menu .home-button {
+  grid-area: home;
+}
+.menu .search-button {
+  grid-area: search;
+}
+.menu .my-page-button {
+  grid-area: my-page;
+}
+.menu .login-button {
+  justify-self: end;
+  grid-area: loginbutton;
 }
 
 .content {
@@ -77,7 +93,7 @@ button {
   border-width: 1px;
   border-radius: 8px;
   background-color: #EAEEED;
-  box-shadow: 3px 3px 5px #95B2A9;
+  box-shadow: 3px 3px 3px #95B2A9;
   transition: 30ms;
   width: auto;
   padding: 0.5em 1.5em;
@@ -87,7 +103,7 @@ button {
 button:hover {
   background-color: #C4D3CE;
   border-color: #95B2A9;
-  box-shadow: 2px 2px 4px #6B9789;
+  box-shadow: 2px 2px 3px #6B9789;
   transition: 30ms;
 }
 button:active {
@@ -194,24 +210,42 @@ input:focus {
 .logo {
   grid-area: logo;
   font-family: "Merienda";
-  font-size: 4em;
+  font-size: 2em;
   padding: 0.2em;
 }
 
 .banner-login {
   grid-area: banner-login;
-  align-self: start;
+  align-self: end;
   justify-self: end;
-  display: grid;
-  grid-template-areas: "login-info login-button";
-  grid-gap: 1em;
   padding: 0.2em 0.5em;
+  color: #808080;
 }
 .banner-login .login-info {
-  grid-area: login-info;
+  display: none;
 }
-.banner-login .login-button {
-  grid-area: login-button;
+.banner-login .login-info-username {
+  font-style: italic;
+}
+
+@media only screen and (min-width: 375px) {
+  .banner-login {
+    display: grid;
+    grid-template-areas: "login-info username";
+    grid-gap: 0.3em;
+  }
+  .banner-login .login-info {
+    grid-area: login-info;
+    display: block;
+  }
+  .banner-login .login-info-username {
+    grid-area: username;
+  }
+}
+@media only screen and (min-width: 600px) and (min-height: 500px) {
+  .logo {
+    font-size: 4em;
+  }
 }
 
 /*# sourceMappingURL=App.css.map */
