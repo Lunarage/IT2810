@@ -13,15 +13,15 @@ Specific movie (GET):
 ```json
 [
   {
-    tconst: string,
-    title_type: string,
-    primary_title: string,
-    original_title: string,
-    is_adult: boolean,
-    start_year: number,
-    end_year: number,
-    runtime_minutes: number,
-    genres: string
+    "tconst": string,
+    "title_type": string,
+    "primary_title": string,
+    "original_title": string,
+    "is_adult": boolean,
+    "start_year": number,
+    "end_year": number,
+    "runtime_minutes": number,
+    "genres": string
   }
 ]
 ```
@@ -29,16 +29,16 @@ Specific movie (GET):
 ```json
 [
   {
-    tconst: string,
-    title_type: string,
-    primary_title: string,
-    original_title: string,
-    is_adult: boolean,
-    start_year: number,
-    end_year: number,
-    runtime_minutes: number,
-    genres: string,
-    liked: boolean
+    "tconst": string,
+    "title_type": string,
+    "primary_title": string,
+    "original_title": string,
+    "is_adult": boolean,
+    "start_year": number,
+    "end_year": number,
+    "runtime_minutes": number,
+    "genres": string,
+    "liked": boolean
   }
 ]
 ```
@@ -48,15 +48,15 @@ Search for movies (GET):
 ```json
 [
   {
-    tconst: string,
-    title_type: string,
-    primary_title: string,
-    original_title: string,
-    is_adult: boolean,
-    start_year: number,
-    end_year: number,
-    runtime_minutes: number,
-    genres: string
+    "tconst": string,
+    "title_type": string,
+    "primary_title": string,
+    "original_title": string,
+    "is_adult": boolean,
+    "start_year": number,
+    "end_year": number,
+    "runtime_minutes": number,
+    "genres": string
   }
 ]
 ```
@@ -64,16 +64,16 @@ Search for movies (GET):
 ```json
 [
   {
-    tconst: string,
-    title_type: string,
-    primary_title: string,
-    original_title: string,
-    is_adult: boolean,
-    start_year: number,
-    end_year: number,
-    runtime_minutes: number,
-    genres: string,
-    liked: boolean
+    "tconst": string,
+    "title_type": string,
+    "primary_title": string,
+    "original_title": string,
+    "is_adult": boolean,
+    "start_year": number,
+    "end_year": number,
+    "runtime_minutes": number,
+    "genres": string,
+    "liked": boolean
   }
 ]
 ```
@@ -83,7 +83,7 @@ User with specific username (GET, PUT, DELETE):
 ```json
 [
   {
-    username: string
+    "username": string
   }
 ]
 ```
@@ -93,16 +93,16 @@ Liked movies for user (GET):
 ```json
 [
   {
-    tconst: string,
-    title_type: string,
-    primary_title: string,
-    original_title: string,
-    is_adult: boolean,
-    start_year: number,
-    end_year: number,
-    runtime_minutes: number,
-    genres: string
-    liked: boolean
+    "tconst": string,
+    "title_type": string,
+    "primary_title": string,
+    "original_title": string,
+    "is_adult": boolean,
+    "start_year": number,
+    "end_year": number,
+    "runtime_minutes": number,
+    "genres": string
+    "liked": boolean
   }
 ]
 ```
@@ -112,7 +112,7 @@ Specific liked movie for user (GET, PUT, DELETE):
 ```json
 [
   {
-    liked: boolean
+    "liked": boolean
   }
 ]
 ```

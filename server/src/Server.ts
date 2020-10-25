@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import movieRouter from "./MovieRouter";
+import userRouter from "./UserRouter";
+import likeRouter from "./LikeRouter";
 import pool from './dbconfig';
 
 
@@ -21,6 +23,8 @@ class Server {
 
   private routerConfig() {
     this.app.use('/movie/', movieRouter);
+    this.app.use('/user/', userRouter);
+    this.app.use('/user/:userId/likedMovies/', likeRouter);
   }
 
   private dbConnect() {
