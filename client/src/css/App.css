@@ -76,7 +76,11 @@ h3 {
   font-weight: bold;
 }
 
+a {
+  color: #000000;
+}
 a:hover {
+  color: #000000;
   cursor: pointer;
   font-weight: bold;
   text-shadow: 5px 3px 10px #333;
@@ -247,27 +251,39 @@ input:focus {
     font-size: 4em;
   }
 }
+/*
 .result-table {
-  padding: 1em;
-  background-color: #F3FCF9;
+ // padding: 1em;
+  background-color: $color-secondary-1;
+
+/*
+  th, td {
+    padding: 1em;
+    outline: solid 2px;
+    outline-color: $color-secondary-4;
+
+  }
+
+ */
+/*
+  tbody {
+    tr:hover {
+      background-color: $color-secondary-2;
+    }
+    tr:selected {
+      background-color: $color-secondary-0;
+    }
+  }
+
+  thead {
+    text-align: left;
+    vertical-align: bottom;
+    padding: 1em 0.8em;
+    font-weight: bold;
+    background-color: $color-secondary-3;
+  }
+
 }
-.result-table th, .result-table td {
-  padding: 1em;
-  outline: solid 2px;
-  outline-color: #6B9789;
-}
-.result-table tbody tr:hover {
-  background-color: #EAEEED;
-}
-.result-table tbody tr:selected {
-  background-color: #C4D3CE;
-}
-.result-table thead {
-  text-align: left;
-  vertical-align: bottom;
-  padding: 1em 0.8em;
-  font-weight: bold;
-  background-color: #95B2A9;
-}
+*/
 
 /*# sourceMappingURL=App.css.map */

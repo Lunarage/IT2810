@@ -3,7 +3,7 @@
 
 // Global styling
 body {
-  width: 95vw;    // only on small screens
+  width: 95vw; // only on small screens
   background-color: $color-primary-0;
   margin: auto;
   font-family: $standard-font;
@@ -38,24 +38,24 @@ body {
   display: grid;
   grid-template-areas: "home search my-page loginbutton";
   grid-template-columns: auto auto auto 1fr;
-  justify-content: start;  // places the inner grid
+  justify-content: start; // places the inner grid
   padding: 0.3em;
 
   // Styling menu children (links)
   a {
     margin: 0.5em 1em;
   }
-  
+
   //Sets grids for buttons in menu 
-  .home-button{
+  .home-button {
     grid-area: home;
   }
 
-  .search-button{
+  .search-button {
     grid-area: search;
   }
 
-  .my-page-button{
+  .my-page-button {
     grid-area: my-page;
   }
 
@@ -75,15 +75,11 @@ body {
   .start-page {
     align-self: center;
     display: grid;
-    justify-content: center;    // Centering the search bar
+    justify-content: center; // Centering the search bar
   }
 
 
 }
-
-
-
-
 
 
 h1 {
@@ -102,7 +98,10 @@ h3 {
 }
 
 a {
+  color: $color-text-black;
+
   &:hover {
+    color: $color-text-black;
     cursor: pointer;
     font-weight: bold;
     text-shadow: 5px 3px 10px #333; // TODO update shadow color to complement background
