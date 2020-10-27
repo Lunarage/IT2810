@@ -4,8 +4,7 @@ import MovieController from "./MovieController";
 const router = Router();
 const movieController = new MovieController();
 
-router.get("/", movieController.get);
-router.get("/:movieId", movieController.get);
-router.get("/:movieId/:userId", movieController.get);
+router.get("/", movieController.searchMovies);
+router.get("/:movieId", movieController.getMovie);
 
 export default router;
