@@ -1,0 +1,30 @@
+.result-table {
+  padding: 1em;
+  background-color: $color-secondary-1;
+
+  th, td {
+    padding: 1em;
+    outline: solid 2px;
+    outline-color: $color-secondary-4;
+
+  }
+
+
+  tbody {
+    tr:hover {
+      background-color: $color-secondary-2;
+    }
+    tr:selected {
+      background-color: $color-secondary-0;
+    }
+  }
+
+  thead {
+    text-align: left;
+    vertical-align: bottom;
+    padding: 1em 0.8em;
+    font-weight: bold;
+    background-color: $color-secondary-3;
+  }
+
+}
