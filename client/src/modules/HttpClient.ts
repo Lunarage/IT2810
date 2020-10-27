@@ -45,12 +45,13 @@ class HttpClient {
       });
   }
 
-  // Spesific functions
+  // Specific functions
+
   // Optionally supply a username to get liked status for said user
   public getMovie(movieId: string, username?: string): Promise<Movie> {
     let searchURL = this.baseURL + "/movie/" + movieId;
     if (username) {
-      searchURL += "/" + username;
+      searchURL += "?" + username;
     }
     return this.get<Movie[]>(searchURL).then((response) => {
       return (response as Movie[])[0];
@@ -65,8 +66,17 @@ class HttpClient {
     maxYear?: number;
     username?: string;
     page?: number;
-    orderby?: string;
-    orederdir?: string;
+    orderBy?:
+      | "tconst"
+      | "title_type"
+      | "primary_title"
+      | "original_title"
+      | "is_adult"
+      | "start_year"
+      | "end_year"
+      | "runtime_minutes"
+      | "genres";
+    orderDir?: "DESC" | "ASC";
   }): Promise<Movie[]> {
     let searchURL = this.baseURL + "/movie";
     let delimiter = "?";
@@ -86,12 +96,20 @@ class HttpClient {
       searchURL += delimiter + "maxYear=" + args.maxYear;
       delimiter = "&";
     }
+    if (args.orderBy) {
+      searchURL += delimiter + "orderBy" + args.orderBy;
+      delimiter = "&";
+    }
+    if (args.orderDir) {
+      searchURL += delimiter + "orderDir" + args.orderDir;
+      delimiter = "&";
+    }
     if (args.page) {
       searchURL += delimiter + "page=" + args.page;
       delimiter = "&";
     }
     if (args.username) {
-      searchURL += "/" + args.username;
+      searchURL += delimiter + "userId=" + args.username;
     }
     return this.get<Movie[]>(searchURL).then((response) => {
       return response as Movie[];
@@ -111,6 +129,14 @@ class HttpClient {
       this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
     ).then((response) => {
       return (response as Like[])[0];
+    });
+  }
+
+  public getLikedMovies(username: string) {
+    return this.get<Movie[]>(
+      this.baseURL + "/user/" + username + "/LikedMovies/"
+    ).then((response) => {
+      return response as Movie[];
     });
   }
 
@@ -142,8 +168,17 @@ const client = new HttpClient(baseURL);
 //Create user
 client.createUser("testUser");
 
-//Like a movie
+//Like some movies
 client.likeMovie("tt0000001", "testUser");
+client.likeMovie("tt1425892", "testUser");
+client.likeMovie("tt1928578", "testUser");
+client.likeMovie("tt1258712", "testUser");
+
+//Ask for liked movies for a user
+const likedMovies = client.getLikedMovies("testUser");
+likedMovies.then((response) => {
+  console.log(response);
+});
 
 //Ask for movie
 const movie = client.getMovie("tt0000001", "testUser");
@@ -152,15 +187,16 @@ movie.then((response) => {
 });
 
 //Search for movies with title containing "Black"
-//and year between 1999 and 2003
+//and year between 2000 and 2010
+//order by year descending
 //Returning page 1 (20 entries per page)
 const search = client.searchMovies({
   title: "Black",
-  minYear: 1999,
-  maxYear: 2003,
+  minYear: 2000,
+  maxYear: 2010,
+  orderBy: "start_year",
+  orderDir: "DESC",
 });
 search.then((response) => {
   console.log(response);
 });
-
-client.deleteUser("testUser");
