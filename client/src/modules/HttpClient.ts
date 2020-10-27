@@ -45,7 +45,8 @@ class HttpClient {
       });
   }
 
-  // Spesific functions
+  // Specific functions
+
   // Optionally supply a username to get liked status for said user
   public getMovie(movieId: string, username?: string): Promise<Movie> {
     let searchURL = this.baseURL + "/movie/" + movieId;
@@ -131,6 +132,14 @@ class HttpClient {
     });
   }
 
+  public getLikedMovies(username: string) {
+    return this.get<Movie[]>(
+      this.baseURL + "/user/" + username + "/LikedMovies/"
+    ).then((response) => {
+      return response as Movie[];
+    });
+  }
+
   public createUser(username: string) {
     return this.put<User[]>(this.baseURL + "/user/" + username).then(
       (response) => {
@@ -159,8 +168,17 @@ const client = new HttpClient(baseURL);
 //Create user
 client.createUser("testUser");
 
-//Like a movie
+//Like some movies
 client.likeMovie("tt0000001", "testUser");
+client.likeMovie("tt1425892", "testUser");
+client.likeMovie("tt1928578", "testUser");
+client.likeMovie("tt1258712", "testUser");
+
+//Ask for liked movies for a user
+const likedMovies = client.getLikedMovies("testUser");
+likedMovies.then((response) => {
+  console.log(response);
+});
 
 //Ask for movie
 const movie = client.getMovie("tt0000001", "testUser");
@@ -182,5 +200,3 @@ const search = client.searchMovies({
 search.then((response) => {
   console.log(response);
 });
-
-client.deleteUser("testUser");
