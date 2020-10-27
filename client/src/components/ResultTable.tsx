@@ -1,8 +1,9 @@
 import React from 'react'
 import {Table} from 'semantic-ui-react'
 
+
 const TableExampleSelecttableRow = () => (
-    <Table celled selectable>
+    <Table celled selectable className={"result-table"}>
         <Table.Header>
             <Table.Row>
                 <Table.HeaderCell>Name</Table.HeaderCell>
