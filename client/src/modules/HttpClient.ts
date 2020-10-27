@@ -50,7 +50,7 @@ class HttpClient {
   public getMovie(movieId: string, username?: string): Promise<Movie> {
     let searchURL = this.baseURL + "/movie/" + movieId;
     if (username) {
-      searchURL += "/" + username;
+      searchURL += "?" + username;
     }
     return this.get<Movie[]>(searchURL).then((response) => {
       return (response as Movie[])[0];
@@ -65,8 +65,17 @@ class HttpClient {
     maxYear?: number;
     username?: string;
     page?: number;
-    orderby?: string;
-    orederdir?: string;
+    orderBy?:
+      | "tconst"
+      | "title_type"
+      | "primary_title"
+      | "original_title"
+      | "is_adult"
+      | "start_year"
+      | "end_year"
+      | "runtime_minutes"
+      | "genres";
+    orderDir?: "DESC" | "ASC";
   }): Promise<Movie[]> {
     let searchURL = this.baseURL + "/movie";
     let delimiter = "?";
@@ -86,12 +95,20 @@ class HttpClient {
       searchURL += delimiter + "maxYear=" + args.maxYear;
       delimiter = "&";
     }
+    if (args.orderBy) {
+      searchURL += delimiter + "orderBy" + args.orderBy;
+      delimiter = "&";
+    }
+    if (args.orderDir) {
+      searchURL += delimiter + "orderDir" + args.orderDir;
+      delimiter = "&";
+    }
     if (args.page) {
       searchURL += delimiter + "page=" + args.page;
       delimiter = "&";
     }
     if (args.username) {
-      searchURL += "/" + args.username;
+      searchURL += delimiter + "userId=" + args.username;
     }
     return this.get<Movie[]>(searchURL).then((response) => {
       return response as Movie[];
@@ -152,12 +169,15 @@ movie.then((response) => {
 });
 
 //Search for movies with title containing "Black"
-//and year between 1999 and 2003
+//and year between 2000 and 2010
+//order by year descending
 //Returning page 1 (20 entries per page)
 const search = client.searchMovies({
   title: "Black",
-  minYear: 1999,
-  maxYear: 2003,
+  minYear: 2000,
+  maxYear: 2010,
+  orderBy: "start_year",
+  orderDir: "DESC",
 });
 search.then((response) => {
   console.log(response);
