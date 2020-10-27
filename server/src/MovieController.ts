@@ -42,9 +42,22 @@ class MovieController {
     }
   }
   public async searchMovies(request: any, response: any) {
+    // Number of results per page
     const responseLimit = 20;
     // Variable for holding the database connection
     let client = null;
+    // Allowed columns for sorting
+    const allowedColumns = [
+      "tconst",
+      "title_type",
+      "primary_title",
+      "original_title",
+      "is_adult",
+      "start_year",
+      "end_year",
+      "runtime_minutes",
+      "genres",
+    ];
 
     //Build query
     let parameters = [];
@@ -70,7 +83,9 @@ class MovieController {
       request.query.minYear ||
       request.query.maxYear ||
       request.query.genre ||
-      request.query.titleType
+      request.query.titleType ||
+      request.query.orderBy ||
+      request.query.orderDir
     ) {
       query += " WHERE";
       let delimiter = "";
@@ -110,6 +125,17 @@ class MovieController {
         query += " title_type = $" + parameterCount;
         parameters.push(request.query.titleType);
         delimiter = " AND";
+      }
+    }
+    if (
+      request.query.orderBy &&
+      allowedColumns.includes(request.query.orderBy)
+    ) {
+      query += " ORDER BY " + request.query.orderBy;
+      if (request.query.orderDir == "ASC") {
+        query += " ASC";
+      } else if (request.query.orderDir == "DESC") {
+        query += " DESC";
       }
     }
     parameterCount++;
