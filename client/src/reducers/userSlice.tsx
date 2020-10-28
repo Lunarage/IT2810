@@ -1,20 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
+// redux komponent som lager en "slice" av store hvor vi kan definere en reducer og actions som handler om en bruker logget inn eller ikke
 const loginSlice = createSlice({
-    
-    name: "login/logout",
-    initialState: { value: false
+  name: "login/logout",
+  initialState: { value: false },
+
+  reducers: {
+    logIn: (state) => {
+      state.value = true;
     },
-
-    reducers: {
-        logIn: state => {
-            state.value = true
-        },
-        logOut: state => {
-            state.value = false
-        }
-    }
-
+    logOut: (state) => {
+      state.value = false;
+    },
+  },
 });
 
 export const { logIn, logOut } = loginSlice.actions;

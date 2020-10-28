@@ -1,0 +1,253 @@
+/* Color codes for the app */
+/* Main Primary color */
+/* Main Secondary color */
+/* Main Tertiary color */
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+body {
+  width: 95vw;
+  background-color: #E4EEDD;
+  margin: auto;
+  font-family: "Source Sans Pro";
+  color: #000000;
+}
+body * {
+  padding: 0;
+  margin: 0;
+}
+
+.app {
+  display: grid;
+  grid-template-areas: "banner" "menu" "content";
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto;
+  grid-gap: 1em;
+}
+
+.menu {
+  background-color: #CBE2BD;
+  grid-area: menu;
+  display: grid;
+  grid-template-areas: "home search my-page loginbutton";
+  grid-template-columns: auto auto auto 1fr;
+  justify-content: start;
+  padding: 0.3em;
+}
+.menu a {
+  margin: 0.5em 1em;
+}
+.menu .home-button {
+  grid-area: home;
+  background-color: red;
+}
+.menu .search-button {
+  grid-area: search;
+}
+.menu .my-page-button {
+  grid-area: my-page;
+  background: red;
+}
+.menu .login-button {
+  justify-self: end;
+  grid-area: loginbutton;
+}
+
+.content {
+  grid-area: content;
+  background-color: #FFFFFF;
+  justify-self: stretch;
+}
+.content .start-page {
+  align-self: center;
+  display: grid;
+  justify-content: center;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 3em;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+a:hover {
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 5px 3px 10px #333;
+}
+
+@media only screen and (min-width: 600px) {
+  body {
+    width: 85vw;
+  }
+}
+button {
+  border: solid;
+  border-color: #C4D3CE;
+  border-width: 1px;
+  border-radius: 8px;
+  background-color: #EAEEED;
+  box-shadow: 3px 3px 3px #95B2A9;
+  transition: 30ms;
+  width: auto;
+  padding: 0.5em 1.5em;
+  margin: 2px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #C4D3CE;
+  border-color: #95B2A9;
+  box-shadow: 2px 2px 3px #6B9789;
+  transition: 30ms;
+}
+button:active {
+  box-shadow: 0px 0px;
+  transition: 30ms;
+}
+button:focus {
+  border-width: 2px;
+  border-color: #555;
+  outline: none;
+  transition: 30ms;
+}
+
+input {
+  border: solid;
+  border-color: #CBE2BD;
+  border-width: 2px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  transition: 30ms;
+  width: auto;
+  padding: 0.5em;
+  margin: 1px;
+}
+input:hover {
+  box-shadow: 1px 1px 3px #A2C78C;
+  transition: 30ms;
+}
+input:active {
+  transition: 15ms;
+}
+input:focus {
+  border-color: #555;
+  outline: none;
+  transition: 30ms;
+}
+
+.login-page {
+  display: grid;
+  justify-content: center;
+}
+.login-page .login-section {
+  border-radius: 8px;
+  background-color: #F6F9E8;
+  padding: 2em;
+  display: grid;
+  grid-template-areas: "title" "form";
+  justify-content: center;
+  grid-gap: 2em;
+}
+.login-page .login-section .login-page-title {
+  grid-area: title;
+  justify-self: center;
+}
+.login-page .login-section .login-page-form {
+  grid-area: form;
+  display: grid;
+  grid-gap: 1.4em;
+  grid-template-areas: "username" "password" "loginbutton";
+}
+
+.form-group {
+  display: grid;
+  grid-template-areas: "label" "input";
+}
+
+.search-page {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-areas: "search-bar" "result" "navigation";
+  margin: 2em;
+}
+.search-page .search-bar {
+  grid-area: search-bar;
+}
+.search-page .search-result {
+  grid-area: result;
+}
+.search-page .search-navigation {
+  grid-area: navigation;
+  justify-self: center;
+}
+.search-page .search-navigation * {
+  margin: 0.5em;
+}
+.my-page {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-areas: "title" "saved-searches";
+  margin: 2em;
+}
+.my-page .my-page-title {
+  justify-self: center;
+}
+.banner {
+  background-color: #A2C78C;
+  grid-area: banner;
+  display: grid;
+  grid-template-areas: "logo banner-login";
+  grid-template-rows: auto;
+  grid-template-columns: auto 1fr;
+}
+
+.logo {
+  grid-area: logo;
+  font-family: "Merienda";
+  font-size: 2em;
+  padding: 0.2em;
+}
+
+.banner-login {
+  grid-area: banner-login;
+  align-self: end;
+  justify-self: end;
+  padding: 0.2em 0.5em;
+  color: #808080;
+}
+.banner-login .login-info {
+  display: none;
+}
+.banner-login .login-info-username {
+  font-style: italic;
+}
+
+@media only screen and (min-width: 375px) {
+  .banner-login {
+    display: grid;
+    grid-template-areas: "login-info username";
+    grid-gap: 0.3em;
+  }
+  .banner-login .login-info {
+    grid-area: login-info;
+    display: block;
+  }
+  .banner-login .login-info-username {
+    grid-area: username;
+  }
+}
+@media only screen and (min-width: 600px) and (min-height: 500px) {
+  .logo {
+    font-size: 4em;
+  }
+}
+
+/*# sourceMappingURL=App.css.map */
