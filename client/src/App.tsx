@@ -61,6 +61,7 @@ class App extends React.Component<Props, State> {
       loginPage: true,
     });
   }
+  
   handleLogoClick() {
     this.setState({
       homePage: true,
