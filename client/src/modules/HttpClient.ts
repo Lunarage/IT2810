@@ -143,7 +143,11 @@ class HttpClient {
   public createUser(username: string) {
     return this.put<User[]>(this.baseURL + "/user/" + username).then(
       (response) => {
-        return (response as User[])[0];
+        if (response) {
+          return response as User[];
+        } else {
+          return null;
+        }
       }
     );
   }
@@ -162,41 +166,41 @@ export default HttpClient;
 //Examples
 
 //Initialize client
-const baseURL = "http://it2810-22.idi.ntnu.no:3000";
-const client = new HttpClient(baseURL);
+// const baseURL = "http://it2810-22.idi.ntnu.no:3000";
+// const client = new HttpClient(baseURL);
 
 //Create user
-client.createUser("testUser");
+// client.createUser("testUser");
 
 //Like some movies
-client.likeMovie("tt0000001", "testUser");
-client.likeMovie("tt1425892", "testUser");
-client.likeMovie("tt1928578", "testUser");
-client.likeMovie("tt1258712", "testUser");
+// client.likeMovie("tt0000001", "testUser");
+// client.likeMovie("tt1425892", "testUser");
+// client.likeMovie("tt1928578", "testUser");
+// client.likeMovie("tt1258712", "testUser");
 
 //Ask for liked movies for a user
-const likedMovies = client.getLikedMovies("testUser");
-likedMovies.then((response) => {
-  console.log(response);
-});
+// const likedMovies = client.getLikedMovies("testUser");
+// likedMovies.then((response) => {
+//   console.log(response);
+// });
 
 //Ask for movie
-const movie = client.getMovie("tt0000001", "testUser");
-movie.then((response) => {
-  console.log(response);
-});
+// const movie = client.getMovie("tt0000001", "testUser");
+// movie.then((response) => {
+//   console.log(response);
+// });
 
 //Search for movies with title containing "Black"
 //and year between 2000 and 2010
 //order by year descending
 //Returning page 1 (20 entries per page)
-const search = client.searchMovies({
-  title: "Black",
-  minYear: 2000,
-  maxYear: 2010,
-  orderBy: "start_year",
-  orderDir: "DESC",
-});
-search.then((response) => {
-  console.log(response);
-});
+// const search = client.searchMovies({
+//   title: "Black",
+//   minYear: 2000,
+//   maxYear: 2010,
+//   orderBy: "start_year",
+//   orderDir: "DESC",
+// });
+// search.then((response) => {
+//   console.log(response);
+// });
