@@ -2,9 +2,25 @@
 
 ## Technologies
 
-### Database - Postgresql
+The server is implemented using node, typescript, express and postgreSQL.
 
-### Middleware - Express
+### Express
+
+The server is split into different modules:
+* Server - Configures and initiates the express app.
+* Routers - Handles what controller to use based on URI.
+* Controllers - Connects to the database and does logic.
+
+### PostgreSQL
+
+PostgreSQL is an object-relational database.
+
+Our data is stored in three tables:
+* title_basics: Contains basic information on titles (movies etc.)
+* users: Contains users
+* title_likes: Contains what titles users like.
+
+The SQL for the tables is found in `server/sql`
 
 ## REST API
 
@@ -116,3 +132,7 @@ Specific liked movie for user (GET, PUT, DELETE):
   }
 ]
 ```
+
+## Sources
+* [Setup tutorial for express and postgresql](https://medium.com/nsoft/building-and-running-nodejs-typescript-postgresql-application-with-docker-3878240a2f73)
+* [Dataset from IMDb](https://www.imdb.com/interfaces/)
