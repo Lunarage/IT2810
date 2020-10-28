@@ -9,52 +9,105 @@ const panels = [
         title: {
             as: Table.Row,
             children: [
-                <Table.Cell>Movie 1</Table.Cell>,
-                <Table.Cell>2009</Table.Cell>
+                <Table.Cell key={1}>Little Women</Table.Cell>,
+                <Table.Cell key={2}>Film</Table.Cell>,
+                <Table.Cell key={3}>2019</Table.Cell>,
+                <Table.Cell key={4}>Kostymedrama</Table.Cell>,
+                <Table.Cell key={5}>(Y)</Table.Cell>
             ]
         },
         content: {
             as: Table.Row,
             content: (
-                <Table.Cell>Info about movie</Table.Cell>
-            )
-
-        }
+                <Table.Cell key={1} colSpan={5}>
+                    <Table selectable={false} celled>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell key={1}>Original title:</Table.Cell>
+                                <Table.Cell key={2}>Lorem ipsum sit dolor</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell key={3}>Start year:</Table.Cell>
+                                <Table.Cell key={4}>2008</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell key={5}>End year:</Table.Cell>
+                                <Table.Cell key={6}>2008</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell key={7}>Runtime:</Table.Cell>
+                                <Table.Cell key={8}>167</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell key={9}>Adult:</Table.Cell>
+                                <Table.Cell key={10}>No</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
+                </Table.Cell>
+            ),
+        },
     },
     {
         key: 'movie-2',
         title: {
             as: Table.Row,
             children: [
-                <Table.Cell>Movie 2</Table.Cell>,
-                <Table.Cell>2008</Table.Cell>
+                <Table.Cell key={1}>Little Women</Table.Cell>,
+                <Table.Cell key={2}>Film</Table.Cell>,
+                <Table.Cell key={3}>2019</Table.Cell>,
+                <Table.Cell key={4}>Kostymedrama</Table.Cell>,
+                <Table.Cell key={5}>(Y)</Table.Cell>
             ]
         },
         content: {
             as: Table.Row,
             content: (
-                <Table.Cell>Info about movie</Table.Cell>
-            )
-
-        }
+                <Table.Cell key={1} colSpan={5}>
+                    <Table selectable={false} celled>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell key={1}>Original title:</Table.Cell>
+                                <Table.Cell key={2}>Lorem ipsum sit dolor</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell key={3}>Start year:</Table.Cell>
+                                <Table.Cell key={4}>2008</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell key={5}>End year:</Table.Cell>
+                                <Table.Cell key={6}>2008</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell key={7}>Runtime:</Table.Cell>
+                                <Table.Cell key={8}>167</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell key={9}>Adult:</Table.Cell>
+                                <Table.Cell key={10}>No</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
+                </Table.Cell>
+            ),
+        },
     },
-
 ]
 
-const AccordionExampleStandardShorthand = () => (
-    <Accordion defaultActiveIndex={0} panels={panels} />
-)
-
-const ResultAccordionTable = () => (
-    <Table selectable>
+const ResultTableAccordion = () => (
+    <Table /*selectable={true}*/>
         <Table.Header>
-            <Table.HeaderCell>Movie</Table.HeaderCell>
-            <Table.HeaderCell>Year</Table.HeaderCell>
+            <Table.Row>
+                <Table.HeaderCell>Name</Table.HeaderCell>
+                <Table.HeaderCell>Type</Table.HeaderCell>
+                <Table.HeaderCell>Year</Table.HeaderCell>
+                <Table.HeaderCell>Genre</Table.HeaderCell>
+                <Table.HeaderCell>Liked</Table.HeaderCell>
+            </Table.Row>
         </Table.Header>
-        <Accordion as={Table.Body} panels={panels}/>
+        <Accordion fluid as={Table.Body} panels={panels}/>
     </Table>
 )
 
 
-
-export default ResultAccordionTable
+export default ResultTableAccordion
