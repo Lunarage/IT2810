@@ -10,17 +10,13 @@ export const LoginPage = () => {
 
         const onLoginButtonClicked = () => {
             dispatch(logIn())
-            console.log(isLoggedIn)
         }
         
         const onLogoutButtonClicked = () => {
             dispatch(logOut())
-            console.log(isLoggedIn)
         }
 
         const renderPage = () => {
-            console.log("Hei")
-            console.log(isLoggedIn)
             if(isLoggedIn === false){
                 return(
                 <div className={"login-section"}>
@@ -30,7 +26,7 @@ export const LoginPage = () => {
                             <label className={"input-label"} htmlFor={"username"}>Brukernavn</label>
                             <input name={"username"} className={"input"} autoFocus placeholder={"OlaNormann"}/>
                         </div>
-                        
+
                         <div className={"form-group password"}>
                             <label className={"input-label"} htmlFor={"password"}>Passord</label>
                             <input name={"password"} className={"input"} type={"password"} autoFocus
