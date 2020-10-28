@@ -133,6 +133,7 @@ class HttpClient {
 
 export default HttpClient;
 
+/*
 //Examples
 
 //Initialize client
@@ -159,8 +160,10 @@ const search = client.searchMovies({
   minYear: 1999,
   maxYear: 2003,
 });
+
 search.then((response) => {
   console.log(response);
 });
 
 client.deleteUser("testUser");
+*/
