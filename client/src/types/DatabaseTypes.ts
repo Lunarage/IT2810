@@ -5,9 +5,9 @@ export type Movie = {
   original_title: string;
   is_adult: boolean;
   end_year: number | null;
-  start_year: number | null;
+  start_year: number;
   runtime_minutes: number | null;
-  genres: string;
+  genres: string | null;
   liked?: boolean;
 };
 

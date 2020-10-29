@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { Movie, User, Like } from "../types/DatabaseTypes";
+import {Movie, User, Like} from "../types/DatabaseTypes";
 
 class HttpClient {
   private baseURL: string;
@@ -84,17 +84,62 @@ class HttpClient {
       searchURL += delimiter + "title=" + args.title;
       delimiter = "&";
     }
-    if (args.genre) {
-      searchURL += delimiter + "genre=" + args.genre;
-      delimiter = "&";
+
+    // Argument is an object
+    public searchMovies(args: {
+        title?: string;
+        genre?: string;
+        minYear?: number;
+        maxYear?: number;
+        username?: string;
+        page?: number;
+        orderby?: string;
+        orederdir?: string;
+    }): Promise<Movie[]> {
+        let searchURL = this.baseURL + "/movie";
+        let delimiter = "?";
+        if (args.title) {
+            searchURL += delimiter + "title=" + args.title;
+            delimiter = "&";
+        }
+        if (args.genre) {
+            searchURL += delimiter + "genre=" + args.genre;
+            delimiter = "&";
+        }
+        if (args.minYear) {
+            searchURL += delimiter + "minYear=" + args.minYear;
+            delimiter = "&";
+        }
+        if (args.maxYear) {
+            searchURL += delimiter + "maxYear=" + args.maxYear;
+            delimiter = "&";
+        }
+        if (args.page) {
+            searchURL += delimiter + "page=" + args.page;
+            delimiter = "&";
+        }
+        if (args.username) {
+            searchURL += "/" + args.username;
+        }
+        return this.get<Movie[]>(searchURL).then((response) => {
+            return response as Movie[];
+        });
     }
-    if (args.minYear) {
-      searchURL += delimiter + "minYear=" + args.minYear;
-      delimiter = "&";
+
+    public likeMovie(movieId: string, username: string) {
+        return this.put<Like[]>(
+            this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
+        ).then((response) => {
+            return (response as Like[])[0];
+        });
     }
-    if (args.maxYear) {
-      searchURL += delimiter + "maxYear=" + args.maxYear;
-      delimiter = "&";
+
+    public unlikeMovie(movieId: string, username: string) {
+        return this.delete<Like[]>(
+            this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
+        ).then((response) => {
+            return (response as Like[])[0];
+        });
     }
     if (args.orderBy) {
       searchURL += delimiter + "orderBy" + args.orderBy;
@@ -163,6 +208,7 @@ class HttpClient {
 
 export default HttpClient;
 
+/*
 //Examples
 
 //Initialize client
