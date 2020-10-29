@@ -1,25 +1,38 @@
 import React from "react";
 import {Button, Icon} from "semantic-ui-react";
+import {RootStateOrAny, useSelector} from "react-redux";
 
 type LikeButtonProps = {
     liked: boolean;
-    handleClick?: () => void;
+    handleClick: (movieID: string, username: string, liked: boolean) => void;
+    movieID: string;
 };
 
+
 const LikeButton = (props: LikeButtonProps) => {
+    const username = useSelector((state: RootStateOrAny) => state.loggedIn)
+        .username;
+
+    // localHandleClick calles handleClick with arguments when button is clicked.
+    const localHandleClick = () => {
+        props.handleClick(props.movieID, username, props.liked);
+    }
+
     if (props.liked) {
         return (
-            <Button onClick={props.handleClick} icon>
+            <Button onClick={localHandleClick} icon>
                 <Icon name="heart"/>
             </Button>
         );
     } else {
         return (
-            <Button onClick={props.handleClick} icon>
+            <Button onClick={localHandleClick} icon>
                 <Icon name="heart outline"/>
             </Button>
         );
     }
+
 };
+
 
 export default LikeButton;
