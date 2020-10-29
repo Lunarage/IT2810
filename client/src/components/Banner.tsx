@@ -1,22 +1,36 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
+import { useSelector, RootStateOrAny } from "react-redux";
 import Menu from "./Menu";
 
-class Banner extends Component<{}, {}> {
-    render() {
-        return (
-            <div className={"banner"}>
-                <h1 className={"logo"}>Logo</h1>
-                {/* TODO Add logic for checking/displaying button and "logged in as" based on if user is logged in. */}
-                <div className={"banner-login"}>
-                    <p className={"login-info"}>{"Logged in as"}</p> <p className={"login-info-username"}>{"username"}</p>
-                    {/*Todo get username*/}
-                </div>
-            </div>
+//Denne komponenten viser banneret helt øverst på siden med Logo og hvem som er logget inn
+const Banner = (props: Props) => {
+  const loggedIn = useSelector((state: RootStateOrAny) => state.loggedIn).value;
+  const username = useSelector((state: RootStateOrAny) => state.loggedIn)
+    .username;
 
-        )
+  const loginInfo = (loggedIn: boolean, username: string) => {
+    if (loggedIn) {
+      return (
+        <div className={"banner-login"}>
+          <p className="login-info">Logged in as</p>
+          <p className="login-info-username">{username}</p>
+        </div>
+      );
     }
+  };
 
-
-}
+  return (
+    <div className={"banner"}>
+      <h1 className={"logo"} onClick={props.onLogoClick}>
+        Logo
+      </h1>
+      {loginInfo(loggedIn, username)}
+    </div>
+  );
+};
 
 export default Banner;
+
+interface Props {
+  onLogoClick(): void;
+}

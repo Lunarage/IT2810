@@ -25,4 +25,8 @@ input {
     outline: none;
     transition: 30ms;
   }
+
+  &:disabled {
+    background-color: $color-field-disabled;
+  }
 }

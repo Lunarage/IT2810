@@ -1,31 +1,67 @@
-import React, {Component, MouseEvent} from "react";
+import React from "react";
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { logOut } from "../reducers/userSlice";
+
+//Dette komponentet returnerer menyknappene øverst på siden, under banneret. den får inn props med logikken til knappene fra App
+//Den tar også inn informasjon fra store og viser ulike knapper basert på dette
+export const Menu = (props: Props) => {
+  //Henter informasjon fra store om en bruker er logget inn og logut action fra userSlice
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state: RootStateOrAny) => state.loggedIn)
+    .value;
+
+  const onLogoutButtonClicked = () => {
+    dispatch(logOut());
+  };
+  //if statement for om man skal vise en login eller loggut knapp basert på state
+  let button;
+  if (isLoggedIn) {
+    button = (
+      <button className="login-button" onClick={onLogoutButtonClicked}>
+        Logg ut
+      </button>
+    );
+  } else {
+    button = (
+      <button className="login-button" onClick={props.onLoginPageClick}>
+        Logg in
+      </button>
+    );
+  }
+
+  return (
+    <div className={"menu"}>
+      <a tabIndex={0} className="home-button" onClick={props.onHomePageClick}>
+        [Hjem]
+      </a>
+      <a
+        tabIndex={0}
+        className="search-button"
+        onClick={props.onSearchPageClick}
+      >
+        [Søk]
+      </a>
+      {button}
+      {isLoggedIn === true && (
+        <a
+          tabIndex={0}
+          className="my-page-button"
+          onClick={props.onMyPageClick}
+        >
+          [My page]
+        </a>
+      )}
+    </div>
+  );
+};
+
+export default Menu;
 
 interface Props {
-    onHomePageClick(): void;
-
-    onSearchPageClick(): void;
-
-    onMyPageClick(): void;
-
-    onLoginPageClick(): void;
+  onHomePageClick(): void;
+  onSearchPageClick(): void;
+  onMyPageClick(): void;
+  onLoginPageClick(): void;
 }
 
-interface State {
-
-}
-
-class Menu extends Component<Props, State> {
-    render() {
-        return (
-            <div className={"menu"}>
-                <a tabIndex={0} className="home-button" onClick={this.props.onHomePageClick}> [Hjem] </a>
-                <a tabIndex={0} className="search-button" onClick={this.props.onSearchPageClick}>[Søk]</a>
-                <a tabIndex={0} className="my-page-button" onClick={this.props.onMyPageClick}>[Min side]</a>
-                <button className={"login-button"} onClick={this.props.onLoginPageClick}>Logg inn</button>
-            </div>
-        )
-    }
-}
-
-
-export default Menu
+interface State {}
