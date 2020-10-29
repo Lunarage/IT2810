@@ -6,7 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 body {
   width: 95vw;
-  background-color: #E4EEDD;
+  background-color: #e4eedd;
   margin: auto;
   font-family: "Source Sans Pro";
   color: #000000;
@@ -25,7 +25,7 @@ body * {
 }
 
 .menu {
-  background-color: #CBE2BD;
+  background-color: #cbe2bd;
   grid-area: menu;
   display: grid;
   grid-template-areas: "home search my-page loginbutton";
@@ -52,7 +52,7 @@ body * {
 
 .content {
   grid-area: content;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   justify-self: stretch;
 }
 .content .start-page {
@@ -89,11 +89,11 @@ a:hover {
 }
 button {
   border: solid;
-  border-color: #C4D3CE;
+  border-color: #c4d3ce;
   border-width: 1px;
   border-radius: 8px;
-  background-color: #EAEEED;
-  box-shadow: 3px 3px 3px #95B2A9;
+  background-color: #eaeeed;
+  box-shadow: 3px 3px 3px #95b2a9;
   transition: 30ms;
   width: auto;
   padding: 0.5em 1.5em;
@@ -101,9 +101,9 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background-color: #C4D3CE;
-  border-color: #95B2A9;
-  box-shadow: 2px 2px 3px #6B9789;
+  background-color: #c4d3ce;
+  border-color: #95b2a9;
+  box-shadow: 2px 2px 3px #6b9789;
   transition: 30ms;
 }
 button:active {
@@ -119,17 +119,17 @@ button:focus {
 
 input {
   border: solid;
-  border-color: #CBE2BD;
+  border-color: #cbe2bd;
   border-width: 2px;
   border-radius: 8px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   transition: 30ms;
   width: auto;
   padding: 0.5em;
   margin: 1px;
 }
 input:hover {
-  box-shadow: 1px 1px 3px #A2C78C;
+  box-shadow: 1px 1px 3px #a2c78c;
   transition: 30ms;
 }
 input:active {
@@ -140,6 +140,9 @@ input:focus {
   outline: none;
   transition: 30ms;
 }
+input:disabled {
+  background-color: #dddddd;
+}
 
 .login-page {
   display: grid;
@@ -147,7 +150,7 @@ input:focus {
 }
 .login-page .login-section {
   border-radius: 8px;
-  background-color: #F6F9E8;
+  background-color: #f6f9e8;
   padding: 2em;
   display: grid;
   grid-template-areas: "title" "form";
@@ -199,7 +202,7 @@ input:focus {
   justify-self: center;
 }
 .banner {
-  background-color: #A2C78C;
+  background-color: #a2c78c;
   grid-area: banner;
   display: grid;
   grid-template-areas: "logo banner-login";

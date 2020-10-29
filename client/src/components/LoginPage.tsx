@@ -4,19 +4,22 @@ import { logIn } from "../reducers/userSlice";
 
 //Denne komponenten viser login siden eller en mld om at brukeren er logget inn
 export const LoginPage = () => {
-  const [userInput, setUserInput] = useState<string>("");
-
   //redux funksjonene som henter state fra store og kjører dispacth, som trigger en endring i state
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootStateOrAny) => state.loggedIn)
     .value;
 
-  const onLoginButtonClicked = () => {
-    dispatch(logIn(userInput));
+  // Create a state with the content of the username input
+  const [userInput, setUserInput] = useState<string>("");
+
+  // Update state when the username input changes
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(event.target.value);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput(e.target.value);
+  // Let redux handle the login function on submit
+  const handleSubmit = () => {
+    dispatch(logIn(userInput));
   };
 
   /*renderPage() bestemmer om brukerinnloggingsfeltene skal vises eller om en mld om at brukeren er logget inn skal vises*/
@@ -25,7 +28,7 @@ export const LoginPage = () => {
       return (
         <div className={"login-section"}>
           <h2 className={"login-page-title"}>Logg inn</h2>
-          <form className={"login-page-form"}>
+          <form className={"login-page-form"} onSubmit={handleSubmit}>
             <div className={"form-group username"}>
               <label className={"input-label"} htmlFor={"username"}>
                 Brukernavn
@@ -33,6 +36,7 @@ export const LoginPage = () => {
               <input
                 name={"username"}
                 className={"input"}
+                value={userInput}
                 autoFocus
                 placeholder={"OlaNormann"}
                 onChange={handleInputChange}
@@ -47,17 +51,13 @@ export const LoginPage = () => {
                 name={"password"}
                 className={"input"}
                 type={"password"}
-                autoFocus
                 placeholder={"Passord"}
+                disabled
               />
             </div>
 
             <div className={"form-group"}></div>
-            <button
-              className={"login-button"}
-              type={"submit"}
-              onClick={onLoginButtonClicked}
-            >
+            <button className={"login-button"} type={"submit"}>
               Logg inn
             </button>
           </form>
