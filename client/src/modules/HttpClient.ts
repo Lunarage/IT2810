@@ -97,11 +97,11 @@ class HttpClient {
       delimiter = "&";
     }
     if (args.orderBy) {
-      searchURL += delimiter + "orderBy" + args.orderBy;
+      searchURL += delimiter + "orderBy=" + args.orderBy;
       delimiter = "&";
     }
     if (args.orderDir) {
-      searchURL += delimiter + "orderDir" + args.orderDir;
+      searchURL += delimiter + "orderDir=" + args.orderDir;
       delimiter = "&";
     }
     if (args.page) {
@@ -109,7 +109,7 @@ class HttpClient {
       delimiter = "&";
     }
     if (args.username) {
-      searchURL += "/" + args.username;
+      searchURL += delimiter + "username=" + args.username;
     }
     return this.get<Movie[]>(searchURL).then((response) => {
       return response as Movie[];
