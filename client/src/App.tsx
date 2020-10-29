@@ -23,7 +23,7 @@ const App = () => {
   const { loggedIn, username } = useSelector(
     (state: RootStateOrAny) => state.loggedIn
   );
-  const localStorage = new SessionStorageWrapper();
+  const localStorage = new LocalStorageWrapper();
 
   useEffect(() => {
     if (!loggedIn || username == null) {
