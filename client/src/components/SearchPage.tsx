@@ -13,13 +13,17 @@ interface State {
     searchInput: string | null;
 }
 
-
+/* SearchPage har tilstanden (state) searchInput som mottar en streng fra SearchBar når input sendes inn der ("search").
+* SearchInput sendes som prop til SearchResult, og brukes der til å hente søkeresultat.
+* searchButtonClicked sendes til SearchBar, og kalles når det trykkes "search" der.
+* Rendrer SearchBar (inputfelt + button) og SearchResult (overskrift + ResultTableAccordion)
+* */
 class SearchPage extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
         this.state = {
-            searchInput: null,
+            searchInput: null,  // om det ikke er søkt etter noe skal input være null
         }
         this.searchButtonClicked = this.searchButtonClicked.bind(this);
     }
@@ -28,15 +32,14 @@ class SearchPage extends Component<Props, State> {
         return (
             <div className={"search-page"}>
                 <SearchBar searchButtonClicked={this.searchButtonClicked}/>
-                <SearchResult searchInput={this.state.searchInput} key={this.state.searchInput}/>       {/* Om key vert endra vil det opprettast ein ny instans av SearchResult, som køyrer SearchResult.search i konstruktøren sin.*/}
+                <SearchResult searchInput={this.state.searchInput} key={this.state.searchInput}/>       {/* Dersom key blir endret vil det opprettes en ny instans av SearchResult. SearchResult kjører search(searchInput)-funksjonen i konstruktøren sin. Slik sikrer vi at det kun søkes om skjemaet er sendt inn (og endret)*/}
                 <SearchNavigation/>
             </div>
-
         )
     }
 
+    // Funksjon som kalles i SearchBar. Der sender den tekststrengen i inputfeltet "opp hit" hvor den blir satt til this.state.searchInput
     searchButtonClicked(input: string) {
-        console.log("searchButtonClicked called in searchPage")
         this.setState({searchInput: input});
     }
 

@@ -12,11 +12,15 @@ interface State {
 }
 
 
+/* Klassen SearchResult får inn en streng searchInput fra SearchPage, gjør et søk i databasen på strengen.
+Derretter kalles ResultTableAccordon med prop movies = this.state.movies.
+ */
 class SearchResult extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
+
         this.state = {
-            movies: [{
+            movies: [{  // "Dummie-data" som vises når det søkes etter resultat for å unngå tom tabell.
                 tconst: "1",
                 title_type: "",
                 primary_title: "Waiting for result",
@@ -62,25 +66,6 @@ class SearchResult extends Component<Props, State> {
     // Basert på resultat vert state til SearchResult sett.
     // Skal kallast av søkeknappen i SearchBar
     search(searchInput: string) {
-        console.log("søker")
-        // Lar vere å søke om input er tom streng.
-        if (searchInput == "" || searchInput == null) {
-            return [{
-                tconst: "1",
-                title_type: "Waiting for result",
-                primary_title: "",
-                original_title: "",
-                is_adult: false,
-                end_year: null,
-                start_year: 0,
-                runtime_minutes: null,
-                genres: null,
-            },];
-        } else {
-
-            // ta inn argument:
-
-
             /* Kommunikasjon med database */
             // Set opp kopling mot databasen
             const baseURL = "http://it2810-22.idi.ntnu.no:3000";
@@ -89,12 +74,10 @@ class SearchResult extends Component<Props, State> {
             // Spør databasen
             const result = client.searchMovies({title: searchInput});
 
-
             // Sett state hos SearchResult
             result.then((response) => {
                 this.setState({movies: response});
             });
-        }
     };
 }
 
