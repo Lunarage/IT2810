@@ -4,7 +4,7 @@ import {Movie} from "../types/DatabaseTypes";
 import HttpClient from "../modules/HttpClient";
 
 interface Props {
-    searchInput: string;
+    searchInput: string | null;
 }
 
 interface State {
