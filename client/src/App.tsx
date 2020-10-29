@@ -12,6 +12,7 @@ import Menu from "./components/Menu";
 import StartPage from "./components/StartPage";
 
 const App = () => {
+  // Set initial state
   const [state, setState] = useState<State>({
     homePage: true,
     searchPage: false,
@@ -19,12 +20,16 @@ const App = () => {
     loginPage: false,
   });
 
+  // Setup Redux store and actions
   const dispatch = useDispatch();
-  const { loggedIn, username } = useSelector(
-    (state: RootStateOrAny) => state.loggedIn
-  );
+  const userStore = useSelector((state: RootStateOrAny) => state.loggedIn);
+  const loggedIn = userStore.value;
+  const username = userStore.username;
+
+  // Set up use of local storage
   const localStorage = new LocalStorageWrapper();
 
+  // Log in with same user as last time
   useEffect(() => {
     if (!loggedIn || username == null) {
       if (localStorage.get("username")) {
@@ -35,7 +40,6 @@ const App = () => {
 
   /*These functions toggle on click the state of the App, so the page shown changes when the 
   buttons in the menu are pressed, they are passed ass props to the menu button*/
-
   const handleMyPageClick = () => {
     setState({
       homePage: false,
