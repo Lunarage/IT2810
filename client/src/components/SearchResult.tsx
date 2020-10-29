@@ -66,18 +66,18 @@ class SearchResult extends Component<Props, State> {
     // Basert på resultat vert state til SearchResult sett.
     // Skal kallast av søkeknappen i SearchBar
     search(searchInput: string) {
-            /* Kommunikasjon med database */
-            // Set opp kopling mot databasen
-            const baseURL = "http://it2810-22.idi.ntnu.no:3000";
-            const client = new HttpClient(baseURL);
+        /* Kommunikasjon med database */
+        // Set opp kopling mot databasen
+        const baseURL = "http://it2810-22.idi.ntnu.no:3000";
+        const client = new HttpClient(baseURL);
 
-            // Spør databasen
-            const result = client.searchMovies({title: searchInput});
+        // Spør databasen
+        const result = client.searchMovies({title: searchInput});
 
-            // Sett state hos SearchResult
-            result.then((response) => {
-                this.setState({movies: response});
-            });
+        // Sett state hos SearchResult
+        result.then((response) => {
+            this.setState({movies: response});
+        });
     };
 }
 

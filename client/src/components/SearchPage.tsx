@@ -32,7 +32,8 @@ class SearchPage extends Component<Props, State> {
         return (
             <div className={"search-page"}>
                 <SearchBar searchButtonClicked={this.searchButtonClicked}/>
-                <SearchResult searchInput={this.state.searchInput} key={this.state.searchInput}/>       {/* Dersom key blir endret vil det opprettes en ny instans av SearchResult. SearchResult kjører search(searchInput)-funksjonen i konstruktøren sin. Slik sikrer vi at det kun søkes om skjemaet er sendt inn (og endret)*/}
+                <SearchResult searchInput={this.state.searchInput}
+                              key={this.state.searchInput}/> {/* Dersom key blir endret vil det opprettes en ny instans av SearchResult. SearchResult kjører search(searchInput)-funksjonen i konstruktøren sin. Slik sikrer vi at det kun søkes om skjemaet er sendt inn (og endret)*/}
                 <SearchNavigation/>
             </div>
         )

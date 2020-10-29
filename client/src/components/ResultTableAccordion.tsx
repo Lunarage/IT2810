@@ -27,7 +27,8 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                 as: Table.Row,  // legges til som en rad
                 className: "accordion-content",
                 content: (
-                    <Table.Cell key={'${n.tconst}content'}>         {/* i raden er en celle, inne i cellen er en ny tabell */}
+                    <Table.Cell
+                        key={'${n.tconst}content'}>         {/* i raden er en celle, inne i cellen er en ny tabell */}
                         <Table className="accordion-inner-table">
                             <Table.Body>
                                 {/* Original title */}

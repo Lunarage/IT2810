@@ -35,7 +35,8 @@ class SearchBar extends Component<Props, State> {
     render() {
         return (
             <form className={"search-bar"} onSubmit={this.handleSubmit}>
-                <input className={"search-input"} name={"search"} autoFocus placeholder={"Søk i database"} value={this.state.inputString} onChange={this.handleInputChange} tabIndex={0} required/>
+                <input className={"search-input"} name={"search"} autoFocus placeholder={"Søk i database"}
+                       value={this.state.inputString} onChange={this.handleInputChange} tabIndex={0} required/>
                 <button className={"search-button"} type={"submit"} value={"submit"} tabIndex={0}>Søk</button>
             </form>
         )
