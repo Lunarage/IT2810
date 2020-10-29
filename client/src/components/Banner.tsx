@@ -9,7 +9,6 @@ const Banner = (props: Props) => {
     .username;
 
   const loginInfo = (loggedIn: boolean, username: string) => {
-    console.log(loggedIn, username);
     if (loggedIn) {
       return (
         <div className={"banner-login"}>
