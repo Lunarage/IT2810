@@ -84,11 +84,6 @@ class HttpClient {
       searchURL += delimiter + "title=" + args.title;
       delimiter = "&";
     }
-
-    if (args.title) {
-      searchURL += delimiter + "title=" + args.title;
-      delimiter = "&";
-    }
     if (args.genre) {
       searchURL += delimiter + "genre=" + args.genre;
       delimiter = "&";
