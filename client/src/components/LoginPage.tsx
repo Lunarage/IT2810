@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { logIn } from "../reducers/userSlice";
 
 //Denne komponenten viser login siden eller en mld om at brukeren er logget inn
 export const LoginPage = () => {
-  
+  const [userInput, setUserInput] = useState<string>("");
+
   //redux funksjonene som henter state fra store og kjører dispacth, som trigger en endring i state
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootStateOrAny) => state.loggedIn)
     .value;
 
   const onLoginButtonClicked = () => {
-    dispatch(logIn());
+    dispatch(logIn(userInput));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
   };
 
   /*renderPage() bestemmer om brukerinnloggingsfeltene skal vises eller om en mld om at brukeren er logget inn skal vises*/
@@ -30,6 +35,7 @@ export const LoginPage = () => {
                 className={"input"}
                 autoFocus
                 placeholder={"OlaNormann"}
+                onChange={handleInputChange}
               />
             </div>
 
