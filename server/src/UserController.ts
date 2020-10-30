@@ -34,6 +34,7 @@ class UserController {
       if (request.params.userId) {
         client = await pool.connect();
         const { rows } = await client.query(query, parameters);
+        console.log(rows);
         response.status(200).send(rows);
       } else {
         response.status(404).send("User not specified");
