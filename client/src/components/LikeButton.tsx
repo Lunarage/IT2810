@@ -34,12 +34,10 @@ const LikeButton = (props: LikeButtonProps) => {
         // Spør databasen
         const result = client.getMovie(props.movieID, username);
 
+        console.log(result)
         // Sett state hos SearchResult
         result.then((response) => {
-            window.alert("Before state changed: " + state.likedStatus)
-
             setState({likedStatus: response.liked});
-            window.alert("State changed: " + state.likedStatus)
         });
     }
 

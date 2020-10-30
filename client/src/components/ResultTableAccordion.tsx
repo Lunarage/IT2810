@@ -113,13 +113,8 @@ const handleLikeClick = (movieID: string, username: string, liked: boolean) => {
     // If movie is liked: dislike, else like.
     if (liked) {
         client.unlikeMovie(movieID, username);
-        window.alert("movie unliked")
-
     } else {
         client.likeMovie(movieID, username);
-        window.alert("movie liked")
-
-
     }
 }
 
