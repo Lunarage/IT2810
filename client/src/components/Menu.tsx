@@ -18,13 +18,13 @@ export const Menu = (props: Props) => {
   if (isLoggedIn) {
     button = (
       <button className="login-button" onClick={onLogoutButtonClicked}>
-        Logg ut
+        Log out
       </button>
     );
   } else {
     button = (
       <button className="login-button" onClick={props.onLoginPageClick}>
-        Logg in
+        Log in
       </button>
     );
   }
@@ -32,14 +32,14 @@ export const Menu = (props: Props) => {
   return (
     <div className={"menu"}>
       <a tabIndex={0} className="home-button" onClick={props.onHomePageClick}>
-        [Hjem]
+        [Home]
       </a>
       <a
         tabIndex={0}
         className="search-button"
         onClick={props.onSearchPageClick}
       >
-        [Søk]
+        [Search]
       </a>
       {button}
       {isLoggedIn === true && (

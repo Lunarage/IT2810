@@ -2,6 +2,8 @@
 .login-page {
   display: grid;
   justify-content: center;
+  padding: 3em;
+  padding-bottom: 5em;
 
   .login-section {
     border-radius: 8px;
@@ -11,7 +13,6 @@
     grid-template-areas: "title" "form";
     justify-content: center;
     grid-gap: 2em;
-
 
     .login-page-title {
       grid-area: title;
@@ -23,7 +24,6 @@
       display: grid;
       grid-gap: 1.4em;
       grid-template-areas: "username" "password" "loginbutton";
-
     }
   }
 }
