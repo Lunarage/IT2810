@@ -23,7 +23,7 @@ button {
   }
 
   &:active {
-    box-shadow: 0px 0px;
+    box-shadow: 0 0;
     transition: 30ms;
   }
 
@@ -35,3 +35,25 @@ button {
   }
 }
 
+// Styling like-button
+#like-button {
+  background-color: $color-secondary-2;
+  padding: 0;
+
+  &:hover {
+    cursor: auto;
+  }
+
+  .heart-icon-container {
+    padding: 1em 0.8em 0.8em 1em;
+    border: solid $color-secondary-2;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: $color-secondary-0;
+      border-color: $color-secondary-0;
+      transition: 30ms;
+      cursor: pointer;
+    }
+  }
+}

@@ -45,14 +45,18 @@ const LikeButton = (props: LikeButtonProps) => {
     const returnButton = () => {
         if (state.likedStatus) {
             return (
-                <Button disabled={props.disabled} onClick={localHandleClick} icon>
-                    <Icon name="heart"/>
+                <Button id={"like-button"} disabled={props.disabled} onClick={localHandleClick} icon>
+                    <div className={"heart-icon-container"}>
+                        <Icon id={"heart-icon"} name="heart" />
+                    </div>
                 </Button>
             )
         } else {
             return (
-                <Button onClick={localHandleClick} icon>
-                    <Icon name="heart outline"/>
+                <Button id={"like-button"} onClick={localHandleClick} icon>
+                    <div className={"heart-icon-container"}>
+                        <Icon id={"heart-icon"} name="heart outline"/>
+                    </div>
                 </Button>
             )
         }

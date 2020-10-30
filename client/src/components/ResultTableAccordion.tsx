@@ -34,6 +34,7 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
             content: {          // Dette er "det skjulte innholdet". Ved klikk på title vises mer informasjon om filmen
                 as: Table.Row,  // legges til som en rad
                 className: "accordion-content",
+                classID: "accordion-content-row",
                 content: (
                     <Table.Cell
                         key={`${n.tconst}content`}>         {/* i raden er en celle, inne i cellen er en ny tabell */}

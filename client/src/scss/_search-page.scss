@@ -28,4 +28,49 @@
     }
   }
 
+
+  /* Styling advanced search */
+  .advanced-search {
+    border: $color-tertiary-3 solid;
+    border-radius: 4px;
+    padding: 2px;
+
+    * {
+      background-color: $color-tertiary-2;
+    }
+  }
+
+
+  // ID to override semantic-ui-css styling
+  // (rule of specificity (elements < class < id < inline)
+  #advanced-search-content {
+    .fields {
+      margin: 0;
+      padding: 10px;
+    }
+
+    .field {
+      padding: 0;
+    }
+
+    .form-label-bold {
+      font-weight: bold;
+    }
+  }
+
+  // Styling result loader
+  .result-loader {
+    margin: 20vh 0;
+  }
+
+  // styling no-result-text
+  .no-result {
+    margin-bottom: 30vh;
+  }
+
+  // styling nothing-searched-div
+  .nothing-searched {
+    margin-bottom: 40vh;
+  }
+
 }
