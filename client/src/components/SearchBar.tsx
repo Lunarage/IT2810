@@ -5,20 +5,16 @@ interface Props {
   searchButtonClicked(input: string, titleType: string, orderDir: string): void;
 }
 
-interface State {
-  inputString: string;
-  orderDir: string;
-}
-
-/* SearchBar får inn funksjonen serchButtonClicked fra SearchPage.
-Denne kalles i handleSubmit, som igjen kalles ved submit av form sin onSubmit.
-    this.state.inputString blir sendt til SearchPage.
-SearchBar rendrer et inputfelt og en submit-knapp.*/
+// This component reders the search bar.
+// When the form is submittet, the funciton props.searchButtonClicked is called
+// with the state variables as arguments.
+// The searchButtonClicked function is passed on from Search page.
 const SearchBar = (props: Props) => {
   const [inputState, setInputState] = useState<string>("");
   const [orderDirState, setOrderDirState] = useState<string>("");
   const [titleTypeState, setTitleTypeState] = useState<string>("");
 
+  // Functions to update component state when an input changes
   const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
     setInputState(event.currentTarget.value);
   };
@@ -33,6 +29,7 @@ const SearchBar = (props: Props) => {
     setTitleTypeState(event.currentTarget.value);
   };
 
+  // Function that is called on form submit
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     props.searchButtonClicked(inputState, titleTypeState, orderDirState);

@@ -70,6 +70,7 @@ class HttpClient {
     orderBy?: string;
     orderDir?: string;
   }): Promise<Movie[]> {
+    // Build query from arguments
     let searchURL = this.baseURL + "/movie";
     let delimiter = "?";
     if (args.title) {
@@ -107,6 +108,7 @@ class HttpClient {
     if (args.username) {
       searchURL += delimiter + "username=" + args.username;
     }
+    // Send query and return response
     return this.get<Movie[]>(searchURL).then((response) => {
       return response as Movie[];
     });
