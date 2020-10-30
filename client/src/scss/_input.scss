@@ -30,3 +30,12 @@ input {
     background-color: $color-field-disabled;
   }
 }
+
+.radio-div {
+  display: flex;
+  align-items: center;
+
+  & > label {
+    margin: 0 0.5em;
+  }
+}
