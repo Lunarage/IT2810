@@ -66,17 +66,8 @@ class HttpClient {
     maxYear?: number;
     username?: string;
     page?: number;
-    orderBy?:
-      | "tconst"
-      | "title_type"
-      | "primary_title"
-      | "original_title"
-      | "is_adult"
-      | "start_year"
-      | "end_year"
-      | "runtime_minutes"
-      | "genres";
-    orderDir?: "DESC" | "ASC";
+    orderBy?: string;
+    orderDir?: string;
   }): Promise<Movie[]> {
     let searchURL = this.baseURL + "/movie";
     let delimiter = "?";
