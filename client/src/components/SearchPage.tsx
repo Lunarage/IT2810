@@ -10,6 +10,7 @@ interface Props {}
 interface State {
   searchInput: string | null;
   orderDir: string | null;
+  titleType: string | null;
 }
 
 /* SearchPage har tilstanden (state) searchInput som mottar en streng fra SearchBar når input sendes inn der ("search").
@@ -23,6 +24,7 @@ class SearchPage extends Component<Props, State> {
     this.state = {
       searchInput: null, // om det ikke er søkt etter noe skal input være null
       orderDir: null,
+      titleType: null,
     };
     this.searchButtonClicked = this.searchButtonClicked.bind(this);
   }
@@ -33,6 +35,7 @@ class SearchPage extends Component<Props, State> {
         <SearchBar searchButtonClicked={this.searchButtonClicked} />
         <SearchResult
           searchInput={this.state.searchInput}
+          titleType={this.state.titleType}
           orderDir={this.state.orderDir}
           key={this.state.searchInput}
         />{" "}
@@ -43,9 +46,10 @@ class SearchPage extends Component<Props, State> {
   }
 
   // Funksjon som kalles i SearchBar. Der sender den tekststrengen i inputfeltet "opp hit" hvor den blir satt til this.state.searchInput
-  searchButtonClicked(input: string, orderDir: string) {
+  searchButtonClicked(input: string, titleType: string, orderDir: string) {
     this.setState({ searchInput: input });
     this.setState({ orderDir: orderDir });
+    this.setState({ titleType: titleType });
   }
 }
 

@@ -5,6 +5,7 @@ import HttpClient from "../modules/HttpClient";
 
 interface Props {
   searchInput: string | null;
+  titleType: string | null;
   orderDir: string | null;
 }
 
@@ -38,8 +39,16 @@ class SearchResult extends Component<Props, State> {
 
     this.search = this.search.bind(this);
 
-    if (this.props.searchInput != null && this.props.orderDir != null) {
-      this.search(this.props.searchInput, this.props.orderDir);
+    if (
+      this.props.searchInput != null &&
+      this.props.orderDir != null &&
+      this.props.titleType != null
+    ) {
+      this.search(
+        this.props.searchInput,
+        this.props.titleType,
+        this.props.orderDir
+      );
     }
   }
 
@@ -63,7 +72,7 @@ class SearchResult extends Component<Props, State> {
   // Spør databasen.
   // Basert på resultat vert state til SearchResult sett.
   // Skal kallast av søkeknappen i SearchBar
-  search(searchInput: string, orderDir: string) {
+  search(searchInput: string, titleType: string, orderDir: string) {
     /* Kommunikasjon med database */
     // Set opp kopling mot databasen
     const baseURL = "http://it2810-22.idi.ntnu.no:3000";
@@ -72,6 +81,7 @@ class SearchResult extends Component<Props, State> {
     // Spør databasen
     const result = client.searchMovies({
       title: searchInput,
+      titleType: titleType,
       orderBy: "start_year",
       orderDir: orderDir,
     });

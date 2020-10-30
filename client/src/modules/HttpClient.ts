@@ -61,6 +61,7 @@ class HttpClient {
   // Argument is an object
   public searchMovies(args: {
     title?: string;
+    titleType?: string;
     genre?: string;
     minYear?: number;
     maxYear?: number;
@@ -73,6 +74,10 @@ class HttpClient {
     let delimiter = "?";
     if (args.title) {
       searchURL += delimiter + "title=" + args.title;
+      delimiter = "&";
+    }
+    if (args.titleType) {
+      searchURL += delimiter + "titleType=" + args.titleType;
       delimiter = "&";
     }
     if (args.genre) {
