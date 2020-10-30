@@ -94,8 +94,6 @@ const SearchBar = (props: Props) => {
         icon="search"
         className={"search-input"}
         autoFocus
-        placeholder={"Søk i database"}
-        value={inputState}
         onChange={handleInputChange}
         tabIndex={0}
         required

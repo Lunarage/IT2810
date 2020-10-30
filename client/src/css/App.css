@@ -154,6 +154,8 @@ input:disabled {
 .login-page {
   display: grid;
   justify-content: center;
+  padding: 3em;
+  padding-bottom: 5em;
 }
 .login-page .login-section {
   border-radius: 8px;

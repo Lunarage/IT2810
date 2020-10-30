@@ -27,38 +27,38 @@ export const LoginPage = () => {
     if (isLoggedIn === false) {
       return (
         <div className={"login-section"}>
-          <h2 className={"login-page-title"}>Logg inn</h2>
+          <h2 className={"login-page-title"}>Log in</h2>
           <form className={"login-page-form"} onSubmit={handleSubmit}>
             <div className={"form-group username"}>
               <label className={"input-label"} htmlFor={"username"}>
-                Brukernavn
+                Username
               </label>
               <input
                 name={"username"}
                 className={"input"}
                 value={userInput}
                 autoFocus
-                placeholder={"OlaNormann"}
+                placeholder={"Ola Nordmann"}
                 onChange={handleInputChange}
               />
             </div>
 
             <div className={"form-group password"}>
               <label className={"input-label"} htmlFor={"password"}>
-                Passord
+                Password
               </label>
               <input
                 name={"password"}
                 className={"input"}
                 type={"password"}
-                placeholder={"Passord"}
+                placeholder={"Password"}
                 disabled
               />
             </div>
 
             <div className={"form-group"}></div>
             <button className={"login-button"} type={"submit"}>
-              Logg inn
+              Log in
             </button>
           </form>
         </div>
@@ -67,8 +67,8 @@ export const LoginPage = () => {
     if (isLoggedIn) {
       return (
         <div>
-          You have been logged in! you can now like and store your favorite
-          films{" "}
+          <p>You have been logged in! You can now like and store your favorite
+          films{" "}<p>
         </div>
       );
     }
