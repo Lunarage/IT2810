@@ -68,7 +68,7 @@ export const LoginPage = () => {
       return (
         <div>
           <p>You have been logged in! You can now like and store your favorite
-          films{" "}<p>
+          films{" "}</p>
         </div>
       );
     }
