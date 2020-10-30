@@ -11,17 +11,17 @@ class MovieController {
       " SELECT * FROM title_likes" +
       " WHERE username = $1)" +
       " SELECT title_basics.*" +
-      ", CASE WHEN likes.username IS NOT NULL THEN 'true' ELSE 'false' END AS liked" +
+      ", CASE WHEN likes.username IS NOT NULL THEN true ELSE false END AS liked" +
       " FROM title_basics" +
       " LEFT JOIN likes ON title_basics.tconst = likes.tconst" +
       " WHERE title_basics.tconst = $2";
     try {
       client = await pool.connect();
 
-      if (request.params.movieId && request.query.userId) {
+      if (request.params.movieId && request.query.username) {
         // With userId and movieId
         const { rows } = await client.query(queryGetMovieUser, [
-          request.query.userId,
+          request.query.username,
           request.params.movieId,
         ]);
         response.status(200).send(rows);
@@ -63,19 +63,19 @@ class MovieController {
     let parameters = [];
     let parameterCount = 0;
     let query;
-    if (request.query.userId) {
+    if (request.query.username) {
       query =
         "WITH likes AS (" +
         " SELECT * FROM title_likes" +
         " WHERE username = $1)" +
         " SELECT title_basics.*" +
-        ", CASE WHEN likes.username IS NOT NULL THEN 'true' ELSE 'false' END AS liked" +
+        ", CASE WHEN likes.username IS NOT NULL THEN true ELSE false END AS liked" +
         " FROM title_basics" +
         " LEFT JOIN likes ON title_basics.tconst = likes.tconst";
       parameterCount++;
-      parameters.push(request.query.userId);
+      parameters.push(request.query.username);
     } else {
-      query = "SELECT title_basics.* FROM title_basics";
+      query = "SELECT title_basics.*, false AS liked FROM title_basics";
     }
 
     if (
@@ -149,7 +149,7 @@ class MovieController {
     query += " LIMIT $" + parameterCount;
     parameters.push(responseLimit);
     if (Number(request.query.page)) {
-      const offset = Number(request.query.page) * responseLimit;
+      const offset = (Number(request.query.page) - 1) * responseLimit;
       parameterCount++;
       query += " OFFSET $" + parameterCount;
       parameters.push(offset);
