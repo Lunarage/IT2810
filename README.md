@@ -1,6 +1,7 @@
 # Prosjekt 3 Gruppe 22
 
 ## Generelt
+For å starte prosjektet: klon repoet lokalt og kjør npm install og npm start i client mappen. 
 
 ### Komponenthierarki
 Følgende diagram viser hvordan komponentene våre henger sammen:
@@ -13,6 +14,7 @@ Vi har laget en nettside med React og Typescript ved bruk av IMDB sitt datasett 
 På nettsiden har man en homepage som man kommer automatisk til når man åpner siden. Her står det kort forklart hvordan man brukes siden og hva slags side det er. Når man ikke er logget inn, har man bare tilgang til homepage, searchpage. Er man logget inn får man også tilgang til mypage og man kan like filmer.
 
 Input av søk gjør man ved hjelp av et tekstlig søk input, men man kan også filtrere søket ved hjelp av noen parameter.
+
 ###  Søkemulighet
 #### Enkelt søk
 Sortering og filtrering skjer i databasen basert på spørring via REST-API.
@@ -194,10 +196,10 @@ På forrige prosjekt jobbet vi i lokale branches der vi pullet master, fikset ko
 De fleste issues har blitt utviklet på egen branch, som så er merget til master eller en “foreldre-branch”. Unntaket er issues som “#1 setup” og “#2 grunnomriss av siden”, disse ble utført før vi fikk studenttilbakemeldingen.
 ### Fordeler
 
-Fordelen med dette er at vi har jobbet i branches i dette prosjektet, og man kan opprette branches rett fra issues i gitlab. Dette gjør det veldig enkelt og ha branches med fornuftig navnekonvensjon og ferdig sortert. Det var veldig lærerikt og bruke branches ordentlig, og gruppa synes det i stor grad var en positiv endring, men det er fortsatt rom for forbedringer. Det ville nok gått helt fint og jobbe i en master branch, da dette ikke var et kjempe stort prosjekt, men vi er fornøyd med å lært en ny måte å bruke git på.
+Fordelen med dette er at vi har jobbet i branches i dette prosjektet, og man kan opprette branches rett fra issues i gitlab. Dette gjør det veldig enkelt og ha branches med fornuftig navnekonvensjon og ferdig sortert. Det var veldig lærerikt og bruke branches ordentlig, og gruppa synes det i stor grad var en positiv endring, men det er fortsatt rom for forbedringer. Det ville nok gått helt fint og jobbe i en master branch, da dette ikke var et kjempe stort prosjekt, men vi er fornøyd med å lært en ny måte å bruke git på. Det var også psotivt for gruppen at vi måtte gå godkjennes hverandres mergerequest, og derfor fikk en bredere forståelse for kodebasen.  
 ### Utfordringer
 
-Utfordringen var at det lett ble en mismatch mellom hva som var lokalt på PCen og hva som var status på gitlab. Det var også ikke optimalt syntes vi at man ikke kunne fikse mergekonflikter lokalt før man pushet til master, da dette var litt enklere. Det er også enklere og miste oversikt over hvilken branch man egt skal jobbe i og pushe feil, noe som kan føre til mye rot.
+Utfordringen var at det lett ble en mismatch mellom hva som var lokalt på PCen og hva som var status på gitlab. Det var også ikke optimalt syntes vi at man ikke kunne fikse mergekonflikter lokalt før man pushet til master, da dette var litt enklere. Det er også enklere og miste oversikt over hvilken branch man egt skal jobbe i og pushe feil, noe som kan føre til mye rot. Neste gang skal vi alltid pulle origin master før vi lager merge request, så vi er helt sikre på at master ikke kræsjer når vi merger.
 
 ## Samarbeid
 Ved starten av forrige prosjekt hadde bare en på gruppa kjennskap til React. Denne gangen har alle et bedre grunnlag, som gjør oppstarten mer effektiv enn sist gang.
