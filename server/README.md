@@ -41,7 +41,7 @@ Specific movie (GET):
   }
 ]
 ```
-`/movie/:movieId/:userId`
+`/movie/:movieId?username=string`
 ```json
 [
   {
@@ -73,22 +73,6 @@ Search for movies (GET):
     "end_year": number,
     "runtime_minutes": number,
     "genres": string
-  }
-]
-```
-`/movie?title=string&page=number/:userId`
-```json
-[
-  {
-    "tconst": string,
-    "title_type": string,
-    "primary_title": string,
-    "original_title": string,
-    "is_adult": boolean,
-    "start_year": number,
-    "end_year": number,
-    "runtime_minutes": number,
-    "genres": string,
     "liked": boolean
   }
 ]
