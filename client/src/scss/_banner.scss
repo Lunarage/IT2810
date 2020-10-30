@@ -17,6 +17,9 @@
   font-size: 2em;
   padding: 0.2em;
 
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 // Login-info + button

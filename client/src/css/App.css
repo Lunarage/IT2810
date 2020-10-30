@@ -78,7 +78,7 @@ a:hover {
   color: #000000;
   cursor: pointer;
   font-weight: bold;
-  text-shadow: 5px 3px 10px #333;
+  text-decoration: underline;
 }
 
 @media only screen and (min-width: 600px) {
@@ -106,7 +106,7 @@ button:hover {
   transition: 30ms;
 }
 button:active {
-  box-shadow: 0px 0px;
+  box-shadow: 0 0;
   transition: 30ms;
 }
 button:focus {
@@ -114,6 +114,25 @@ button:focus {
   border-color: #555;
   outline: none;
   transition: 30ms;
+}
+
+#like-button {
+  background-color: #EAEEED;
+  padding: 0;
+}
+#like-button:hover {
+  cursor: auto;
+}
+#like-button .heart-icon-container {
+  padding: 1em 0.8em 0.8em 1em;
+  border: solid #EAEEED;
+  border-radius: 4px;
+}
+#like-button .heart-icon-container:hover {
+  background-color: #C4D3CE;
+  border-color: #C4D3CE;
+  transition: 30ms;
+  cursor: pointer;
 }
 
 input {
@@ -187,6 +206,7 @@ input:disabled {
   grid-gap: 1em;
   grid-template-areas: "search-bar" "result" "navigation";
   margin: 2em;
+  /* Styling advanced search */
 }
 .search-page .search-bar {
   grid-area: search-bar;
@@ -201,6 +221,34 @@ input:disabled {
 .search-page .search-navigation * {
   margin: 0.5em;
 }
+.search-page .advanced-search {
+  border: #EDF5CD solid;
+  border-radius: 4px;
+  padding: 2px;
+}
+.search-page .advanced-search * {
+  background-color: #FCFDF9;
+}
+.search-page #advanced-search-content .fields {
+  margin: 0;
+  padding: 10px;
+}
+.search-page #advanced-search-content .field {
+  padding: 0;
+}
+.search-page #advanced-search-content .form-label-bold {
+  font-weight: bold;
+}
+.search-page .result-loader {
+  margin: 20vh 0;
+}
+.search-page .no-result {
+  margin-bottom: 30vh;
+}
+.search-page .nothing-searched {
+  margin-bottom: 40vh;
+}
+
 .my-page {
   display: grid;
   grid-gap: 1em;
@@ -224,6 +272,9 @@ input:disabled {
   font-family: "Merienda";
   font-size: 2em;
   padding: 0.2em;
+}
+.logo:hover {
+  cursor: pointer;
 }
 
 .banner-login {
@@ -263,31 +314,25 @@ input:disabled {
   align-self: center;
   display: grid;
   align-items: center;
-  font-size: 2em;
-  margin: 1em 7em;
+  font-size: 1.7em;
+  margin: 0.8em 0.2em;
 }
-
-.welcome {
+.start-page p {
+  justify-self: center;
+  padding: 0.5vh 2vh 2vh 2vh;
+}
+.start-page .welcome {
   justify-self: center;
   padding: 2vh;
 }
-
-.welcome-p {
-  justify-self: center;
-  padding: 1em;
-}
-
-.how-to-use {
+.start-page .how-to-use {
   padding: 2vh 2vh 0.5vh 2vh;
-}
-
-.how-to-use-p {
-  padding: 0.5vh 2vh 2vh 2vh;
 }
 
 @media only screen and (min-width: 600px) and (min-height: 500px) {
   .start-page {
-    font-size: 1.5em;
+    font-size: 1.2em;
+    margin: 1em 7em;
   }
 }
 

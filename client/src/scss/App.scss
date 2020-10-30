@@ -97,7 +97,8 @@ a {
     color: $color-text-black;
     cursor: pointer;
     font-weight: bold;
-    text-shadow: 5px 3px 10px #333; // TODO update shadow color to complement background
+    text-decoration: underline;
+    //text-shadow: 5px 3px 10px #333; // TODO update shadow color to complement background
   }
 }
 
