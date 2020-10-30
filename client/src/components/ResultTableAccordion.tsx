@@ -6,7 +6,6 @@ import LikeButton from "./LikeButton";
 import HttpClient from "../modules/HttpClient";
 
 
-
 /* ResultTableAccordion får inn en liste av filmer movies fra SearchResult.
 * Disse presenteres som en tabell der radene er "trekkspill", altså at det vises mer info om filmen i den enkelte raden om den trykkes på. Dette innholdet ligger i en ny tabell.*/
 const ResultTableAccordion = (props: { movies: Movie[] }) => {
