@@ -70,14 +70,7 @@ body {
   grid-area: content;
   background-color: $color-primary-1;
   justify-self: stretch;
-
   // Styling the start page
-  .start-page {
-    align-self: center;
-    display: grid;
-    justify-content: center; // Centering the search bar
-  }
-
 
 }
 
@@ -122,3 +115,4 @@ a {
 @import "search-page";
 @import "my-page";
 @import "banner";
+@import "start-page";
