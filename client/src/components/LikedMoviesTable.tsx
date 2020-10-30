@@ -42,7 +42,7 @@ class LikedMoviesTable extends Component<Props, State> {
                 return (<Table.Row key={`${n.tconst}_row`}>
                         <Table.Cell key={`${n.tconst}_movie`}>{n.primary_title}</Table.Cell>
                         <Table.Cell key={`${n.tconst}_liked`}>
-                            <LikeButton liked={this.booleanUndefined(n.liked)} handleClick={(movieID: string, username: string, liked: boolean) => {return}} movieID={n.tconst} disabled={true}/>
+                            <LikeButton liked={n.liked} handleClick={(movieID: string, username: string, liked: boolean) => {return}} movieID={n.tconst} disabled={true}/>
                         </Table.Cell>
                     </Table.Row>
                 )
@@ -70,16 +70,16 @@ class LikedMoviesTable extends Component<Props, State> {
         )
     }
 
-
+/*
     // Handles undefined booleans (Movie.liked). True if movie is liked by user, else false.
-    booleanUndefined = (value: boolean | undefined) => {
+    fixUndefinedBoolean = (value: boolean | undefined) => {
         if (typeof value === "boolean") {
             return value;
         } else {
             return false;
         }
     }
-
+*/
 
     // Henter filmene brukeren har likt fra databasen.
     getMovies(username: string) {

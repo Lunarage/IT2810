@@ -35,6 +35,7 @@ class SearchResult extends Component<Props, State> {
                     start_year: 0,
                     runtime_minutes: null,
                     genres: null,
+                    liked: false,
                 },
             ],
         };
@@ -58,10 +59,7 @@ class SearchResult extends Component<Props, State> {
         // Dersom det ikkje er søkt på noko ennå vert det returnert og rendra ein tom div
         if (this.props.searchInput == null) {
             return (
-                <
-                    div
-                    className={"search-result no-search-result"}
-                />
+                <div className={"search-result no-search-result"}/>
             )
         }
 
@@ -81,7 +79,7 @@ class SearchResult extends Component<Props, State> {
 // Basert på resultat vert state til SearchResult sett.
 // Skal kallast av søkeknappen i SearchBar
     search(searchInput: string, titleType: string, orderDir: string) {
-        /* Kommunikasjon med database */
+        // Kommunikasjon med database
         // Set opp kopling mot databasen
         const baseURL = "http://it2810-22.idi.ntnu.no:3000";
         const client = new HttpClient(baseURL);
@@ -92,6 +90,7 @@ class SearchResult extends Component<Props, State> {
             titleType: titleType,
             orderBy: "start_year",
             orderDir: orderDir,
+            username: this.props.username,
         });
 
         // Sett state hos SearchResult

@@ -6,9 +6,11 @@ import LikeButton from "./LikeButton";
 import HttpClient from "../modules/HttpClient";
 
 
+
 /* ResultTableAccordion får inn en liste av filmer movies fra SearchResult.
 * Disse presenteres som en tabell der radene er "trekkspill", altså at det vises mer info om filmen i den enkelte raden om den trykkes på. Dette innholdet ligger i en ny tabell.*/
 const ResultTableAccordion = (props: { movies: Movie[] }) => {
+
     const panels = props.movies.map(n => {
         return {
             key: n.tconst,      // Unik nøkkel, basert på tconst-ID i databasen
@@ -22,7 +24,7 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                     <Table.Cell key={`${n.tconst}_start_year`}>{n.start_year}</Table.Cell>,
                     <Table.Cell key={`${n.tconst}_genres`}>{isNull(n.genres)}</Table.Cell>,
                     <Table.Cell key={`${n.tconst}_liked`}>
-                        <LikeButton liked={booleanUndefined(n.liked)}
+                        <LikeButton liked={n.liked}
                                     handleClick={handleLikeClick}
                                     movieID={n.tconst}
                                     disabled={false}
@@ -91,22 +93,12 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
     )
 };
 
-
 // Handles null-values in Movie. Converts 'null' to "---"
 const isNull = (value: any) => {
     if (value != null) {
         return value;
     } else {
         return "---";
-    }
-}
-
-// Handles undefined booleans (Movie.liked). True if movie is liked by user, else false.
-const booleanUndefined = (value: boolean | undefined) => {
-    if (typeof value === "boolean") {
-        return value;
-    } else {
-        return false;
     }
 }
 
@@ -120,12 +112,15 @@ const handleLikeClick = (movieID: string, username: string, liked: boolean) => {
     // Asking database
     // If movie is liked: dislike, else like.
     if (liked) {
-        window.alert(client.unlikeMovie(movieID, username));
-    } else {
-        window.alert(client.likeMovie(movieID, username));
-    }
+        client.unlikeMovie(movieID, username);
+        window.alert("movie unliked")
 
-    window.alert(movieID);
+    } else {
+        client.likeMovie(movieID, username);
+        window.alert("movie liked")
+
+
+    }
 }
 
 export default ResultTableAccordion

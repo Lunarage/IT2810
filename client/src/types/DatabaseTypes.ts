@@ -8,7 +8,7 @@ export type Movie = {
   start_year: number;
   runtime_minutes: number | null;
   genres: string | null;
-  liked?: boolean;
+  liked: boolean;
 };
 
 export type User = {

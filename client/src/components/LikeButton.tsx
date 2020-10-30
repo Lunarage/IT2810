@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Icon} from "semantic-ui-react";
 import {RootStateOrAny, useSelector} from "react-redux";
+import HttpClient from "../modules/HttpClient";
 
 type LikeButtonProps = {
     liked: boolean;
@@ -9,30 +10,59 @@ type LikeButtonProps = {
     disabled: boolean;
 };
 
+type State = {
+    likedStatus: boolean;
+}
 
 const LikeButton = (props: LikeButtonProps) => {
-    const username = useSelector((state: RootStateOrAny) => state.loggedIn)
-        .username;
+    const [state, setState] = useState<State>({
+        likedStatus: props.liked
+    });
+
+    // Henter username fra redux
+    const username = useSelector((state: RootStateOrAny) => state.loggedIn).username;
 
     // localHandleClick calls handleClick with arguments when button is clicked.
     const localHandleClick = () => {
-        props.handleClick(props.movieID, username, props.liked);
+        // Kaller handleClick i ResultTableAccordion
+        props.handleClick(props.movieID, username, state.likedStatus);
+
+        // Set opp kopling mot databasen
+        const baseURL = "http://it2810-22.idi.ntnu.no:3000";
+        const client = new HttpClient(baseURL);
+
+        // Spør databasen
+        const result = client.getMovie(props.movieID, username);
+
+        // Sett state hos SearchResult
+        result.then((response) => {
+            window.alert("Before state changed: " + state.likedStatus)
+
+            setState({likedStatus: response.liked});
+            window.alert("State changed: " + state.likedStatus)
+        });
     }
 
-    if (props.liked) {
-        return (
-            <Button disabled={props.disabled} onClick={localHandleClick} icon>
-                <Icon name="heart"/>
-            </Button>
-        );
-    } else {
-        return (
-            <Button onClick={localHandleClick} icon>
-                <Icon name="heart outline"/>
-            </Button>
-        );
+
+    const returnButton = () => {
+        if (state.likedStatus) {
+            return (
+                <Button disabled={props.disabled} onClick={localHandleClick} icon>
+                    <Icon name="heart"/>
+                </Button>
+            )
+        } else {
+            return (
+                <Button onClick={localHandleClick} icon>
+                    <Icon name="heart outline"/>
+                </Button>
+            )
+        }
     }
 
+    return (
+        returnButton()
+    )
 };
 
 
