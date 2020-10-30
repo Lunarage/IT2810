@@ -4,12 +4,13 @@ import {Button, Icon} from "semantic-ui-react";
 type LikeButtonProps = {
     liked: boolean;
     handleClick?: () => void;
+    disabled: boolean;
 };
 
 const LikeButton = (props: LikeButtonProps) => {
     if (props.liked) {
         return (
-            <Button onClick={props.handleClick} icon>
+            <Button disabled={props.disabled} onClick={props.handleClick} icon>
                 <Icon name="heart"/>
             </Button>
         );
