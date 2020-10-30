@@ -130,10 +130,11 @@ Klienten bruker biblioteket node-fetch for å sende spørringer til serveren.
 #### Semantic-ui
 Vi har brukt komponentbiblioteket react.semantic-ui som base til en del av komponentene på siden vår.
 Komponenter vi har brukt er:
- Komponent | Bruksområde | Brukskomponent |
- --------- | ----------- |---------------
- Table | Til visning av søkeresultat og innhold i detaljert visning. | ResultTableAccordion
- Accordion | Til å skjule/vise deler av innhold i søkeresultat og avansert søk | ResultTableAccordion, SearchBar
+
+Komponent | Bruksområde | Brukskomponent |
+--------- | ----------- |---------------
+Table | Til visning av søkeresultat og innhold i detaljert visning. | ResultTableAccordion
+Accordion | Til å skjule/vise deler av innhold i søkeresultat og avansert søk | ResultTableAccordion, SearchBar
 Form | Til å samle skjema-elementer i “avansert søk” | SearchBar
 Button | Til å lage like-button med ikon inni | LikeButton
 Ikon | For å få hjerte på like-knapp | LikeButton
