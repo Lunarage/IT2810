@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import SearchBar from "./SearchBar";
 import SearchResult from "./SearchResult";
 import SearchNavigation from "./SearchNavigation";
-import HttpClient from "../modules/HttpClient";
-import {Movie} from "../types/DatabaseTypes";
+import {RootStateOrAny, useSelector} from "react-redux";
 
 interface Props {
 
@@ -18,30 +17,29 @@ interface State {
 * searchButtonClicked sendes til SearchBar, og kalles når det trykkes "search" der.
 * Rendrer SearchBar (inputfelt + button) og SearchResult (overskrift + ResultTableAccordion)
 * */
-class SearchPage extends Component<Props, State> {
+const SearchPage = (props: Props) => {
 
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            searchInput: null,  // om det ikke er søkt etter noe skal input være null
-        }
-        this.searchButtonClicked = this.searchButtonClicked.bind(this);
-    }
+    const [state, setState] = useState<State>({
+        searchInput: null, // om det ikke er søkt etter noe skal input være null
+    })
 
-    render() {
-        return (
-            <div className={"search-page"}>
-                <SearchBar searchButtonClicked={this.searchButtonClicked}/>
-                <SearchResult searchInput={this.state.searchInput}
-                              key={this.state.searchInput}/> {/* Dersom key blir endret vil det opprettes en ny instans av SearchResult. SearchResult kjører search(searchInput)-funksjonen i konstruktøren sin. Slik sikrer vi at det kun søkes om skjemaet er sendt inn (og endret)*/}
-                <SearchNavigation/>
-            </div>
-        )
-    }
+    const username = useSelector((state: RootStateOrAny) => state.loggedIn)
+        .username;
+
+    return (
+        <div className={"search-page"}>
+            <SearchBar searchButtonClicked={searchButtonClicked}/>
+            <SearchResult searchInput={state.searchInput}
+                          username={username}
+                          key={state.searchInput}/> {/* Dersom key blir endret vil det opprettes en ny instans av SearchResult. SearchResult kjører search(searchInput)-funksjonen i konstruktøren sin. Slik sikrer vi at det kun søkes om skjemaet er sendt inn (og endret)*/}
+            <SearchNavigation/>
+        </div>
+    )
+
 
     // Funksjon som kalles i SearchBar. Der sender den tekststrengen i inputfeltet "opp hit" hvor den blir satt til this.state.searchInput
-    searchButtonClicked(input: string) {
-        this.setState({searchInput: input});
+    function searchButtonClicked(input: string) {
+        setState({searchInput: input});
     }
 
 

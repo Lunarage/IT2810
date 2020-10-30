@@ -3,8 +3,10 @@ import ResultTableAccordion from "./ResultTableAccordion";
 import {Movie} from "../types/DatabaseTypes";
 import HttpClient from "../modules/HttpClient";
 
+
 interface Props {
     searchInput: string | null;
+    username: string;
 }
 
 interface State {
@@ -46,7 +48,7 @@ class SearchResult extends Component<Props, State> {
         // Dersom det ikkje er søkt på noko ennå vert det returnert og rendra ein tom div
         if (this.props.searchInput == null) {
             return (
-                <div className={"search-result no-search-result"}></div>
+                <div className={"search-result no-search-result"}/>
             )
         }
         // Dersom det er søkt på noko vert resultatet returnert og rendra

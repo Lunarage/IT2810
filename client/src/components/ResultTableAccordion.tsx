@@ -21,9 +21,13 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                     <Table.Cell key={`${n.tconst}_title_type`}>{n.title_type}</Table.Cell>,
                     <Table.Cell key={`${n.tconst}_start_year`}>{n.start_year}</Table.Cell>,
                     <Table.Cell key={`${n.tconst}_genres`}>{isNull(n.genres)}</Table.Cell>,
-                    <Table.Cell key={`${n.tconst}_liked`}><LikeButton liked={booleanUndefined(n.liked)}
-                                                                      handleClick={handleLikeClick}
-                                                                      movieID={n.tconst}/></Table.Cell>,
+                    <Table.Cell key={`${n.tconst}_liked`}>
+                        <LikeButton liked={booleanUndefined(n.liked)}
+                                    handleClick={handleLikeClick}
+                                    movieID={n.tconst}
+                                    disabled={false}
+                        />
+                    </Table.Cell>,
                 ]
             },
             content: {          // Dette er "det skjulte innholdet". Ved klikk på title vises mer informasjon om filmen

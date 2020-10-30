@@ -42,7 +42,7 @@ class LikedMoviesTable extends Component<Props, State> {
                 return (<Table.Row>
                         <Table.Cell key={`n.tconst}_movie`}>{n.primary_title}</Table.Cell>
                         <Table.Cell key={`n.tconst}_liked`}>
-                            <LikeButton liked={this.booleanUndefined(n.liked)} disabled={true}/>
+                            <LikeButton liked={this.booleanUndefined(n.liked)} handleClick={(movieID: string, username: string, liked: boolean) => {return}} movieID={n.tconst} disabled={true}/>
                         </Table.Cell>
                     </Table.Row>
                 )
