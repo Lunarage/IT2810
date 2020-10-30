@@ -148,6 +148,14 @@ input:disabled {
   background-color: #dddddd;
 }
 
+.radio-div {
+  display: flex;
+  align-items: center;
+}
+.radio-div > label {
+  margin: 0 0.5em;
+}
+
 .login-page {
   display: grid;
   justify-content: center;

@@ -61,27 +61,24 @@ class HttpClient {
   // Argument is an object
   public searchMovies(args: {
     title?: string;
+    titleType?: string;
     genre?: string;
     minYear?: number;
     maxYear?: number;
     username?: string;
     page?: number;
-    orderBy?:
-      | "tconst"
-      | "title_type"
-      | "primary_title"
-      | "original_title"
-      | "is_adult"
-      | "start_year"
-      | "end_year"
-      | "runtime_minutes"
-      | "genres";
-    orderDir?: "DESC" | "ASC";
+    orderBy?: string;
+    orderDir?: string;
   }): Promise<Movie[]> {
+    // Build query from arguments
     let searchURL = this.baseURL + "/movie";
     let delimiter = "?";
     if (args.title) {
       searchURL += delimiter + "title=" + args.title;
+      delimiter = "&";
+    }
+    if (args.titleType) {
+      searchURL += delimiter + "titleType=" + args.titleType;
       delimiter = "&";
     }
     if (args.genre) {
@@ -97,11 +94,11 @@ class HttpClient {
       delimiter = "&";
     }
     if (args.orderBy) {
-      searchURL += delimiter + "orderBy" + args.orderBy;
+      searchURL += delimiter + "orderBy=" + args.orderBy;
       delimiter = "&";
     }
     if (args.orderDir) {
-      searchURL += delimiter + "orderDir" + args.orderDir;
+      searchURL += delimiter + "orderDir=" + args.orderDir;
       delimiter = "&";
     }
     if (args.page) {
@@ -109,8 +106,9 @@ class HttpClient {
       delimiter = "&";
     }
     if (args.username) {
-      searchURL += "/" + args.username;
+      searchURL += delimiter + "username=" + args.username;
     }
+    // Send query and return response
     return this.get<Movie[]>(searchURL).then((response) => {
       return response as Movie[];
     });
