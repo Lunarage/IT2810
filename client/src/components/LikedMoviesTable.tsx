@@ -33,16 +33,19 @@ class LikedMoviesTable extends Component<Props, State> {
     movieRows() {
         if (this.state.movies.length === 0) {
             return (
-                <Table.Row>
-                    <Table.Cell colspan={2}>No liked movies</Table.Cell>
+                <Table.Row key={'no_movies_row'}>
+                    <Table.Cell key={'no_movies_cell'} colSpan={2}>No liked movies</Table.Cell>
                 </Table.Row>
             )
         } else {
             return this.state.movies.map(n => {
-                return (<Table.Row>
-                        <Table.Cell key={`n.tconst}_movie`}>{n.primary_title}</Table.Cell>
-                        <Table.Cell key={`n.tconst}_liked`}>
-                            <LikeButton liked={this.booleanUndefined(n.liked)} disabled={true}/>
+                return (<Table.Row key={`${n.tconst}_row`}>
+                        <Table.Cell key={`${n.tconst}_movie`}>{n.primary_title}</Table.Cell>
+                        <Table.Cell key={`${n.tconst}_liked`}>
+                            <LikeButton liked={n.liked}
+                                        handleClick={(movieID: string, username: string, liked: boolean) => {
+                                            return
+                                        }} movieID={n.tconst} disabled={true}/>
                         </Table.Cell>
                     </Table.Row>
                 )
@@ -69,18 +72,7 @@ class LikedMoviesTable extends Component<Props, State> {
 
         )
     }
-
-
-    // Handles undefined booleans (Movie.liked). True if movie is liked by user, else false.
-    booleanUndefined = (value: boolean | undefined) => {
-        if (typeof value === "boolean") {
-            return value;
-        } else {
-            return false;
-        }
-    }
-
-
+    
     // Henter filmene brukeren har likt fra databasen.
     getMovies(username: string) {
         // Kommunikasjon med database

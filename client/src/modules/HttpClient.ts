@@ -51,7 +51,7 @@ class HttpClient {
   public getMovie(movieId: string, username?: string): Promise<Movie> {
     let searchURL = this.baseURL + "/movie/" + movieId;
     if (username) {
-      searchURL += "?" + username;
+      searchURL += "?username=" + username;
     }
     return this.get<Movie[]>(searchURL).then((response) => {
       return (response as Movie[])[0];
