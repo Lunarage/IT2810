@@ -55,11 +55,6 @@ body * {
   background-color: #F8FEF5;
   justify-self: stretch;
 }
-.content .start-page {
-  align-self: center;
-  display: grid;
-  justify-content: center;
-}
 
 h1 {
   font-weight: bold;
@@ -260,6 +255,37 @@ input:disabled {
 @media only screen and (min-width: 600px) and (min-height: 500px) {
   .logo {
     font-size: 4em;
+  }
+}
+.start-page {
+  align-self: center;
+  display: grid;
+  align-items: center;
+  font-size: 2em;
+  margin: 1em 7em;
+}
+
+.welcome {
+  justify-self: center;
+  padding: 2vh;
+}
+
+.welcome-p {
+  justify-self: center;
+  padding: 1em;
+}
+
+.how-to-use {
+  padding: 2vh 2vh 0.5vh 2vh;
+}
+
+.how-to-use-p {
+  padding: 0.5vh 2vh 2vh 2vh;
+}
+
+@media only screen and (min-width: 600px) and (min-height: 500px) {
+  .start-page {
+    font-size: 1.5em;
   }
 }
 
