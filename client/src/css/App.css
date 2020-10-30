@@ -24,7 +24,7 @@ body * {
   grid-gap: 1em;
 }
 
-.menu {
+.site-menu {
   background-color: #CBE2BD;
   grid-area: menu;
   display: grid;
@@ -33,19 +33,19 @@ body * {
   justify-content: start;
   padding: 0.3em;
 }
-.menu a {
+.site-menu a {
   margin: 0.5em 1em;
 }
-.menu .home-button {
+.site-menu .home-button {
   grid-area: home;
 }
-.menu .search-button {
+.site-menu .search-button {
   grid-area: search;
 }
-.menu .my-page-button {
+.site-menu .my-page-button {
   grid-area: my-page;
 }
-.menu .login-button {
+.site-menu .login-button {
   justify-self: end;
   grid-area: loginbutton;
 }
