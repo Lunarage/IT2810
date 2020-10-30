@@ -80,6 +80,7 @@ class MovieController {
 
     if (
       request.query.title ||
+      request.query.titleType ||
       request.query.minYear ||
       request.query.maxYear ||
       request.query.genre ||
@@ -96,6 +97,12 @@ class MovieController {
         parameterCount++;
         query += " OR original_title ILIKE $" + parameterCount + ")";
         parameters.push("%" + request.query.title + "%");
+        delimiter = " AND";
+      }
+      if (request.query.titleType) {
+        parameterCount++;
+        query += delimiter + " title_type = $" + parameterCount;
+        parameters.push(request.query.titleType);
         delimiter = " AND";
       }
       if (request.query.minYear) {
@@ -152,6 +159,7 @@ class MovieController {
       console.log(query);
       console.log(parameters);
       const { rows } = await client.query(query, parameters);
+      console.log(rows);
       response.status(200).send(rows);
     } catch (error) {
       console.error(error);

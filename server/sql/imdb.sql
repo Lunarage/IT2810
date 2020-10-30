@@ -11,4 +11,7 @@ CREATE TABLE IF NOT EXISTS title_basics(
 	CONSTRAINT title_basics_pk PRIMARY KEY (tconst)
 );
 
+/* Create an index on start_year to speed up sorting (on start_year) */
+CREATE INDEX start_year_index ON title_basics (start_year);
+
 GRANT ALL ON TABLE title_basics TO amazing;
