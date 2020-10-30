@@ -30,7 +30,7 @@ export const Menu = (props: Props) => {
     }
 
     return (
-        <div className={"menu"}>
+        <div className={"site-menu"}>
             <a tabIndex={0} className="home-button" onClick={props.onHomePageClick}>
                 Home
             </a>
