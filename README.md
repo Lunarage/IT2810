@@ -150,6 +150,48 @@ Gjennom semantic-ui-komponentene får vi ikke til å sette alle attributtene til
 
 Semantic-ui-css har responsiv styling av elementer, men denne tilsvarer i en del tilfeller ikke det vi ønsker skal skje med elementet. Det er for eksempel upraktisk at rader i tabeller kollapser til enkeltceller på små skjermer, og at Accordion ikke lenger skjuler innholdet sitt.
 Dette kunne vi overskrevet med litt arbeid, men dette ble nedprioritert for viktigere arbeid som implementering av “likes” på filmer.
+#### Scss
+Vi har brukt sass-css-bybridformatet scss til styling av sida. Dette er et filformat som kompileres til css ved "npx sass --watch src/scss:src/css". Notasjonen i scss støtter css-syntaks, men har noen tilleggselementer. Eksempler på dette er nøsting av selectors, importering av "delfiler" og muligheten til å definere og gjenbruke konstanter. Vi synes scss har gjort styling-koden vår ryddigere, fordi vi enkelt kan trekke ut kode som gjelder enkeltkomponenter i egne filer. Det har også vert en fordel å ha definerte color-konstanter, da dette gjør det lett å holde styr på ulike nyanser i fargetemaet, og i tilleg gjør det enkelt å oppdatere fargene på hele siden. Nøstede seclectors gjør at vi slipper repetere selectors når vi skal nå barna deres. Dette medvirker også i våre øyne til ryddigere stylingkode.
+
+Ved vurdering av prosjektet vårt vil det være mer oversiktlig å lese stylingkoden i src/scss enn den i src/css/App.css, da førsnevnte er delt opp i delfiler og generelt har flere kommentarer. ("//"-kommentarer er brukt i scss men er ikke lov i css, og forsvinner derfor ved kompilering.)
+##### Eksempel på bruk av scss:
+###### SCSS-kode
+App.scss
+```scss
+/* "App.scss", main styling file */
+@import "colors";   // importing file with color theme
+
+body {    // Styling <body>
+  background-color: $background-color;
+  
+  h1 {    // Styling <h1>'s inside <body>
+    color: $text-color;
+  }
+}
+```
+_colors.scss
+```scss
+/* "_colors.scss", file for color theme */
+// Defining colors
+$background-color: red;
+$text-color: blue;
+```
+###### CSS-kode
+Dette kompilerer denne CSS-koden i App.css:
+```css
+
+/* "App.scss", main styling file */
+/* "_colors.scss", file for color theme */
+
+body {
+  background-color: $background-color;
+  
+}
+body h1 {
+    color: $text-color;
+  }
+```
+
 ## Testing
 
 ### Enhetstesting
@@ -206,3 +248,20 @@ Ved starten av forrige prosjekt hadde bare en på gruppa kjennskap til React. De
 Vi har valgt at en annen person enn sist gang skal sette opp prosjektet og lage grunnstruktur  for siden, slik at flest mulig får prøve seg på det. 
 
 Fra starten av la vi en plan med issues om prioritering av kravene i oppgaven, der enkel innlogging, database (og kommunikasjon med denne), samt søkefunksjonen ble prioritert øverst. Ting som detaljert visning og lagring av søk kommer i andre rekke, fordi vi denne gangen heller vil gjøre deler av oppgaven grundig enn å skrape i overflaten på flere tema.
+
+## Kilder
+https://css-tricks.com/snippets/css/complete-guide-grid/ (“css-grid-bibelen”)\
+https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG/Keyboard (om tilgjengelighet og :focus)\
+https://medium.com/javascript-in-plain-english/i-tested-a-react-app-with-jest-testing-library-and-cypress-here-are-the-differences-3192eae03850 (Artikkel om ulike typer testing)\
+https://www.w3.org/TR/WCAG20/ (Universell utforming-bibel)\
+https://www.youtube.com/watch?v=_yOZROiR7s0 (how to semantic-ui)\
+https://react.semantic-ui.com/usage (setup av semantic-ui)\
+https://stackoverflow.com/questions/53240115/semantic-ui-react-map-accordion-in-every-table-row (semantic-ui-table med accordion)\
+https://react.semantic-ui.com/modules/accordion/#advanced-menu (accordion-bruksanvisning semantic-ui)\
+https://react.semantic-ui.com/collections/table/#variations-selectable-row (table-bruksanvisning semantic-ui)\
+https://reactjs.org/docs/forms.html (Controlled Components for forms i React)\
+https://stackoverflow.com/a/53313430 (Få komponent til å kjøre funksjon ved endringer i state til foreldrekomponent)\
+https://reactjs.org/docs/hooks-state.html (hooks i funksjonelle komponenter)\
+https://www.digitalocean.com/community/tutorials/react-testing-react-components (testing av react komponenter med Jest)\
+https://redux.js.org/recipes/writing-tests (testing av Redux med jest)\
+
