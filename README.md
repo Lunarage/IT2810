@@ -184,11 +184,11 @@ Dette kompilerer denne CSS-koden i App.css:
 /* "_colors.scss", file for color theme */
 
 body {
-  background-color: $background-color;
+  background-color: red;
   
 }
 body h1 {
-    color: $text-color;
+    color: blue;
   }
 ```
 
