@@ -1,8 +1,12 @@
-import React, {Component, FormEvent, useState} from "react";
-import {Input, Radio, Form, Accordion, Select} from "semantic-ui-react";
+import React, { Component, FormEvent, useState } from "react";
+import { Input, Radio, Form, Accordion, Select } from "semantic-ui-react";
 
 interface Props {
-    searchButtonClicked(input: string, titleType: string, orderDir: string): void;
+    searchButtonClicked(
+        input: string,
+        titleType: string,
+        orderDir: string
+    ): void;
 }
 
 // This component reders the search bar.
@@ -44,10 +48,19 @@ const SearchBar = (props: Props) => {
                 content: (
                     <div id={"advanced-search-content"}>
                         <Form.Group inline>
-
                             <div className={"order-by-form"}>
-                                <label className={"form-label-bold"} htmlFor={"order-by-input"}>Order By:</label>
-                                <input id={"order-by-input"} placeholder={"Year"} disabled/>
+                                <label
+                                    className={"form-label-bold"}
+                                    htmlFor={"order-by-input"}
+                                >
+                                    Order By:
+                                </label>
+                                <select
+                                    id={"order-by-input"}
+                                    onChange={handleTitleTypeChange}
+                                >
+                                    <option value="start_year">Year</option>
+                                </select>
                             </div>
                             <div className="radio-div">
                                 <label htmlFor="asc-radio">Ascending</label>
@@ -70,18 +83,34 @@ const SearchBar = (props: Props) => {
                         </Form.Group>
                         <Form.Group>
                             <div className="field">
-                                <label className={"form-label-bold"} htmlFor="title-type-select">Title Type:</label>
-                                <select id="title-type-select" onChange={handleTitleTypeChange}>
+                                <label
+                                    className={"form-label-bold"}
+                                    htmlFor="title-type-select"
+                                >
+                                    Title Type:
+                                </label>
+                                <select
+                                    id="title-type-select"
+                                    onChange={handleTitleTypeChange}
+                                >
                                     <option value=""></option>
                                     <option value="movie">Movie</option>
                                     <option value="tvShort">TV Short</option>
                                     <option value="tvMovie">TV Movie</option>
                                     <option value="short">Short</option>
-                                    <option value="tvMiniSeries">TV Miniseries</option>
-                                    <option value="videoGame">Video Game</option>
-                                    <option value="tvEpisode">TV Episode</option>
+                                    <option value="tvMiniSeries">
+                                        TV Miniseries
+                                    </option>
+                                    <option value="videoGame">
+                                        Video Game
+                                    </option>
+                                    <option value="tvEpisode">
+                                        TV Episode
+                                    </option>
                                     <option value="video">Video</option>
-                                    <option value="tvSpecial">TV Special</option>
+                                    <option value="tvSpecial">
+                                        TV Special
+                                    </option>
                                     <option value="tvSeries">TV Series</option>
                                 </select>
                             </div>
@@ -110,7 +139,12 @@ const SearchBar = (props: Props) => {
             >
                 Søk
             </button>
-            <Accordion className={"advanced-search"} defaultActiveIndex={-1} tabIndex={0} panels={panels}/>
+            <Accordion
+                className={"advanced-search"}
+                defaultActiveIndex={-1}
+                tabIndex={0}
+                panels={panels}
+            />
         </Form>
     );
 };
