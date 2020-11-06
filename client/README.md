@@ -52,5 +52,48 @@ The return type `Promise` is an object
 that represents the eventual completion (or failure) of an asynchronous
 operation.
 
-## gitpod
-gitpod ws: https://gitlab.stud.idi.ntnu.no/it2810-h20/team-22/prosjekt-3.git 
+## Prettier og Stylelint
+
+Sjekk at example.tsx går fra:
+```typescript
+const ExampleComponent = props => 
+{console.log("Hello, World!"); 
+if(true){let array = [1,2,3]}
+}
+```
+til (merk 4 spaces som indent):
+```typescript
+const ExampleComponent = (props) => {
+    console.log("Hello, World!");
+    if (true) {
+        let array = [1, 2, 3];
+    }
+};
+```
+
+Sjekk at example.scss går fra:
+```scss
+@import "colors";
+.class{
+  *{
+    padding:0;
+    margin:0;
+  }
+font-family: $standard-font;
+color: #FFFFFF;}
+```
+til (merk rekkefølger og spaces):
+```scss
+@import 'colors';
+
+.class {
+  color: #fff;
+  font-family: $standard-font;
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+```
