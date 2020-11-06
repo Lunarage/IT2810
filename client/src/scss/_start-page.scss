@@ -1,15 +1,15 @@
-// Styling start page
+/* Styling start page */
 
 .start-page {
+  align-items: center;
   align-self: center;
   display: grid;
-  align-items: center;
   font-size: 1.7em;
   margin: 0.8em 0.2em;
 
   p {
     justify-self: center;
-    padding: 0.5vh 2vh 2vh 2vh;
+    padding: 0.5vh 2vh 2vh;
   }
 
   .welcome {
@@ -18,16 +18,13 @@
   }
 
   .how-to-use {
-    padding: 2vh 2vh 0.5vh 2vh
+    padding: 2vh 2vh 0.5vh;
   }
 }
-
 
 @media only screen and (min-width: 600px) and (min-height: 500px) {
   .start-page {
     font-size: 1.2em;
     margin: 1em 7em;
-
   }
-
 }

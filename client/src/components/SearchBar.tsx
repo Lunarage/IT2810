@@ -1,11 +1,11 @@
-import React, { Component, FormEvent, useState } from "react";
-import { Input, Radio, Form, Accordion, Select } from "semantic-ui-react";
+import React, { FormEvent, useState } from "react";
+import { Input, Form, Accordion } from "semantic-ui-react";
 
 interface Props {
     searchButtonClicked(
         input: string,
         titleType: string,
-        orderDir: string
+        orderDir: string,
     ): void;
 }
 
@@ -28,7 +28,7 @@ const SearchBar = (props: Props) => {
     };
 
     const handleTitleTypeChange = (
-        event: React.ChangeEvent<HTMLSelectElement>
+        event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setTitleTypeState(event.currentTarget.value);
     };
@@ -49,6 +49,7 @@ const SearchBar = (props: Props) => {
                     <div id={"advanced-search-content"}>
                         <Form.Group inline>
                             <div className={"order-by-form"}>
+
                                 <label
                                     className={"form-label-bold"}
                                     htmlFor={"order-by-input"}
@@ -93,7 +94,7 @@ const SearchBar = (props: Props) => {
                                     id="title-type-select"
                                     onChange={handleTitleTypeChange}
                                 >
-                                    <option value=""></option>
+                                    <option value=""/>
                                     <option value="movie">Movie</option>
                                     <option value="tvShort">TV Short</option>
                                     <option value="tvMovie">TV Movie</option>

@@ -1,19 +1,17 @@
-// Styling buttons
+/* Styling buttons */
+
 button {
+  background-color: $color-secondary-2;
   border: solid;
   border-color: $color-secondary-0;
-  border-width: 1px;
   border-radius: 8px;
-  background-color: $color-secondary-2;
+  border-width: 1px;
   box-shadow: 3px 3px 3px $color-secondary-3;
-  transition: 30ms;
-
-  width: auto;
-  padding: 0.5em 1.5em;
-  margin: 2px;
-
   cursor: pointer;
-
+  margin: 2px;
+  padding: 0.5em 1.5em;
+  transition: 30ms;
+  width: auto;
 
   &:hover {
     background-color: $color-secondary-0;
@@ -28,8 +26,8 @@ button {
   }
 
   &:focus {
-    border-width: 2px;
     border-color: #555;
+    border-width: 2px;
     outline: none;
     transition: 30ms;
   }
@@ -45,15 +43,15 @@ button {
   }
 
   .heart-icon-container {
-    padding: 1em 0.8em 0.8em 1em;
     border: solid $color-secondary-2;
     border-radius: 4px;
+    padding: 1em 0.8em 0.8em 1em;
 
     &:hover {
       background-color: $color-secondary-0;
       border-color: $color-secondary-0;
-      transition: 30ms;
       cursor: pointer;
+      transition: 30ms;
     }
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import {useSelector, RootStateOrAny, useDispatch} from "react-redux";
-import {logOut} from "../reducers/userSlice";
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { logOut } from "../reducers/userSlice";
 
 //Dette komponentet returnerer menyknappene øverst på siden, under banneret. den får inn props med logikken til knappene fra App
 //Den tar også inn informasjon fra store og viser ulike knapper basert på dette

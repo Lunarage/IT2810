@@ -1,11 +1,10 @@
-// Styling search-page
+/* Styling search-page */
+
 .search-page {
   display: grid;
   grid-gap: 1em;
-  grid-template-areas: "search-bar" "result" "navigation";
-
+  grid-template-areas: 'search-bar' 'result' 'navigation';
   margin: 2em;
-
 
   .search-bar {
     grid-area: search-bar;
@@ -28,7 +27,6 @@
     }
   }
 
-
   /* Styling advanced search */
   .advanced-search {
     border: $color-tertiary-3 solid;
@@ -37,24 +35,6 @@
 
     * {
       background-color: $color-tertiary-2;
-    }
-  }
-
-
-  // ID to override semantic-ui-css styling
-  // (rule of specificity (elements < class < id < inline)
-  #advanced-search-content {
-    .fields {
-      margin: 0;
-      padding: 10px;
-    }
-
-    .field {
-      padding: 0;
-    }
-
-    .form-label-bold {
-      font-weight: bold;
     }
   }
 
@@ -72,5 +52,21 @@
   .nothing-searched {
     margin-bottom: 40vh;
   }
+}
 
+// ID to override semantic-ui-css styling
+// (rule of specificity (elements < class < id < inline)
+#advanced-search-content {
+  .fields {
+    margin: 0;
+    padding: 10px;
+  }
+
+  .field {
+    padding: 0;
+  }
+
+  .form-label-bold {
+    font-weight: bold;
+  }
 }

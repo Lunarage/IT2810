@@ -1,9 +1,9 @@
-// Styling my-page
+/* Styling my-page */
+
 .my-page {
   display: grid;
   grid-gap: 1em;
-  grid-template-areas: "title" "saved-searches";
-
+  grid-template-areas: 'title' 'saved-searches';
   margin: 2em;
 
   .my-page-title {

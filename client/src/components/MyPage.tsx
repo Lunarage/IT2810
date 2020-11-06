@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from "react";
 import LikedMoviesTable from "./LikedMoviesTable";
-import {useSelector, RootStateOrAny} from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 
 
 const Mypage = () => {
@@ -12,10 +12,10 @@ const Mypage = () => {
         <div className={"my-page"}>
             <h2 className={"my-page-title"}>{"Min side"}</h2>
             <h3>Lagrede søk</h3>
-            <LikedMoviesTable username={username}/>
+            <LikedMoviesTable username={username} />
         </div>
-    )
-}
+    );
+};
 
 export default Mypage;
 

@@ -1,18 +1,46 @@
-@import "colors";
-@import "fonts";
+@import 'colors';
+@import 'fonts';
 
-// Global styling
-body {
-  width: 95vw; // only on small screens
-  background-color: $color-primary-0;
-  margin: auto;
-  font-family: $standard-font;
+/* Global styling of body */
+a {
   color: $color-text-black;
+
+  &:hover {
+    color: $color-text-black;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+    //text-shadow: 5px 3px 10px #333; // TODO update shadow color to complement background
+  }
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+/* Styling page body */
+body {
+  background-color: $color-primary-0;
+  color: $color-text-black;
+  font-family: $standard-font;
+  margin: auto;
+  width: 95vw; // only on small screens
 
   // Setting padding/margins for all children of body to 0.
   * {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 }
 
@@ -20,22 +48,21 @@ body {
 .app {
   // CSS-grid app:
   display: grid;
+  grid-gap: 1em;
   grid-template-areas:
-    "banner"
-    "menu"
-    "content";
+    'banner'
+    'menu'
+    'content';
   grid-template-columns: auto;
   grid-template-rows: auto auto auto;
-  grid-gap: 1em;
 }
 
 // Styling the menu/nav-bar
 .site-menu {
   background-color: $color-primary-3;
-  grid-area: menu;
-
   display: grid;
-  grid-template-areas: "home search my-page loginbutton";
+  grid-area: menu;
+  grid-template-areas: 'home search my-page loginbutton';
   grid-template-columns: auto auto auto 1fr;
   justify-content: start; // places the inner grid
   padding: 0.3em;
@@ -60,43 +87,16 @@ body {
 
   // styling menu child login-button
   .login-button {
-    justify-self: end;
     grid-area: loginbutton;
+    justify-self: end;
   }
 }
 
 .content {
-  grid-area: content;
   background-color: $color-primary-1;
+  grid-area: content;
   justify-self: stretch;
   // Styling the start page
-}
-
-h1 {
-  font-weight: bold;
-  font-size: 3em;
-}
-
-h2 {
-  font-weight: bold;
-  font-size: 2em;
-}
-
-h3 {
-  font-size: 1.3em;
-  font-weight: bold;
-}
-
-a {
-  color: $color-text-black;
-
-  &:hover {
-    color: $color-text-black;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: underline;
-    //text-shadow: 5px 3px 10px #333; // TODO update shadow color to complement background
-  }
 }
 
 @media only screen and (min-width: 600px) {
@@ -105,10 +105,10 @@ a {
   }
 }
 
-@import "button";
-@import "input";
-@import "login-page";
-@import "search-page";
-@import "my-page";
-@import "banner";
-@import "start-page";
+@import 'button';
+@import 'input';
+@import 'login-page';
+@import 'search-page';
+@import 'my-page';
+@import 'banner';
+@import 'start-page';

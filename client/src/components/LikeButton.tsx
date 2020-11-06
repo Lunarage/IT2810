@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {Button, Icon} from "semantic-ui-react";
-import {RootStateOrAny, useSelector} from "react-redux";
+import React, { useState } from "react";
+import { Button, Icon } from "semantic-ui-react";
+import { RootStateOrAny, useSelector } from "react-redux";
 import HttpClient from "../modules/HttpClient";
 
 type LikeButtonProps = {
@@ -16,7 +16,7 @@ type State = {
 
 const LikeButton = (props: LikeButtonProps) => {
     const [state, setState] = useState<State>({
-        likedStatus: props.liked
+        likedStatus: props.liked,
     });
 
     // Henter username fra redux
@@ -34,12 +34,12 @@ const LikeButton = (props: LikeButtonProps) => {
         // Spør databasen
         const result = client.getMovie(props.movieID, username);
 
-        console.log(result)
+        console.log(result);
         // Sett state hos SearchResult
         result.then((response) => {
-            setState({likedStatus: response.liked});
+            setState({ likedStatus: response.liked });
         });
-    }
+    };
 
 
     const returnButton = () => {
@@ -50,21 +50,21 @@ const LikeButton = (props: LikeButtonProps) => {
                         <Icon id={"heart-icon"} name="heart" />
                     </div>
                 </Button>
-            )
+            );
         } else {
             return (
                 <Button id={"like-button"} onClick={localHandleClick} icon>
                     <div className={"heart-icon-container"}>
-                        <Icon id={"heart-icon"} name="heart outline"/>
+                        <Icon id={"heart-icon"} name="heart outline" />
                     </div>
                 </Button>
-            )
+            );
         }
-    }
+    };
 
     return (
         returnButton()
-    )
+    );
 };
 
 
