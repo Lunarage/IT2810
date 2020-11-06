@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FormEvent } from "react";
 
 interface Props {
-    userInput: string
-    handleSubmit: () => void
-    handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    userInput: string;
+    handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+    handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const LoginForm = (props: Props) => {
@@ -42,9 +42,7 @@ export const LoginForm = (props: Props) => {
                 </div>
 
                 <div className={"form-group"} />
-                <button
-                    className={"login-button"}
-                    type={"submit"}>
+                <button className={"login-button"} type={"submit"}>
                     Log in
                 </button>
             </form>
