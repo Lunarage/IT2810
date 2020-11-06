@@ -24,7 +24,7 @@ class HttpClient {
     }
 
     // Generic Functions
-    public get<T>(url: string): Promise<T | null> {
+    public get<T>(url: string): Promise<T> {
         return fetch(url, { method: "GET" })
             .then(this.checkStatus)
             .then((res) => res.json())
@@ -33,7 +33,7 @@ class HttpClient {
             });
     }
 
-    public delete<T>(url: string): Promise<T | null> {
+    public delete<T>(url: string): Promise<T> {
         return fetch(url, { method: "DELETE" })
             .then(this.checkStatus)
             .then((res) => res.json())
@@ -42,7 +42,7 @@ class HttpClient {
             });
     }
 
-    public put<T>(url: string): Promise<T | null> {
+    public put<T>(url: string): Promise<T> {
         return fetch(url, { method: "PUT" })
             .then(this.checkStatus)
             .then((res) => res.json())
@@ -145,23 +145,11 @@ class HttpClient {
     }
 
     public createUser(username: string) {
-        return this.put<User[]>(this.baseURL + "/user/" + username).then(
-            (response) => {
-                if (response) {
-                    return response as User[];
-                } else {
-                    return null;
-                }
-            }
-        );
+        return this.put<User[]>(this.baseURL + "/user/" + username);
     }
 
     public deleteUser(username: string) {
-        return this.delete<User[]>(this.baseURL + "/user/" + username).then(
-            (response) => {
-                return (response as User[])[0];
-            }
-        );
+        return this.delete<User[]>(this.baseURL + "/user/" + username);
     }
 }
 
