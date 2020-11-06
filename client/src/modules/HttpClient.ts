@@ -1,5 +1,11 @@
-import fetch from "node-fetch";
+import fetch, { Response } from "node-fetch";
 import { Movie, User, Like } from "../types/DatabaseTypes";
+
+class HttpRequestError extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
 
 class HttpClient {
     private baseURL: string;
@@ -8,40 +14,40 @@ class HttpClient {
         this.baseURL = baseURL;
     }
 
+    // Helper Functions
+    public checkStatus(response: Response): Response | PromiseLike<Response> {
+        if (response.ok) {
+            return response;
+        } else {
+            throw HttpRequestError;
+        }
+    }
+
     // Generic Functions
     public get<T>(url: string): Promise<T | null> {
         return fetch(url, { method: "GET" })
+            .then(this.checkStatus)
             .then((res) => res.json())
             .then((res) => {
                 return res as T;
-            })
-            .catch((error) => {
-                console.error(error);
-                return null;
             });
     }
 
     public delete<T>(url: string): Promise<T | null> {
         return fetch(url, { method: "DELETE" })
+            .then(this.checkStatus)
             .then((res) => res.json())
             .then((res) => {
                 return res as T;
-            })
-            .catch((error) => {
-                console.error(error);
-                return null;
             });
     }
 
     public put<T>(url: string): Promise<T | null> {
         return fetch(url, { method: "PUT" })
+            .then(this.checkStatus)
             .then((res) => res.json())
             .then((res) => {
                 return res as T;
-            })
-            .catch((error) => {
-                console.error(error);
-                return null;
             });
     }
 
@@ -116,7 +122,7 @@ class HttpClient {
 
     public likeMovie(movieId: string, username: string) {
         return this.put<Like[]>(
-            this.baseURL + "/user/" + username + "/LikedMovies/" + movieId,
+            this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
         ).then((response) => {
             return (response as Like[])[0];
         });
@@ -124,7 +130,7 @@ class HttpClient {
 
     public unlikeMovie(movieId: string, username: string) {
         return this.delete<Like[]>(
-            this.baseURL + "/user/" + username + "/LikedMovies/" + movieId,
+            this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
         ).then((response) => {
             return (response as Like[])[0];
         });
@@ -132,7 +138,7 @@ class HttpClient {
 
     public getLikedMovies(username: string) {
         return this.get<Movie[]>(
-            this.baseURL + "/user/" + username + "/LikedMovies/",
+            this.baseURL + "/user/" + username + "/LikedMovies/"
         ).then((response) => {
             return response as Movie[];
         });
@@ -146,7 +152,7 @@ class HttpClient {
                 } else {
                     return null;
                 }
-            },
+            }
         );
     }
 
@@ -154,7 +160,7 @@ class HttpClient {
         return this.delete<User[]>(this.baseURL + "/user/" + username).then(
             (response) => {
                 return (response as User[])[0];
-            },
+            }
         );
     }
 }
