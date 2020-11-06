@@ -1,7 +1,7 @@
 import React from "react";
-import {Accordion} from "semantic-ui-react";
-import {Table} from "semantic-ui-react";
-import {Movie} from "../types/DatabaseTypes";
+import { Accordion } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
+import { Movie } from "../types/DatabaseTypes";
 import LikeButton from "./LikeButton";
 import HttpClient from "../modules/HttpClient";
 
@@ -29,7 +29,7 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                                     disabled={false}
                         />
                     </Table.Cell>,
-                ]
+                ],
             },
             content: {          // Dette er "det skjulte innholdet". Ved klikk på title vises mer informasjon om filmen
                 as: Table.Row,  // legges til som en rad
@@ -68,10 +68,10 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                             </Table.Body>
                         </Table>
                     </Table.Cell>
-                )
-            }
-        }
-    })
+                ),
+            },
+        };
+    });
 
 
     // Returnerer tabellen
@@ -88,9 +88,9 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                 </Table.Row>
             </Table.Header>
             {/* Table body av semantic-ui-Accordion. Denne har rader med title (det som vises) og content (det som er skjult i "trekkspillet".*/}
-            <Accordion fluid as={Table.Body} panels={panels}/>
+            <Accordion fluid as={Table.Body} panels={panels} />
         </Table>
-    )
+    );
 };
 
 // Handles null-values in Movie. Converts 'null' to "---"
@@ -100,7 +100,7 @@ const isNull = (value: any) => {
     } else {
         return "---";
     }
-}
+};
 
 
 // handleLikeClick is called onClick in likeButton. Takes in the movieID, the current username and wether or not the movie is liked.
@@ -116,6 +116,6 @@ const handleLikeClick = (movieID: string, username: string, liked: boolean) => {
     } else {
         client.likeMovie(movieID, username);
     }
-}
+};
 
-export default ResultTableAccordion
+export default ResultTableAccordion;

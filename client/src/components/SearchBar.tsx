@@ -1,5 +1,5 @@
-import React, {Component, FormEvent, useState} from "react";
-import {Input, Radio, Form, Accordion, Select} from "semantic-ui-react";
+import React, { FormEvent, useState } from "react";
+import { Input, Form, Accordion } from "semantic-ui-react";
 
 interface Props {
     searchButtonClicked(input: string, titleType: string, orderDir: string): void;
@@ -24,7 +24,7 @@ const SearchBar = (props: Props) => {
     };
 
     const handleTitleTypeChange = (
-        event: React.ChangeEvent<HTMLSelectElement>
+        event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setTitleTypeState(event.currentTarget.value);
     };
@@ -47,7 +47,7 @@ const SearchBar = (props: Props) => {
 
                             <div className={"order-by-form"}>
                                 <label className={"form-label-bold"} htmlFor={"order-by-input"}>Order By:</label>
-                                <input id={"order-by-input"} placeholder={"Year"} disabled/>
+                                <input id={"order-by-input"} placeholder={"Year"} disabled />
                             </div>
                             <div className="radio-div">
                                 <label htmlFor="asc-radio">Ascending</label>
@@ -72,7 +72,7 @@ const SearchBar = (props: Props) => {
                             <div className="field">
                                 <label className={"form-label-bold"} htmlFor="title-type-select">Title Type:</label>
                                 <select id="title-type-select" onChange={handleTitleTypeChange}>
-                                    <option value=""></option>
+                                    <option value=""/>
                                     <option value="movie">Movie</option>
                                     <option value="tvShort">TV Short</option>
                                     <option value="tvMovie">TV Movie</option>
@@ -110,7 +110,7 @@ const SearchBar = (props: Props) => {
             >
                 Søk
             </button>
-            <Accordion className={"advanced-search"} defaultActiveIndex={-1} tabIndex={0} panels={panels}/>
+            <Accordion className={"advanced-search"} defaultActiveIndex={-1} tabIndex={0} panels={panels} />
         </Form>
     );
 };

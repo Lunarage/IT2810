@@ -1,4 +1,5 @@
-// Stylng login-page
+/* Stylng login-page */
+
 .login-page {
   display: grid;
   justify-content: center;
@@ -6,13 +7,13 @@
   padding-bottom: 5em;
 
   .login-section {
-    border-radius: 8px;
     background-color: $color-tertiary-0;
-    padding: 2em;
+    border-radius: 8px;
     display: grid;
-    grid-template-areas: "title" "form";
-    justify-content: center;
     grid-gap: 2em;
+    grid-template-areas: 'title' 'form';
+    justify-content: center;
+    padding: 2em;
 
     .login-page-title {
       grid-area: title;
@@ -20,15 +21,15 @@
     }
 
     .login-page-form {
-      grid-area: form;
       display: grid;
+      grid-area: form;
       grid-gap: 1.4em;
-      grid-template-areas: "username" "password" "loginbutton";
+      grid-template-areas: 'username' 'password' 'loginbutton';
     }
   }
 }
 
 .form-group {
   display: grid;
-  grid-template-areas: "label" "input";
+  grid-template-areas: 'label' 'input';
 }
