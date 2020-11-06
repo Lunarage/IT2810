@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { logIn } from "../reducers/userSlice";
+import { LoginForm } from "./LoginForm";
 
-//Denne komponenten viser login siden eller en mld om at brukeren er logget inn
+// Denne komponenten viser login-siden, eller en melding om at brukeren er logget inn
 export const LoginPage = () => {
-    //redux funksjonene som henter state fra store og kjører dispacth, som trigger en endring i state
+    //redux-funksjonene som henter state fra store og kjører dispacth, som trigger en endring i state
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state: RootStateOrAny) => state.loggedIn)
         .value;
@@ -22,53 +23,18 @@ export const LoginPage = () => {
         dispatch(logIn(userInput));
     };
 
-    /*renderPage() bestemmer om brukerinnloggingsfeltene skal vises eller om en mld om at brukeren er logget inn skal vises*/
+    /*renderPage() bestemmer om brukerinnloggingsfeltene skal vises, eller om det skal vises en melding om at brukeren er logget inn.*/
     const renderPage = () => {
         if (isLoggedIn === false) {
             return (
-                <div className={"login-section"}>
-                    <h2 className={"login-page-title"}>Log in</h2>
-                    <form className={"login-page-form"} onSubmit={handleSubmit}>
-                        <div className={"form-group username"}>
-                            <label className={"input-label"} htmlFor={"username"}>
-                                Username
-                            </label>
-                            <input
-                                name={"username"}
-                                className={"input"}
-                                value={userInput}
-                                autoFocus
-                                placeholder={"Ola Nordmann"}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className={"form-group password"}>
-                            <label className={"input-label"} htmlFor={"password"}>
-                                Password
-                            </label>
-                            <input
-                                name={"password"}
-                                className={"input"}
-                                type={"password"}
-                                placeholder={"Password"}
-                                disabled
-                            />
-                        </div>
-
-                        <div className={"form-group"}/>
-                        <button className={"login-button"} type={"submit"}>
-                            Log in
-                        </button>
-                    </form>
-                </div>
+                <LoginForm userInput={userInput} handleSubmit={handleSubmit} handleInputChange={handleInputChange} />
             );
         }
         if (isLoggedIn) {
             return (
                 <div>
                     <p>You have been logged in! You can now like and store your favorite
-                        films{" "}</p>
+                        films</p>
                 </div>
             );
         }
