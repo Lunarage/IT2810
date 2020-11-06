@@ -4,7 +4,7 @@ import { logOut } from "../reducers/userSlice";
 
 //Dette komponentet returnerer menyknappene øverst på siden, under banneret. den får inn props med logikken til knappene fra App
 //Den tar også inn informasjon fra store og viser ulike knapper basert på dette
-export const Menu = (props: Props) => {
+export const Menu = (props: MenuProps) => {
     //Henter informasjon fra store om en bruker er logget inn og logut action fra userSlice
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state: RootStateOrAny) => state.loggedIn)
@@ -29,43 +29,71 @@ export const Menu = (props: Props) => {
         );
     }
 
+    const menu = <div className={"site-menu"}></div>;
+
     return (
         <div className={"site-menu"}>
-            <a tabIndex={0} className="home-button" onClick={props.onHomePageClick}>
-                Home
-            </a>
-            <a
-                tabIndex={0}
-                className="search-button"
+            <PageButton
+                text="Home"
+                selected={props.page.homePage}
+                onClick={props.onHomePageClick}
+                buttonClass="home-button"
+            />
+            <PageButton
+                text="Search"
+                selected={props.page.searchPage}
                 onClick={props.onSearchPageClick}
-            >
-                Search
-            </a>
-            {button}
-            {isLoggedIn === true && (
-                <a
-                    tabIndex={0}
-                    className="my-page-button"
+                buttonClass="search-button"
+            />
+            {isLoggedIn && (
+                <PageButton
+                    text="My Page"
+                    selected={props.page.myPage}
                     onClick={props.onMyPageClick}
-                >
-                    My page
-                </a>
+                    buttonClass="my-page-button"
+                />
             )}
+            {button}
         </div>
     );
 };
 
+const PageButton = (props: ButtonProps) => {
+    if (props.selected) {
+        return <p>{props.text}</p>;
+    } else {
+        return (
+            <a
+                tabIndex={0}
+                className={props.buttonClass}
+                onClick={props.onClick}
+            >
+                {props.text}
+            </a>
+        );
+    }
+};
+
 export default Menu;
 
-interface Props {
+interface MenuProps {
     onHomePageClick(): void;
-
     onSearchPageClick(): void;
-
     onMyPageClick(): void;
-
     onLoginPageClick(): void;
+    page: {
+        homePage: boolean;
+        searchPage: boolean;
+        myPage: boolean;
+        loginPage: boolean;
+    };
 }
 
-interface State {
+interface ButtonProps {
+    text: string;
+    selected: boolean;
+    onClick: () => void;
+    buttonClass: string;
 }
+
+interface State {}
