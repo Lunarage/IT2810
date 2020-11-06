@@ -123,6 +123,7 @@ const App = () => {
         <div className="app">
             <Banner onLogoClick={handleLogoClick} />
             <Menu
+                page={state}
                 onMyPageClick={handleMyPageClick}
                 onHomePageClick={handleHomePageClick}
                 onSearchPageClick={handleSearchPageClick}
@@ -135,8 +136,7 @@ const App = () => {
 
 export default App;
 
-interface Props {
-}
+interface Props {}
 
 interface State {
     homePage: boolean;

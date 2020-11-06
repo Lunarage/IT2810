@@ -59,8 +59,12 @@ body * {
   justify-content: start;
   padding: 0.3em;
 }
-.site-menu a {
+.site-menu a,
+.site-menu p {
   margin: 0.5em 1em;
+}
+.site-menu p {
+  font-weight: bold;
 }
 .site-menu .home-button {
   grid-area: home;
