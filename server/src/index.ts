@@ -1,12 +1,10 @@
-import server from './Server';
+import { startServer } from "./Server";
 
-//Set port number of app
+//Set port number of the server
 const port = 3000;
 
-const starter = new server().start(port)
-  .then(port => console.log('Running on port ' + port))
-  .catch(error => {
-    console.log(error)
-  });
-
-export default starter;
+startServer(port)
+    .then((server) => console.log("Running on port " + port))
+    .catch((error) => {
+        console.log(error);
+    });
