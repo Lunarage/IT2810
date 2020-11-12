@@ -1,8 +1,5 @@
 /* Color codes for the app */
 /* See _colors.scss for details */
-/* Main Primary color */
-/* Main Secondary color */
-/* Main Tertiary color */
 /* Importing (and naming) fonts */
 @import url("https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap");
@@ -62,8 +59,12 @@ body * {
   justify-content: start;
   padding: 0.3em;
 }
-.site-menu a {
+.site-menu a,
+.site-menu p {
   margin: 0.5em 1em;
+}
+.site-menu p {
+  font-weight: bold;
 }
 .site-menu .home-button {
   grid-area: home;

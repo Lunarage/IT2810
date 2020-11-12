@@ -1,4 +1,5 @@
 @import 'colors';
+
 @import 'fonts';
 
 /* Global styling of body */
@@ -68,8 +69,13 @@ body {
   padding: 0.3em;
 
   // Styling menu children (links)
-  a {
+  a,
+  p {
     margin: 0.5em 1em;
+  }
+
+  p {
+    font-weight: bold;
   }
 
   //Sets grids for buttons in menu
