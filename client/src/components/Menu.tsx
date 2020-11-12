@@ -1,17 +1,17 @@
 import React from "react";
-import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
-import { logOut } from "../reducers/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../reducers/Actions";
+import { AppState } from "../reducers/Reducer";
 
 //Dette komponentet returnerer menyknappene øverst på siden, under banneret. den får inn props med logikken til knappene fra App
 //Den tar også inn informasjon fra store og viser ulike knapper basert på dette
 export const Menu = (props: Props) => {
     //Henter informasjon fra store om en bruker er logget inn og logut action fra userSlice
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state: RootStateOrAny) => state.loggedIn)
-        .value;
+    const isLoggedIn = useSelector((state: AppState) => state.loggedIn);
 
     const onLogoutButtonClicked = () => {
-        dispatch(logOut());
+        dispatch(logout(false));
     };
     //if statement for om man skal vise en login eller loggut knapp basert på state
     let button;

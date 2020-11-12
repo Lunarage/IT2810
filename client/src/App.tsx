@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
-import { logIn } from "./reducers/userSlice";
+import { AppState } from "./reducers/Reducer";
 import { LocalStorageWrapper, SessionStorageWrapper } from "./modules/Storage";
 import "./css/App.css";
 import Banner from "./components/Banner";
@@ -9,6 +9,7 @@ import LoginPage from "./components/LoginPage";
 import MyPage from "./components/MyPage";
 import Menu from "./components/Menu";
 import StartPage from "./components/StartPage";
+import { set_username } from "./reducers/Actions";
 
 const App = () => {
     // Set initial state
@@ -21,9 +22,8 @@ const App = () => {
 
     // Setup Redux store and actions
     const dispatch = useDispatch();
-    const userStore = useSelector((state: RootStateOrAny) => state.loggedIn);
-    const loggedIn = userStore.value;
-    const username = userStore.username;
+    const loggedIn = useSelector((state: AppState ) => state.loggedIn);
+    const username = useSelector((state: AppState ) => state.userName);
 
     // Set up use of local storage
     const localStorage = new LocalStorageWrapper();
@@ -31,8 +31,9 @@ const App = () => {
     // Log in with same user as last time
     useEffect(() => {
         if (!loggedIn || username == null) {
-            if (localStorage.get("username")) {
-                dispatch(logIn(localStorage.get("username")));
+            const username = localStorage.get("username")
+            if ( username != null) {
+                dispatch(set_username(username));
             }
         }
     });
