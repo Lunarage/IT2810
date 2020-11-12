@@ -1,16 +1,29 @@
-import pool from "./dbconfig";
+/**
+ * @file Builds and does queries on the database related to movies.
+ */
 import { Request, Response } from "express";
+import { QueryConfig } from "pg";
+import { dbQuery } from "./DatabaseConnector";
+import { Movie } from "./DatabaseTypes";
 
-const buildSearchQuery = (request: Request) => {
-    // Number of results per page
-    const responseLimit = 20;
-    // Allowed columns for sorting
-    const allowedColumns = ["title_type", "primary_title", "start_year"];
-
-    //Build query
+/**
+ * Builds a search query based on the given request.
+ *
+ * @param {Request} request - Object that represents the HTTP request
+ * @return {QueryConfig} A complete query with parameters
+ */
+const buildSearchQuery = (request: Request): QueryConfig => {
+    // Parameters for the query is a list
     let parameters = [];
+    // The parameters positions in the query are numbered
+    // e.g
+    //   SELECT * FROM foo WHERE bar = $1
+    // to keep track of the parameter position
+    // we introduce a running total
     let parameterCount = 0;
-    let query;
+
+    // Base queries
+    let query: string;
     if (request.query.username) {
         query =
             "WITH likes AS (" +
@@ -26,6 +39,8 @@ const buildSearchQuery = (request: Request) => {
         query = "SELECT title_basics.*, false AS liked FROM title_basics";
     }
 
+    // Filters
+    // Only apply if filter any are specified
     if (
         request.query.title ||
         request.query.titleType ||
@@ -82,93 +97,115 @@ const buildSearchQuery = (request: Request) => {
             delimiter = " AND";
         }
     }
+
+    // Sorting
+    // Allowed columns for sorting
+    const allowedColumns = ["title_type", "primary_title", "start_year"];
     if (
+        // Check if ordering is requested and on an allowed column
         request.query.orderBy &&
         allowedColumns.includes(request.query.orderBy.toString())
     ) {
         query += " ORDER BY " + request.query.orderBy;
+        // Apply order direction if requested
+        // Order direction cannot be defined as a parameter
+        // To defeat SQL injections,
+        // orderDir is checked and explicitly applied
         if (request.query.orderDir == "ASC") {
             query += " ASC";
         } else if (request.query.orderDir == "DESC") {
             query += " DESC";
         }
     }
+
+    // Limit
+    // Number of results per page
+    const responseLimit = 20;
+
     parameterCount++;
     query += " LIMIT $" + parameterCount;
     parameters.push(responseLimit);
+
+    // Page
     if (Number(request.query.page)) {
+        // A page is an offset equal to a multiple of the limit
         const offset = (Number(request.query.page) - 1) * responseLimit;
         parameterCount++;
         query += " OFFSET $" + parameterCount;
         parameters.push(offset);
     }
 
-    return { query: query, parameters: parameters };
+    // Return the query and parameters
+    return { text: query, values: parameters } as QueryConfig;
 };
 
 class MovieController {
-    public async getMovie(request: Request, response: Response) {
-        // Variable for holding the database connection
-        let client = null;
-        //Define queries
-        const queryGetMovieNoUser =
-            "SELECT title_basics.*, false as liked FROM title_basics WHERE tconst = $1";
-        const queryGetMovieUser =
-            "WITH likes AS (" +
-            " SELECT * FROM title_likes" +
-            " WHERE username = $1)" +
-            " SELECT title_basics.*" +
-            ", CASE WHEN likes.username IS NOT NULL THEN true ELSE false END AS liked" +
-            " FROM title_basics" +
-            " LEFT JOIN likes ON title_basics.tconst = likes.tconst" +
-            " WHERE title_basics.tconst = $2";
-        try {
-            client = await pool.connect();
-            if (request.params.movieId && request.query.username) {
-                // With userId and movieId
-                const { rows } = await client.query(queryGetMovieUser, [
-                    request.query.username,
-                    request.params.movieId,
-                ]);
-                response.status(200).send(rows);
-            } else if (request.params.movieId) {
-                // With movieId
-                const { rows } = await client.query(queryGetMovieNoUser, [
-                    request.params.movieId,
-                ]);
-                response.status(200).send(rows);
-            }
-        } catch (error) {
-            console.error(error);
-            response.status(400).send(error);
-        } finally {
-            if (client != null) {
-                client.release();
-            }
+    /**
+     * Get a specific movie.
+     *
+     * @param {Request} request - Object that represents the HTTP request
+     * @param {Response} response - Object that represents the HTTP response
+     */
+    public getMovie(request: Request, response: Response): void {
+        console.log(request.baseUrl + request.path);
+        let query: QueryConfig;
+        if (request.params.movieId && request.query.username) {
+            query = {
+                text:
+                    "WITH likes AS (" +
+                    " SELECT * FROM title_likes" +
+                    " WHERE username = $1)" +
+                    " SELECT title_basics.*" +
+                    ", CASE WHEN likes.username IS NOT NULL THEN true ELSE false END AS liked" +
+                    " FROM title_basics" +
+                    " LEFT JOIN likes ON title_basics.tconst = likes.tconst" +
+                    " WHERE title_basics.tconst = $2",
+                values: [request.query.username, request.params.movieId],
+            };
+        } else if (request.params.movieId) {
+            query = {
+                text:
+                    "SELECT title_basics.*, false as liked " +
+                    "FROM title_basics " +
+                    "WHERE tconst = $1",
+                values: [request.params.movieId],
+            };
         }
+        console.log(query);
+        dbQuery<Movie>(query)
+            .then((result) => {
+                console.log(result);
+                response.status(200).send(result);
+            })
+            .catch((error) => {
+                console.error(error);
+                response.status(400).send(error);
+            });
     }
 
-    public async searchMovies(request: Request, response: Response) {
-        // Variable for holding the database connection
-        let client = null;
-
-        // Build query
-        const { query, parameters } = buildSearchQuery(request);
-
-        try {
-            client = await pool.connect();
-            console.log(query);
-            console.log(parameters);
-            const { rows } = await client.query(query, parameters);
-            response.status(200).send(rows);
-        } catch (error) {
-            console.error(error);
-            response.status(400).send(error);
-        } finally {
-            if (client != null) {
-                client.release();
-            }
+    /**
+     * Searches for movies.
+     *
+     * @param {Request} request - Object that represents the HTTP request
+     * @param {Response} response - Object that represents the HTTP response
+     */
+    public searchMovies(request: Request, response: Response): void {
+        let requestQuery = "";
+        for (const [key, value] of Object.entries(request.query)) {
+            requestQuery += "?" + key + "=" + value;
         }
+        console.log(request.baseUrl + request.path + requestQuery);
+        const query: QueryConfig = buildSearchQuery(request);
+        console.log(query);
+        dbQuery<Movie>(query)
+            .then((result) => {
+                console.log(result);
+                response.status(200).send(result);
+            })
+            .catch((error) => {
+                console.error(error);
+                response.status(400).send(error);
+            });
     }
 }
 

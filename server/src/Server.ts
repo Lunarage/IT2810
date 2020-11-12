@@ -1,9 +1,13 @@
+/**
+ * @file Specifies the app and includes methods for starting and stopping the server.
+ */
+
 import bodyParser from "body-parser";
 import cors from "cors";
 import express, { Express } from "express";
 import { Server } from "http";
 import { Pool, PoolClient } from "pg";
-import pool from "./dbconfig";
+import pool from "./DatabaseConnector";
 import likeRouter from "./LikeRouter";
 import movieRouter from "./MovieRouter";
 import userRouter from "./UserRouter";
@@ -28,7 +32,13 @@ app.use("/", (request, response) => {
     response.status(200).send("Welcome!");
 });
 
-// Attempt to start server on port number
+/**
+ * Attempts to start the server, listening on a given port.
+ *
+ * @async
+ * @param {number} port - The port the server listens to
+ * @return {Promise<Server>} Promise of a server
+ */
 export const startServer = async (port: number): Promise<Server> => {
     // Check connection to database
     await pool
@@ -56,9 +66,16 @@ export const startServer = async (port: number): Promise<Server> => {
     });
 };
 
-export const closeServer = async (server: Server, pool: Pool) => {
-    // Wait for the server to close
-    await server.close();
+/**
+ * Attempts to stop the server and database pool.
+ *
+ * @async
+ * @param {Server} server - The server object to stop
+ * @param {Pool} pool - The database pool to stop
+ */
+export const stopServer = async (server: Server, pool: Pool) => {
     // Wait for the database pool to end
     await pool.end().catch((error) => console.error(error.message));
+    // Wait for the server to close
+    await server.close();
 };

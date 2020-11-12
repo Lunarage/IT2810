@@ -1,3 +1,6 @@
+/**
+ * @file The entry point for the application. This is the file npm tries to run when `npm start` is run.
+ */
 import { startServer } from "./Server";
 
 //Set port number of the server

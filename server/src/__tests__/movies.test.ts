@@ -1,7 +1,7 @@
 import { Server } from "http";
 import supertest, { Response, SuperTest, Test } from "supertest";
-import pool from "../dbconfig";
-import { closeServer, startServer } from "../Server";
+import pool from "../DatabaseConnector";
+import { stopServer, startServer } from "../Server";
 
 // Set port number of server
 const port = 3001;
@@ -40,11 +40,11 @@ beforeAll(async () => {
 
 // Close the server when finished
 afterAll(async () => {
-    await closeServer(server, pool);
+    await stopServer(server, pool);
 });
 
 describe("GET /", () => {
-    it("Server Responds with 200", async () => {
+    it("Server Responds with 200 OK", async () => {
         const response = await testServer.get("/");
         expect(response.text).toEqual("Welcome!");
         expect(response.status).toEqual(200);
@@ -108,14 +108,12 @@ describe("GET /movie", () => {
         });
     });
     it("Search for title and check if title contains keyword", async () => {
-        const response: Response = await testServer.get("/movie?title=Black");
+        const response: Response = await testServer.get("/movie?title=black");
         expect(Array.isArray(response.body)).toBe(true);
         (response.body as Movie[]).forEach((movie) => {
-            expect(movie.primary_title).toEqual(
-                expect.stringContaining("Black")
+            expect(movie.primary_title.toLowerCase()).toEqual(
+                expect.stringContaining("black")
             );
         });
     });
 });
-
-
