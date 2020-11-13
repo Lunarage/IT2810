@@ -108,7 +108,7 @@ This module is a wrapper for Session Storage an Local Storage
 [Read more about Session Storage on
 MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
 
-[Read more about Session Storage on
+[Read more about Local Storage on
 MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
 
 The two wrappers in this module has identical methods:
