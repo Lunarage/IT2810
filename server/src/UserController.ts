@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 import { QueryConfig } from "pg";
 import { dbQuery } from "./DatabaseConnector";
 import { User } from "./DatabaseTypes";
+import { DEBUG } from "./Server";
 
 class UserController {
     /**
@@ -14,15 +15,16 @@ class UserController {
      * @param {Response} response - Object that represents the HTTP response
      */
     public get(request: Request, response: Response): void {
-        console.log(request.baseUrl + request.path);
         const query: QueryConfig = {
             text: "SELECT * FROM users WHERE username = $1",
             values: [request.params.userId],
         };
-        console.log(query);
+        if (DEBUG) {
+            console.log(request.baseUrl + request.path);
+            console.log(query);
+        }
         dbQuery<User>(query)
             .then((result) => {
-                console.log(result);
                 if (result.length > 0) {
                     // 200 OK
                     response.status(200).send(result);
@@ -45,7 +47,6 @@ class UserController {
      * @param {Response} response - Object that represents the HTTP response
      */
     public create(request: Request, response: Response): void {
-        console.log(request.baseUrl + request.path);
         const query: QueryConfig = {
             text:
                 "INSERT INTO users VALUES ($1) " +
@@ -53,12 +54,20 @@ class UserController {
                 "  DO NOTHING RETURNING username",
             values: [request.params.userId],
         };
-        console.log(query);
+        if (DEBUG) {
+            console.log(request.baseUrl + request.path);
+            console.log(query);
+        }
         dbQuery<User>(query)
             .then((result) => {
-                console.log(result);
-                // 200 OK
-                response.status(200).send(result);
+                if (result.length > 0) {
+                    // 200 OK
+                    response.status(200).send(result);
+                } else {
+                    // User already exists
+                    // 409 Conflict
+                    response.status(409).send(result);
+                }
             })
             .catch((error) => {
                 console.error(error);
@@ -74,18 +83,19 @@ class UserController {
      * @param {Response} response - Object that represents the HTTP response
      */
     public delete(request: Request, response: Response): void {
-        console.log(request.baseUrl + request.path);
         const query: QueryConfig = {
             text: "DELETE FROM users WHERE username = $1 RETURNING username",
             values: [request.params.userId],
         };
-        console.log(query);
+        if (DEBUG) {
+            console.log(request.baseUrl + request.path);
+            console.log(query);
+        }
         dbQuery<User>(query)
             .then((result) => {
-                console.log(result);
                 if (result.length > 0) {
                     // 200 OK
-                    response.status(201).send(result);
+                    response.status(200).send(result);
                 } else {
                     // 404 Not Found
                     response.status(404).send(result);

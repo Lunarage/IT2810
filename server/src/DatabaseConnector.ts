@@ -2,12 +2,13 @@
  * @file Holds the database configuration and methods.
  */
 
-import { Pool, PoolClient, QueryResult, QueryConfig } from "pg";
+import { Pool, QueryConfig } from "pg";
+import { User } from "./DatabaseTypes";
 
 // Name of the role in the database
 const user = "amazing";
 // Address of host
-const host = "localhost";
+const host = "it2810-22.idi.ntnu.no";
 // Name of the database
 const database = "imdb";
 // The port PostgreSQL runs on
@@ -39,7 +40,7 @@ const pool = new Pool({
  * @param {QueryConfig} query - The query and parameters
  * @return {Promise<T[]>} Promise of a result
  */
-export const dbQuery = async <T>(query: QueryConfig): Promise<T[]> => {
+export const dbQuery = <T>(query: QueryConfig): Promise<T[]> => {
     return new Promise<T[]>((resolve, reject) => {
         pool.query(query)
             .then((result) => {
@@ -51,6 +52,29 @@ export const dbQuery = async <T>(query: QueryConfig): Promise<T[]> => {
                     reject(error);
                 })
             );
+    });
+};
+
+/**
+ * Checks if a user exists.
+ *
+ * @param {string} username - The username to check
+ * @return {Promise<boolean>} A promise of existence.
+ */
+export const userExists = (username: string): Promise<boolean> => {
+    const query: QueryConfig = {
+        text: "SELECT username FROM users WHERE username = $1",
+        values: [username],
+    };
+    return new Promise<boolean>((resolve, reject) => {
+        dbQuery<User>(query)
+            .then((result) => {
+                if (result.length > 0) resolve(true);
+                else resolve(false);
+            })
+            .catch((error) => {
+                reject(error);
+            });
     });
 };
 

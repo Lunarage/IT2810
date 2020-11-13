@@ -12,6 +12,9 @@ import likeRouter from "./LikeRouter";
 import movieRouter from "./MovieRouter";
 import userRouter from "./UserRouter";
 
+// Debug setting
+export let DEBUG = false;
+
 // This is our app
 export const app: Express = express();
 
@@ -39,7 +42,14 @@ app.use("/", (request, response) => {
  * @param {number} port - The port the server listens to
  * @return {Promise<Server>} Promise of a server
  */
-export const startServer = async (port: number): Promise<Server> => {
+export const startServer = async (
+    port: number,
+    verbose?: boolean
+): Promise<Server> => {
+    // Let server log to console
+    if (verbose) {
+        DEBUG = true;
+    }
     // Check connection to database
     await pool
         .connect() // type: Promise<PoolClient>

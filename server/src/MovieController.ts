@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 import { QueryConfig } from "pg";
 import { dbQuery } from "./DatabaseConnector";
 import { Movie } from "./DatabaseTypes";
+import { DEBUG } from "./Server";
 
 /**
  * Builds a search query based on the given request.
@@ -45,11 +46,7 @@ const buildSearchQuery = (request: Request): QueryConfig => {
         request.query.title ||
         request.query.titleType ||
         request.query.minYear ||
-        request.query.maxYear ||
-        request.query.genre ||
-        request.query.titleType ||
-        request.query.orderBy ||
-        request.query.orderDir
+        request.query.maxYear
     ) {
         query += " WHERE";
         let delimiter = "";
@@ -80,20 +77,6 @@ const buildSearchQuery = (request: Request): QueryConfig => {
             parameterCount++;
             query += " start_year <= $" + parameterCount;
             parameters.push(request.query.maxYear);
-            delimiter = " AND";
-        }
-        if (request.query.genre) {
-            query += delimiter;
-            parameterCount++;
-            query += " genres ILIKE $" + parameterCount;
-            parameters.push("%" + request.query.genre + "%");
-            delimiter = " AND";
-        }
-        if (request.query.titleType) {
-            query += delimiter;
-            parameterCount++;
-            query += " title_type = $" + parameterCount;
-            parameters.push(request.query.titleType);
             delimiter = " AND";
         }
     }
@@ -147,7 +130,6 @@ class MovieController {
      * @param {Response} response - Object that represents the HTTP response
      */
     public getMovie(request: Request, response: Response): void {
-        console.log(request.baseUrl + request.path);
         let query: QueryConfig;
         if (request.params.movieId && request.query.username) {
             query = {
@@ -171,14 +153,23 @@ class MovieController {
                 values: [request.params.movieId],
             };
         }
-        console.log(query);
+        if (DEBUG) {
+            console.log(request.baseUrl + request.path);
+            console.log(query);
+        }
         dbQuery<Movie>(query)
             .then((result) => {
-                console.log(result);
-                response.status(200).send(result);
+                if (result.length > 0) {
+                    // 200 OK
+                    response.status(200).send(result);
+                } else {
+                    // 404 Not Found
+                    response.status(404).send(result);
+                }
             })
             .catch((error) => {
                 console.error(error);
+                // 400 Bad Request
                 response.status(400).send(error);
             });
     }
@@ -190,20 +181,23 @@ class MovieController {
      * @param {Response} response - Object that represents the HTTP response
      */
     public searchMovies(request: Request, response: Response): void {
-        let requestQuery = "";
-        for (const [key, value] of Object.entries(request.query)) {
-            requestQuery += "?" + key + "=" + value;
-        }
-        console.log(request.baseUrl + request.path + requestQuery);
         const query: QueryConfig = buildSearchQuery(request);
-        console.log(query);
+        if (DEBUG) {
+            let requestQuery = "";
+            for (const [key, value] of Object.entries(request.query)) {
+                requestQuery += "?" + key + "=" + value;
+            }
+            console.log(request.baseUrl + request.path + requestQuery);
+            console.log(query);
+        }
         dbQuery<Movie>(query)
             .then((result) => {
-                console.log(result);
+                // 200 OK
                 response.status(200).send(result);
             })
             .catch((error) => {
                 console.error(error);
+                // 400 Bad Request
                 response.status(400).send(error);
             });
     }
