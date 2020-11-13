@@ -2,14 +2,14 @@ import { Server } from "http";
 import supertest, { Response, SuperTest, Test } from "supertest";
 import pool from "../DatabaseConnector";
 import { stopServer, startServer } from "../Server";
-import { Movie, User } from "../DatabaseTypes";
+import { Like, Movie, User } from "../DatabaseTypes";
 
 // Set port number of server
 const port = 3001;
 
 // Holds the server
 let server: Server;
-let testServer: SuperTest<Test>;
+let request: SuperTest<Test>;
 
 // Start the server before tests
 beforeAll(async () => {
@@ -18,26 +18,24 @@ beforeAll(async () => {
             server = promisedServer;
         })
         .catch((error) => {
-            console.log("No server 😢:");
-            console.log(error.message);
+            console.error("No server 😢:");
+            console.error(error.message);
         });
     // Construct test server
-    testServer = supertest(server);
+    request = supertest(server);
+    // Delete test user
+    await request.delete("/user/fo");
 });
 
 // Close the server when finished
 afterAll(async () => {
+    // Delete test user
+    await request.delete("/user/fo");
+    // Stop server
     await stopServer(server, pool);
 });
 
-describe("GET / 👌", () => {
-    it("Server Responds with 200 OK", async () => {
-        const response = await testServer.get("/");
-        expect(response.text).toEqual("Welcome!");
-        expect(response.status).toEqual(200);
-    });
-});
-
+// A movie known to be in the database
 const sampleMovie: Movie = {
     genres: "Documentary",
     tconst: "tt9655334",
@@ -51,18 +49,38 @@ const sampleMovie: Movie = {
     title_type: "tvMovie",
 };
 
-describe("GET /movie/tt9655334 🎥", () => {
-    it("Retrieve specific movie (Fuglane i folketrua)", async () => {
-        const response: Response = await testServer.get("/movie/tt9655334");
-        expect(Array.isArray(response.body)).toBe(true);
-        expect(response.body[0] as Movie).toMatchObject(sampleMovie);
+const sampleLikedMovie: Movie = {
+    genres: "Documentary",
+    tconst: "tt9655334",
+    start_year: 2018,
+    liked: true,
+    is_adult: false,
+    primary_title: "Fuglane i folketrua",
+    original_title: "Fuglane i folketrua",
+    end_year: null,
+    runtime_minutes: null,
+    title_type: "tvMovie",
+};
+
+describe("GET / 👌", () => {
+    it("Server Responds with 200 OK", async () => {
+        const response = await request.get("/");
+        expect(response.status).toEqual(200);
     });
 });
 
-describe("GET /movie 🗄️", () => {
-    it("Retrieve some movies and check correct types", async () => {
-        const response: Response = await testServer.get("/movie");
+describe("Methods on /movie 🗄️ (MovieController)", () => {
+    it("Retrieve specific movie (Fuglane i folketrua)", async () => {
+        const response: Response = await request.get("/movie/tt9655334");
         expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body[0] as Movie).toMatchObject(sampleMovie);
+    });
+    it("Retrieve some movies and check correct types", async () => {
+        const response: Response = await request.get("/movie");
+        // Expect the response to be an array
+        expect(Array.isArray(response.body)).toBe(true);
+        // Expect to get a list of movies longer than 0
+        expect((response.body as Movie[]).length > 0).toBe(true);
         // Check movies for correct type
         (response.body as Movie[]).forEach((movie) => {
             expect(movie).toHaveProperty("tconst");
@@ -95,7 +113,7 @@ describe("GET /movie 🗄️", () => {
         });
     });
     it("Search for title and check if title contains keyword", async () => {
-        const response: Response = await testServer.get("/movie?title=black");
+        const response: Response = await request.get("/movie?title=black");
         expect(Array.isArray(response.body)).toBe(true);
         (response.body as Movie[]).forEach((movie) => {
             expect(movie.primary_title.toLowerCase()).toEqual(
@@ -105,32 +123,57 @@ describe("GET /movie 🗄️", () => {
     });
 });
 
-describe("Methods on /user 🧑", () => {
+describe("Methods on /user 🧑 (UserController)", () => {
     it("Get non existing user and check for 404", async () => {
-        const response: Response = await testServer.get("/user/fo");
+        const response: Response = await request.get("/user/fo");
         expect(response.status).toBe(404);
     });
     it("Delete non exsisting user and check for 404", async () => {
-        const response: Response = await testServer.delete("/user/fo");
+        const response: Response = await request.delete("/user/fo");
         expect(response.status).toBe(404);
     });
     it("Create user and check for 200", async () => {
-        const response: Response = await testServer.put("/user/fo");
+        const response: Response = await request.put("/user/fo");
         expect(response.status).toBe(200);
     });
     it("Get recently created user and check for 200 and username", async () => {
-        const response: Response = await testServer.get("/user/fo");
+        const response: Response = await request.get("/user/fo");
         expect(response.status).toBe(200);
         expect((response.body as User[])[0].username).toEqual("fo");
     });
     it("Create existing user and check for 409", async () => {
-        const response: Response = await testServer.put("/user/fo");
+        const response: Response = await request.put("/user/fo");
         expect(response.status).toBe(409);
     });
     it("Delete user and check for 200", async () => {
-        const response: Response = await testServer.delete("/user/fo");
+        const response: Response = await request.delete("/user/fo");
         expect(response.status).toBe(200);
     });
 });
 
-describe("Methods on /user/:userId/likedMovies", () => {});
+describe("Methods on /user/:userId/likedMovies (LikeController)", () => {
+    it("Get liked movies for non existing user and check for 404", async () => {
+        const response: Response = await request.get("/user/fo/LikedMovies");
+        expect(response.status).toBe(404);
+    });
+    it("Like a movie for a user", async () => {
+        await request.put("/user/fo");
+        const response: Response = await request.put(
+            "/user/fo/LikedMovies/" + sampleLikedMovie.tconst
+        );
+        expect(response.status).toBe(200);
+        expect(response.body as Like[]).toEqual([{ liked: true }]);
+    });
+    it("Get liked movie for a user", async () => {
+        const response: Response = await request.get(
+            "/user/fo/LikedMovies/" + sampleLikedMovie.tconst
+        );
+        expect(response.status).toBe(200);
+        expect(response.body as Like[]).toEqual([{ liked: true }]);
+    });
+    it("Get liked movies for an existing user and check that the liked movie is in the list", async () => {
+        const response: Response = await request.get("/user/fo/LikedMovies");
+        expect(response.status).toBe(200);
+        expect(response.body as Movie[]).toContainEqual(sampleLikedMovie);
+    });
+});
