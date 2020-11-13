@@ -1,162 +1,156 @@
-import fetch from "node-fetch";
+import fetch, { Response } from "node-fetch";
 import { Movie, User, Like } from "../types/DatabaseTypes";
 
+class HttpRequestError extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
 class HttpClient {
-  private baseURL: string;
+    private baseURL: string;
 
-  constructor(baseURL: string) {
-    this.baseURL = baseURL;
-  }
-
-  // Generic Functions
-  public get<T>(url: string): Promise<T | null> {
-    return fetch(url, { method: "GET" })
-      .then((res) => res.json())
-      .then((res) => {
-        return res as T;
-      })
-      .catch((error) => {
-        console.error(error);
-        return null;
-      });
-  }
-
-  public delete<T>(url: string): Promise<T | null> {
-    return fetch(url, { method: "DELETE" })
-      .then((res) => res.json())
-      .then((res) => {
-        return res as T;
-      })
-      .catch((error) => {
-        console.error(error);
-        return null;
-      });
-  }
-
-  public put<T>(url: string): Promise<T | null> {
-    return fetch(url, { method: "PUT" })
-      .then((res) => res.json())
-      .then((res) => {
-        return res as T;
-      })
-      .catch((error) => {
-        console.error(error);
-        return null;
-      });
-  }
-
-  // Specific functions
-
-  // Optionally supply a username to get liked status for said user
-  public getMovie(movieId: string, username?: string): Promise<Movie> {
-    let searchURL = this.baseURL + "/movie/" + movieId;
-    if (username) {
-      searchURL += "?username=" + username;
+    constructor(baseURL: string) {
+        this.baseURL = baseURL;
     }
-    return this.get<Movie[]>(searchURL).then((response) => {
-      return (response as Movie[])[0];
-    });
-  }
 
-  // Argument is an object
-  public searchMovies(args: {
-    title?: string;
-    titleType?: string;
-    genre?: string;
-    minYear?: number;
-    maxYear?: number;
-    username?: string;
-    page?: number;
-    orderBy?: string;
-    orderDir?: string;
-  }): Promise<Movie[]> {
-    // Build query from arguments
-    let searchURL = this.baseURL + "/movie";
-    let delimiter = "?";
-    if (args.title) {
-      searchURL += delimiter + "title=" + args.title;
-      delimiter = "&";
-    }
-    if (args.titleType) {
-      searchURL += delimiter + "titleType=" + args.titleType;
-      delimiter = "&";
-    }
-    if (args.genre) {
-      searchURL += delimiter + "genre=" + args.genre;
-      delimiter = "&";
-    }
-    if (args.minYear) {
-      searchURL += delimiter + "minYear=" + args.minYear;
-      delimiter = "&";
-    }
-    if (args.maxYear) {
-      searchURL += delimiter + "maxYear=" + args.maxYear;
-      delimiter = "&";
-    }
-    if (args.orderBy) {
-      searchURL += delimiter + "orderBy=" + args.orderBy;
-      delimiter = "&";
-    }
-    if (args.orderDir) {
-      searchURL += delimiter + "orderDir=" + args.orderDir;
-      delimiter = "&";
-    }
-    if (args.page) {
-      searchURL += delimiter + "page=" + args.page;
-      delimiter = "&";
-    }
-    if (args.username) {
-      searchURL += delimiter + "username=" + args.username;
-    }
-    // Send query and return response
-    return this.get<Movie[]>(searchURL).then((response) => {
-      return response as Movie[];
-    });
-  }
-
-  public likeMovie(movieId: string, username: string) {
-    return this.put<Like[]>(
-      this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
-    ).then((response) => {
-      return (response as Like[])[0];
-    });
-  }
-
-  public unlikeMovie(movieId: string, username: string) {
-    return this.delete<Like[]>(
-      this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
-    ).then((response) => {
-      return (response as Like[])[0];
-    });
-  }
-
-  public getLikedMovies(username: string) {
-    return this.get<Movie[]>(
-      this.baseURL + "/user/" + username + "/LikedMovies/"
-    ).then((response) => {
-      return response as Movie[];
-    });
-  }
-
-  public createUser(username: string) {
-    return this.put<User[]>(this.baseURL + "/user/" + username).then(
-      (response) => {
-        if (response) {
-          return response as User[];
+    // Helper Functions
+    public checkStatus(response: Response): Response | PromiseLike<Response> {
+        if (response.ok) {
+            return response;
         } else {
-          return null;
+            throw HttpRequestError;
         }
-      }
-    );
-  }
+    }
 
-  public deleteUser(username: string) {
-    return this.delete<User[]>(this.baseURL + "/user/" + username).then(
-      (response) => {
-        return (response as User[])[0];
-      }
-    );
-  }
+    // Generic Functions
+    public get<T>(url: string): Promise<T> {
+        return fetch(url, { method: "GET" })
+            .then(this.checkStatus)
+            .then((res) => res.json())
+            .then((res) => {
+                return res as T;
+            });
+    }
+
+    public delete<T>(url: string): Promise<T> {
+        return fetch(url, { method: "DELETE" })
+            .then(this.checkStatus)
+            .then((res) => res.json())
+            .then((res) => {
+                return res as T;
+            });
+    }
+
+    public put<T>(url: string): Promise<T> {
+        return fetch(url, { method: "PUT" })
+            .then(this.checkStatus)
+            .then((res) => res.json())
+            .then((res) => {
+                return res as T;
+            });
+    }
+
+    // Specific functions
+
+    // Optionally supply a username to get liked status for said user
+    public getMovie(movieId: string, username?: string): Promise<Movie> {
+        let searchURL = this.baseURL + "/movie/" + movieId;
+        if (username) {
+            searchURL += "?username=" + username;
+        }
+        return this.get<Movie[]>(searchURL).then((response) => {
+            return (response as Movie[])[0];
+        });
+    }
+
+    // Argument is an object
+    public searchMovies(args: {
+        title?: string;
+        titleType?: string;
+        genre?: string;
+        minYear?: number;
+        maxYear?: number;
+        username?: string;
+        page?: number;
+        orderBy?: string;
+        orderDir?: string;
+    }): Promise<Movie[]> {
+        // Build query from arguments
+        let searchURL = this.baseURL + "/movie";
+        let delimiter = "?";
+        if (args.title) {
+            searchURL += delimiter + "title=" + args.title;
+            delimiter = "&";
+        }
+        if (args.titleType) {
+            searchURL += delimiter + "titleType=" + args.titleType;
+            delimiter = "&";
+        }
+        if (args.genre) {
+            searchURL += delimiter + "genre=" + args.genre;
+            delimiter = "&";
+        }
+        if (args.minYear) {
+            searchURL += delimiter + "minYear=" + args.minYear;
+            delimiter = "&";
+        }
+        if (args.maxYear) {
+            searchURL += delimiter + "maxYear=" + args.maxYear;
+            delimiter = "&";
+        }
+        if (args.orderBy) {
+            searchURL += delimiter + "orderBy=" + args.orderBy;
+            delimiter = "&";
+        }
+        if (args.orderDir) {
+            searchURL += delimiter + "orderDir=" + args.orderDir;
+            delimiter = "&";
+        }
+        if (args.page) {
+            searchURL += delimiter + "page=" + args.page;
+            delimiter = "&";
+        }
+        if (args.username) {
+            searchURL += delimiter + "username=" + args.username;
+        }
+        // Send query and return response
+        return this.get<Movie[]>(searchURL).then((response) => {
+            return response as Movie[];
+        });
+    }
+
+    public likeMovie(movieId: string, username: string) {
+        return this.put<Like[]>(
+            this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
+        ).then((response) => {
+            return (response as Like[])[0];
+        });
+    }
+
+    public unlikeMovie(movieId: string, username: string) {
+        return this.delete<Like[]>(
+            this.baseURL + "/user/" + username + "/LikedMovies/" + movieId
+        ).then((response) => {
+            return (response as Like[])[0];
+        });
+    }
+
+    public getLikedMovies(username: string) {
+        return this.get<Movie[]>(
+            this.baseURL + "/user/" + username + "/LikedMovies/"
+        ).then((response) => {
+            return response as Movie[];
+        });
+    }
+
+    public createUser(username: string) {
+        return this.put<User[]>(this.baseURL + "/user/" + username);
+    }
+
+    public deleteUser(username: string) {
+        return this.delete<User[]>(this.baseURL + "/user/" + username);
+    }
 }
 
 export default HttpClient;

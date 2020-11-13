@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import {Table} from "semantic-ui-react";
-import {Movie} from "../types/DatabaseTypes";
+import React, { Component } from "react";
+import { Table } from "semantic-ui-react";
+import { Movie } from "../types/DatabaseTypes";
 import LikeButton from "./LikeButton";
 import HttpClient from "../modules/HttpClient";
 
@@ -17,7 +17,7 @@ class LikedMoviesTable extends Component<Props, State> {
         super(props);
         this.state = {
             movies: [],
-        }
+        };
 
         // Binder this til funksjoner
         this.getMovies = this.getMovies.bind(this);
@@ -33,10 +33,10 @@ class LikedMoviesTable extends Component<Props, State> {
     movieRows() {
         if (this.state.movies.length === 0) {
             return (
-                <Table.Row key={'no_movies_row'}>
-                    <Table.Cell key={'no_movies_cell'} colSpan={2}>No liked movies</Table.Cell>
+                <Table.Row key={"no_movies_row"}>
+                    <Table.Cell key={"no_movies_cell"} colSpan={2}>No liked movies</Table.Cell>
                 </Table.Row>
-            )
+            );
         } else {
             return this.state.movies.map(n => {
                 return (<Table.Row key={`${n.tconst}_row`}>
@@ -44,12 +44,12 @@ class LikedMoviesTable extends Component<Props, State> {
                         <Table.Cell key={`${n.tconst}_liked`}>
                             <LikeButton liked={n.liked}
                                         handleClick={(movieID: string, username: string, liked: boolean) => {
-                                            return
-                                        }} movieID={n.tconst} disabled={true}/>
+                                            return;
+                                        }} movieID={n.tconst} disabled={true} />
                         </Table.Cell>
                     </Table.Row>
-                )
-            })
+                );
+            });
         }
     }
 
@@ -70,9 +70,9 @@ class LikedMoviesTable extends Component<Props, State> {
 
             </Table>
 
-        )
+        );
     }
-    
+
     // Henter filmene brukeren har likt fra databasen.
     getMovies(username: string) {
         // Kommunikasjon med database
@@ -86,7 +86,7 @@ class LikedMoviesTable extends Component<Props, State> {
         // Venter på resultat, og oppdaterer this.state.
         //result.then((response) => this.state = {movies: response,})
 
-        result.then((response) => this.setState({movies: response}));
+        result.then((response) => this.setState({ movies: response }));
     }
 
 

@@ -1,40 +1,70 @@
 /* Color codes for the app */
-/* Main Primary color */
-/* Main Secondary color */
-/* Main Tertiary color */
+/* See _colors.scss for details */
+/* Importing (and naming) fonts */
 @import url("https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+/* Global styling of body */
+a {
+  color: #000;
+}
+a:hover {
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+/* Styling page body */
 body {
-  width: 95vw;
-  background-color: #E4EEDD;
-  margin: auto;
+  background-color: #e4eedd;
+  color: #000;
   font-family: "Source Sans Pro";
-  color: #000000;
+  margin: auto;
+  width: 95vw;
 }
 body * {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .app {
   display: grid;
+  grid-gap: 1em;
   grid-template-areas: "banner" "menu" "content";
   grid-template-columns: auto;
   grid-template-rows: auto auto auto;
-  grid-gap: 1em;
 }
 
 .site-menu {
-  background-color: #CBE2BD;
-  grid-area: menu;
+  background-color: #cbe2bd;
   display: grid;
+  grid-area: menu;
   grid-template-areas: "home search my-page loginbutton";
   grid-template-columns: auto auto auto 1fr;
   justify-content: start;
   padding: 0.3em;
 }
-.site-menu a {
+.site-menu a,
+.site-menu p {
   margin: 0.5em 1em;
+}
+.site-menu p {
+  font-weight: bold;
 }
 .site-menu .home-button {
   grid-area: home;
@@ -46,39 +76,14 @@ body * {
   grid-area: my-page;
 }
 .site-menu .login-button {
-  justify-self: end;
   grid-area: loginbutton;
+  justify-self: end;
 }
 
 .content {
+  background-color: #f8fef5;
   grid-area: content;
-  background-color: #F8FEF5;
   justify-self: stretch;
-}
-
-h1 {
-  font-weight: bold;
-  font-size: 3em;
-}
-
-h2 {
-  font-weight: bold;
-  font-size: 2em;
-}
-
-h3 {
-  font-size: 1.3em;
-  font-weight: bold;
-}
-
-a {
-  color: #000000;
-}
-a:hover {
-  color: #000000;
-  cursor: pointer;
-  font-weight: bold;
-  text-decoration: underline;
 }
 
 @media only screen and (min-width: 600px) {
@@ -86,23 +91,24 @@ a:hover {
     width: 85vw;
   }
 }
+/* Styling buttons */
 button {
+  background-color: #eaeeed;
   border: solid;
-  border-color: #C4D3CE;
-  border-width: 1px;
+  border-color: #c4d3ce;
   border-radius: 8px;
-  background-color: #EAEEED;
-  box-shadow: 3px 3px 3px #95B2A9;
+  border-width: 1px;
+  box-shadow: 3px 3px 3px #95b2a9;
+  cursor: pointer;
+  margin: 2px;
+  padding: 0.5em 1.5em;
   transition: 30ms;
   width: auto;
-  padding: 0.5em 1.5em;
-  margin: 2px;
-  cursor: pointer;
 }
 button:hover {
-  background-color: #C4D3CE;
-  border-color: #95B2A9;
-  box-shadow: 2px 2px 3px #6B9789;
+  background-color: #c4d3ce;
+  border-color: #95b2a9;
+  box-shadow: 2px 2px 3px #6b9789;
   transition: 30ms;
 }
 button:active {
@@ -110,44 +116,45 @@ button:active {
   transition: 30ms;
 }
 button:focus {
-  border-width: 2px;
   border-color: #555;
+  border-width: 2px;
   outline: none;
   transition: 30ms;
 }
 
 #like-button {
-  background-color: #EAEEED;
+  background-color: #eaeeed;
   padding: 0;
 }
 #like-button:hover {
   cursor: auto;
 }
 #like-button .heart-icon-container {
-  padding: 1em 0.8em 0.8em 1em;
-  border: solid #EAEEED;
+  border: solid #eaeeed;
   border-radius: 4px;
+  padding: 1em 0.8em 0.8em 1em;
 }
 #like-button .heart-icon-container:hover {
-  background-color: #C4D3CE;
-  border-color: #C4D3CE;
-  transition: 30ms;
+  background-color: #c4d3ce;
+  border-color: #c4d3ce;
   cursor: pointer;
+  transition: 30ms;
 }
 
+/* Styling input-fields */
 input {
+  background-color: #fdfff6;
   border: solid;
-  border-color: #CBE2BD;
-  border-width: 2px;
+  border-color: #cbe2bd;
   border-radius: 8px;
-  background-color: #FDFFF6;
+  border-width: 2px;
+  margin: 1px;
+  padding: 0.5em;
   transition: 30ms;
   width: auto;
-  padding: 0.5em;
-  margin: 1px;
 }
 input:hover {
-  box-shadow: 1px 1px 3px #A2C78C;
+  box-shadow: 1px 1px 3px #a2c78c;
   transition: 30ms;
 }
 input:active {
@@ -159,17 +166,18 @@ input:focus {
   transition: 30ms;
 }
 input:disabled {
-  background-color: #dddddd;
+  background-color: #ddd;
 }
 
 .radio-div {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 .radio-div > label {
   margin: 0 0.5em;
 }
 
+/* Stylng login-page */
 .login-page {
   display: grid;
   justify-content: center;
@@ -177,21 +185,21 @@ input:disabled {
   padding-bottom: 5em;
 }
 .login-page .login-section {
+  background-color: #f6f9e8;
   border-radius: 8px;
-  background-color: #F6F9E8;
-  padding: 2em;
   display: grid;
+  grid-gap: 2em;
   grid-template-areas: "title" "form";
   justify-content: center;
-  grid-gap: 2em;
+  padding: 2em;
 }
 .login-page .login-section .login-page-title {
   grid-area: title;
   justify-self: center;
 }
 .login-page .login-section .login-page-form {
-  grid-area: form;
   display: grid;
+  grid-area: form;
   grid-gap: 1.4em;
   grid-template-areas: "username" "password" "loginbutton";
 }
@@ -201,6 +209,7 @@ input:disabled {
   grid-template-areas: "label" "input";
 }
 
+/* Styling search-page */
 .search-page {
   display: grid;
   grid-gap: 1em;
@@ -222,22 +231,12 @@ input:disabled {
   margin: 0.5em;
 }
 .search-page .advanced-search {
-  border: #EDF5CD solid;
+  border: #edf5cd solid;
   border-radius: 4px;
   padding: 2px;
 }
 .search-page .advanced-search * {
-  background-color: #FCFDF9;
-}
-.search-page #advanced-search-content .fields {
-  margin: 0;
-  padding: 10px;
-}
-.search-page #advanced-search-content .field {
-  padding: 0;
-}
-.search-page #advanced-search-content .form-label-bold {
-  font-weight: bold;
+  background-color: #fcfdf9;
 }
 .search-page .result-loader {
   margin: 20vh 0;
@@ -249,6 +248,18 @@ input:disabled {
   margin-bottom: 40vh;
 }
 
+#advanced-search-content .fields {
+  margin: 0;
+  padding: 10px;
+}
+#advanced-search-content .field {
+  padding: 0;
+}
+#advanced-search-content .form-label-bold {
+  font-weight: bold;
+}
+
+/* Styling my-page */
 .my-page {
   display: grid;
   grid-gap: 1em;
@@ -258,19 +269,20 @@ input:disabled {
 .my-page .my-page-title {
   justify-self: center;
 }
+/* Styling of banner */
 .banner {
-  background-color: #A2C78C;
-  grid-area: banner;
+  background-color: #a2c78c;
   display: grid;
+  grid-area: banner;
   grid-template-areas: "logo banner-login";
-  grid-template-rows: auto;
   grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
 }
 
 .logo {
-  grid-area: logo;
   font-family: "Merienda";
   font-size: 2em;
+  grid-area: logo;
   padding: 0.2em;
 }
 .logo:hover {
@@ -278,11 +290,11 @@ input:disabled {
 }
 
 .banner-login {
-  grid-area: banner-login;
   align-self: end;
+  color: #808080;
+  grid-area: banner-login;
   justify-self: end;
   padding: 0.2em 0.5em;
-  color: #808080;
 }
 .banner-login .login-info {
   display: none;
@@ -294,12 +306,12 @@ input:disabled {
 @media only screen and (min-width: 375px) {
   .banner-login {
     display: grid;
-    grid-template-areas: "login-info username";
     grid-gap: 0.3em;
+    grid-template-areas: "login-info username";
   }
   .banner-login .login-info {
-    grid-area: login-info;
     display: block;
+    grid-area: login-info;
   }
   .banner-login .login-info-username {
     grid-area: username;
@@ -310,23 +322,24 @@ input:disabled {
     font-size: 4em;
   }
 }
+/* Styling start page */
 .start-page {
+  align-items: center;
   align-self: center;
   display: grid;
-  align-items: center;
   font-size: 1.7em;
   margin: 0.8em 0.2em;
 }
 .start-page p {
   justify-self: center;
-  padding: 0.5vh 2vh 2vh 2vh;
+  padding: 0.5vh 2vh 2vh;
 }
 .start-page .welcome {
   justify-self: center;
   padding: 2vh;
 }
 .start-page .how-to-use {
-  padding: 2vh 2vh 0.5vh 2vh;
+  padding: 2vh 2vh 0.5vh;
 }
 
 @media only screen and (min-width: 600px) and (min-height: 500px) {

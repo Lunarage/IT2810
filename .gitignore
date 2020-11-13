@@ -27,5 +27,16 @@ tags
 **/.idea/
 
 
-## System files
+# System files
 **/debug.log
+
+
+# Sym-link
+# Disse filene skal kun brukes hos gruppemedlem som bruker mac og vscode.
+client/.prettierignore
+client/.prettierrc.json
+client/.stylelintrc.json
+
+server/.prettierignore
+server/.prettierrc.json
+server/.stylelintrc.json

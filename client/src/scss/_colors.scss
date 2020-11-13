@@ -1,34 +1,34 @@
 /* Color codes for the app */
+/* See _colors.scss for details */
 // OLD Palette URL: http://paletton.com/#uid=52E0u0k7DL015ZH3VU1c0-0g+sf
 // NEW Palette URL: http://paletton.com/#uid=52E0u0k2iKm00++0wUH5dzc9ssy
 // Using primary-1-colors from old palette.
 
 // Primary color, green
-$color-primary-0: #E4EEDD; /* Main Primary color */
-$color-primary-1: #F8FEF5;
-$color-primary-2: #F6F9F5;
-$color-primary-3: #CBE2BD;
-$color-primary-4: #A2C78C;
+$color-primary-0: #e4eedd; // Main Primary color
+$color-primary-1: #f8fef5;
+$color-primary-2: #f6f9f5;
+$color-primary-3: #cbe2bd;
+$color-primary-4: #a2c78c;
 
 // Secondary color, cyan
-$color-secondary-0: #C4D3CE; /* Main Secondary color */
-$color-secondary-1: #F3FCF9;
-$color-secondary-2: #EAEEED;
-$color-secondary-3: #95B2A9;
-$color-secondary-4: #6B9789;
+$color-secondary-0: #c4d3ce; // Main Secondary color
+$color-secondary-1: #f3fcf9;
+$color-secondary-2: #eaeeed;
+$color-secondary-3: #95b2a9;
+$color-secondary-4: #6b9789;
 
 // Tertiary color, yellow
-$color-tertiary-0: #F6F9E8; /* Main Tertiary color */
-$color-tertiary-1: #FDFFF6;
-$color-tertiary-2: #FCFDF9;
-$color-tertiary-3: #EDF5CD;
-$color-tertiary-4: #CCDA99;
-
+$color-tertiary-0: #f6f9e8; // Main Tertiary color
+$color-tertiary-1: #fdfff6;
+$color-tertiary-2: #fcfdf9;
+$color-tertiary-3: #edf5cd;
+$color-tertiary-4: #ccda99;
 
 // Text colors
-$color-text-black: #000000;
+$color-text-black: #000;
 $color-text-gray: #808080;
-$color-text-white: #ffffff;
+$color-text-white: #fff;
 
 // Inputs
-$color-field-disabled: #dddddd;
+$color-field-disabled: #ddd;

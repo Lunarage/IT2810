@@ -1,7 +1,23 @@
 {
-    "extends": [
-        "stylelint-config-standard",
-        "stylelint-config-sass-guidelines"
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-sass-guidelines"
+  ],
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "max-nesting-depth": [
+      3,
+      {
+        "ignoreAtRules": [
+          "each",
+          "media",
+          "supports",
+          "include"
+        ]
+      }
     ],
-    "plugins": ["stylelint-scss"]
+    "selector-max-id": 2
+  }
 }

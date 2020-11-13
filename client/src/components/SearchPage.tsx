@@ -3,71 +3,160 @@ import SearchBar from "./SearchBar";
 import SearchResult from "./SearchResult";
 import SearchNavigation from "./SearchNavigation";
 import { RootStateOrAny, useSelector } from "react-redux";
+import { Movie } from "../types/DatabaseTypes";
+import HttpClient from "../modules/HttpClient";
 
-interface State {
-  searchInput: string | null;
-  orderDir: string | null;
-  titleType: string | null;
-  page: number;
+/*
+ * searchInput søkestreng for tittel til film
+ * orderDir om resultatet skal sorteres stigende eller synkende
+ * titleType hvilken type filmen har (Movie, TV Episode etc.)
+ * page er hivlken side av søket man ønsker
+ */
+interface InputState {
+    searchInput: string;
+    orderDir: string;
+    titleType: string;
+    page: number;
 }
 
-/* SearchPage har tilstanden (state) searchInput som mottar en streng fra SearchBar når input sendes inn der ("search").
- * SearchInput sendes som prop til SearchResult, og brukes der til å hente søkeresultat.
+/*
+ * searchStatus beskriver tilstanden til søket
+ * errorMessage inneholder feilmelding fra HttpClient
+ * movies inneholder resultatene av søk
+ * searchInput er strengen som ble søkt på
+ */
+interface SearchState {
+    searchStatus: "none" | "waiting" | "success" | "failure";
+    errorMessage: null | string;
+    movies: Movie[];
+}
+
+/*
+ * SearchPage har tilstandene (states):
+ *  inputState som inneholder søkekriteriene som mottas fra SearchBar når input sendes inn der ("search").
+ *  searchState som inneholder tilstanden til søket og et eventuelt resultat.
  * searchButtonClicked sendes til SearchBar, og kalles når det trykkes "search" der.
- * Rendrer SearchBar (inputfelt + button) og SearchResult (overskrift + ResultTableAccordion)
- * */
+ * pageChange sendes til SearchNavigation, og kalles når man interagerer med den.
+ * Rendrer:
+ *  SearchBar (inputfelt + button),
+ *  SearchResult (overskrift + ResultTableAccordion),
+ *  SearchNavigation (sidevalg)
+ */
 const SearchPage = () => {
-  const [state, setState] = useState<State>({
-    searchInput: null, // om det ikke er søkt etter noe skal input være null
-    orderDir: null,
-    titleType: null,
-    page: 1,
-  });
-
-  const username = useSelector((state: RootStateOrAny) => state.loggedIn)
-    .username;
-
-  return (
-    <div className={"search-page"}>
-      <SearchBar searchButtonClicked={searchButtonClicked} />
-      <SearchNavigation page={state.page} pageChange={pageChange} />
-      <SearchResult
-        searchInput={state.searchInput}
-        titleType={state.titleType}
-        orderDir={state.orderDir}
-        page={state.page}
-        username={username}
-        key={
-          ((((((state.searchInput as string) + state.titleType) as string) +
-            state.orderDir) as string) + state.page) as string
-        }
-      />{" "}
-      {/* Dersom key blir endret vil det opprettes en ny instans av SearchResult. SearchResult kjører search(searchInput)-funksjonen i konstruktøren sin. Slik sikrer vi at det kun søkes om skjemaet er sendt inn (og endret)*/}
-    </div>
-  );
-
-  // Funksjon som kalles i SearchBar. Der sender den tekststrengen i inputfeltet, sorteringsrekkefølge og titleType "opp hit". State blir oppdatert tilsvarende.
-  function searchButtonClicked(
-    input: string,
-    titleType: string,
-    orderDir: string
-  ) {
-    setState({
-      searchInput: input,
-      orderDir: orderDir,
-      titleType: titleType,
-      page: 1,
+    // Initialize states
+    const [inputState, setInputState] = useState<InputState>({
+        searchInput: "",
+        orderDir: "",
+        titleType: "",
+        page: 1,
     });
-  }
 
-  function pageChange(page: number) {
-    setState({
-      searchInput: state.searchInput,
-      orderDir: state.orderDir,
-      titleType: state.titleType,
-      page: page,
+    const [searchState, setSearchState] = useState<SearchState>({
+        searchStatus: "none",
+        errorMessage: null,
+        movies: [],
     });
-  }
+
+    // Get username from Redux
+    const username = useSelector((state: RootStateOrAny) => state.loggedIn)
+        .username;
+
+    // Funksjon som kalles i SearchBar. Der sender den tekststrengen i inputfeltet, sorteringsrekkefølge og titleType "opp hit". State blir oppdatert tilsvarende, og et et søk blir utført.
+    const searchButtonClicked = (
+        input: string,
+        titleType: string,
+        orderDir: string
+    ) => {
+        setInputState({
+            searchInput: input,
+            orderDir: orderDir,
+            titleType: titleType,
+            page: 1,
+        });
+        search(input, titleType, orderDir, 1);
+    };
+
+    // This function is called by the component SearchNavigation on interaction whith the pagination bar.
+    const pageChange = (page: number) => {
+        setInputState({
+            searchInput: inputState.searchInput,
+            orderDir: inputState.orderDir,
+            titleType: inputState.titleType,
+            page: page,
+        });
+        search(
+            inputState.searchInput,
+            inputState.titleType,
+            inputState.orderDir,
+            page
+        );
+    };
+
+    /*
+     * Search() tek inn argument for kva det skal søkast etter.
+     * Spør databasen.
+     * Basert på resultat vert state searchState sett.
+     * Kalles av searchButtonClicked og pageChange.
+     */
+    const search = (
+        searchInput: string,
+        titleType: string,
+        orderDir: string,
+        page: number
+    ) => {
+        // Kommunikasjon med database
+        // Set opp kopling mot databasen
+        const baseURL = "http://it2810-22.idi.ntnu.no:3000";
+        const client = new HttpClient(baseURL);
+
+        // Set state to waiting
+        setSearchState({
+            searchStatus: "waiting",
+            movies: [],
+            errorMessage: null,
+        });
+
+        // Spør databasen
+        const result = client.searchMovies({
+            title: searchInput,
+            titleType: titleType,
+            orderBy: "start_year",
+            orderDir: orderDir,
+            username: username,
+            page: page,
+        });
+
+        // Sett state hos SearchResult
+        result
+            .then((response) => {
+                setSearchState({
+                    movies: response,
+                    searchStatus: "success",
+                    errorMessage: null,
+                });
+            })
+            .catch((error) => {
+                setSearchState({
+                    searchStatus: "failure",
+                    errorMessage: error.message,
+                    movies: [],
+                });
+            });
+    };
+
+    return (
+        <div className={"search-page"}>
+            <SearchBar searchButtonClicked={searchButtonClicked} />
+            <SearchResult
+                searchStatus={searchState.searchStatus}
+                errorMessage={searchState.errorMessage}
+                movies={searchState.movies}
+                searchInput={inputState.searchInput}
+            />
+            <SearchNavigation page={inputState.page} pageChange={pageChange} />
+            {/* Dersom key blir endret vil det opprettes en ny instans av SearchResult. SearchResult kjører search(searchInput)-funksjonen i konstruktøren sin. Slik sikrer vi at det kun søkes om skjemaet er sendt inn (og endret)*/}
+        </div>
+    );
 };
 
 export default SearchPage;
