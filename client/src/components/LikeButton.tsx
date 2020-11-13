@@ -12,7 +12,7 @@ type LikeButtonProps = {
 
 type State = {
     likedStatus: boolean;
-}
+};
 
 const LikeButton = (props: LikeButtonProps) => {
     const [state, setState] = useState<State>({
@@ -20,19 +20,16 @@ const LikeButton = (props: LikeButtonProps) => {
     });
 
     // Henter username fra redux
-    const username = useSelector((state: RootStateOrAny) => state.loggedIn).username;
+    const username = useSelector((state: RootStateOrAny) => state.loggedIn)
+        .username;
 
     // localHandleClick calls handleClick with arguments when button is clicked.
     const localHandleClick = () => {
         // Kaller handleClick i ResultTableAccordion
         props.handleClick(props.movieID, username, state.likedStatus);
 
-        // Set opp kopling mot databasen
-        const baseURL = "http://it2810-22.idi.ntnu.no:3000";
-        const client = new HttpClient(baseURL);
-
         // Spør databasen
-        const result = client.getMovie(props.movieID, username);
+        const result = HttpClient.getMovie(props.movieID, username);
 
         console.log(result);
         // Sett state hos SearchResult
@@ -41,11 +38,15 @@ const LikeButton = (props: LikeButtonProps) => {
         });
     };
 
-
     const returnButton = () => {
         if (state.likedStatus) {
             return (
-                <Button id={"like-button"} disabled={props.disabled} onClick={localHandleClick} icon>
+                <Button
+                    id={"like-button"}
+                    disabled={props.disabled}
+                    onClick={localHandleClick}
+                    icon
+                >
                     <div className={"heart-icon-container"}>
                         <Icon id={"heart-icon"} name="heart" />
                     </div>
@@ -62,10 +63,7 @@ const LikeButton = (props: LikeButtonProps) => {
         }
     };
 
-    return (
-        returnButton()
-    );
+    return returnButton();
 };
-
 
 export default LikeButton;

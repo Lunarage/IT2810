@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { logOut } from "../reducers/userSlice";
+import { LocalStorage } from "../modules/Storage";
 
 //Dette komponentet returnerer menyknappene øverst på siden, under banneret. den får inn props med logikken til knappene fra App
 //Den tar også inn informasjon fra store og viser ulike knapper basert på dette
@@ -11,6 +12,8 @@ export const Menu = (props: MenuProps) => {
         .value;
 
     const onLogoutButtonClicked = () => {
+        // Remove username from local storage
+        LocalStorage.remove("username");
         dispatch(logOut());
     };
     //if statement for om man skal vise en login eller loggut knapp basert på state
@@ -28,8 +31,6 @@ export const Menu = (props: MenuProps) => {
             </button>
         );
     }
-
-    const menu = <div className={"site-menu"}></div>;
 
     return (
         <div className={"site-menu"}>

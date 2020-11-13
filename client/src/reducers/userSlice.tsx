@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import HttpClient from "../modules/HttpClient";
-import { SessionStorageWrapper, LocalStorageWrapper } from "../modules/Storage";
 
 // redux komponent som lager en "slice" av store hvor vi kan definere en reducer og actions som handler om en bruker logget inn eller ikke
 const loginSlice = createSlice({
@@ -9,17 +7,10 @@ const loginSlice = createSlice({
 
     reducers: {
         logIn: (state, action) => {
-            const baseURL = "http://it2810-22.idi.ntnu.no:3000";
-            const client = new HttpClient(baseURL);
-            const localStorage = new LocalStorageWrapper();
-            localStorage.set("username", action.payload);
-            client.createUser(action.payload);
             state.value = true;
             state.username = action.payload;
         },
         logOut: (state) => {
-            const localStorage = new LocalStorageWrapper();
-            localStorage.remove("username");
             state.value = false;
             state.username = null;
         },

@@ -104,11 +104,6 @@ const SearchPage = () => {
         orderDir: string,
         page: number
     ) => {
-        // Kommunikasjon med database
-        // Set opp kopling mot databasen
-        const baseURL = "http://it2810-22.idi.ntnu.no:3000";
-        const client = new HttpClient(baseURL);
-
         // Set state to waiting
         setSearchState({
             searchStatus: "waiting",
@@ -117,7 +112,7 @@ const SearchPage = () => {
         });
 
         // Spør databasen
-        const result = client.searchMovies({
+        const result = HttpClient.searchMovies({
             title: searchInput,
             titleType: titleType,
             orderBy: "start_year",
