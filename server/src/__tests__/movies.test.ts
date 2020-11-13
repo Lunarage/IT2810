@@ -2,6 +2,7 @@ import { Server } from "http";
 import supertest, { Response, SuperTest, Test } from "supertest";
 import pool from "../DatabaseConnector";
 import { stopServer, startServer } from "../Server";
+import { Movie, User } from "../DatabaseTypes";
 
 // Set port number of server
 const port = 3001;
@@ -10,21 +11,7 @@ const port = 3001;
 let server: Server;
 let testServer: SuperTest<Test>;
 
-// Type of movies
-type Movie = {
-    tconst: string;
-    title_type: string;
-    primary_title: string;
-    original_title: string;
-    is_adult: boolean;
-    end_year: number | null;
-    start_year: number;
-    runtime_minutes: number | null;
-    genres: string | null;
-    liked: boolean;
-};
-
-// Start the server
+// Start the server before tests
 beforeAll(async () => {
     await startServer(port)
         .then((promisedServer: Server) => {
@@ -43,7 +30,7 @@ afterAll(async () => {
     await stopServer(server, pool);
 });
 
-describe("GET /", () => {
+describe("GET / 👌", () => {
     it("Server Responds with 200 OK", async () => {
         const response = await testServer.get("/");
         expect(response.text).toEqual("Welcome!");
@@ -64,7 +51,7 @@ const sampleMovie: Movie = {
     title_type: "tvMovie",
 };
 
-describe("GET /movie/tt9655334", () => {
+describe("GET /movie/tt9655334 🎥", () => {
     it("Retrieve specific movie (Fuglane i folketrua)", async () => {
         const response: Response = await testServer.get("/movie/tt9655334");
         expect(Array.isArray(response.body)).toBe(true);
@@ -72,7 +59,7 @@ describe("GET /movie/tt9655334", () => {
     });
 });
 
-describe("GET /movie", () => {
+describe("GET /movie 🗄️", () => {
     it("Retrieve some movies and check correct types", async () => {
         const response: Response = await testServer.get("/movie");
         expect(Array.isArray(response.body)).toBe(true);
@@ -117,3 +104,33 @@ describe("GET /movie", () => {
         });
     });
 });
+
+describe("Methods on /user 🧑", () => {
+    it("Get non existing user and check for 404", async () => {
+        const response: Response = await testServer.get("/user/fo");
+        expect(response.status).toBe(404);
+    });
+    it("Delete non exsisting user and check for 404", async () => {
+        const response: Response = await testServer.delete("/user/fo");
+        expect(response.status).toBe(404);
+    });
+    it("Create user and check for 200", async () => {
+        const response: Response = await testServer.put("/user/fo");
+        expect(response.status).toBe(200);
+    });
+    it("Get recently created user and check for 200 and username", async () => {
+        const response: Response = await testServer.get("/user/fo");
+        expect(response.status).toBe(200);
+        expect((response.body as User[])[0].username).toEqual("fo");
+    });
+    it("Create existing user and check for 409", async () => {
+        const response: Response = await testServer.put("/user/fo");
+        expect(response.status).toBe(409);
+    });
+    it("Delete user and check for 200", async () => {
+        const response: Response = await testServer.delete("/user/fo");
+        expect(response.status).toBe(200);
+    });
+});
+
+describe("Methods on /user/:userId/likedMovies", () => {});
