@@ -91,3 +91,6 @@ export class SessionStorageWrapper {
         }
     }
 }
+
+export const SessionStorage = new SessionStorageWrapper();
+export const LocalStorage = new LocalStorageWrapper();
