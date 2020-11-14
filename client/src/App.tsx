@@ -25,7 +25,7 @@ const App = () => {
     // Setup Redux store and actions
     const dispatch = useDispatch();
     const loggedIn: boolean = useSelector((state: AppState ) => state.loggedIn);
-    const userName: string = useSelector((state: AppState ) => state.userName);
+    const userName = useSelector((state: AppState ) => state.userName);
 
     // Set up use of local storage
     const localStorage = new LocalStorageWrapper();
