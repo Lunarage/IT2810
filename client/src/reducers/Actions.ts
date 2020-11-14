@@ -1,5 +1,3 @@
-import HttpClient from "../modules/HttpClient";
-import { SessionStorageWrapper, LocalStorageWrapper } from "../modules/Storage";
 
 export const toggle_loggedIn = (boolVal: boolean) => {
     return {

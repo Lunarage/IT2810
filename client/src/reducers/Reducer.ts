@@ -1,6 +1,5 @@
 import { toggle_loggedIn, logout, set_username } from "./Actions"
 import { createStore, Store } from "redux";
-import { createSlice } from "@reduxjs/toolkit";
 
 type Actions =
   | ReturnType<typeof toggle_loggedIn>
