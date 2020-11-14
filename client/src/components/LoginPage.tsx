@@ -4,7 +4,7 @@ import { AppState } from "../reducers/Reducer";
 import { set_username } from "../reducers/Actions";
 import { LoginForm } from "./LoginForm";
 import HttpClient from "../modules/HttpClient";
-import { SessionStorageWrapper, LocalStorageWrapper } from "../modules/Storage";
+import { LocalStorage } from "../modules/Storage";
 import { User } from "../types/DatabaseTypes";
 import { Loader } from "semantic-ui-react";
 
@@ -35,21 +35,13 @@ export const LoginPage = () => {
     // Attempt to log in on submit
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const baseURL = "http://it2810-22.idi.ntnu.no:3000";
-        const client = new HttpClient(baseURL);
-        const result = client.createUser(userInput);
+        const result = HttpClient.loginOrCreateUser(userInput);
         setSubmitState({ status: "waiting", errorMessage: "" });
         result
-            .then((response) => {
+            .then(() => {
                 setSubmitState({ status: "success", errorMessage: "" });
-                if (response.length > 0) {
-                    // New user
-                    const user = response[0];
-                } else {
-                    // Existing user
-                }
-                const localStorage = new LocalStorageWrapper();
-                localStorage.set("username", userInput);
+                // Store username in local storage
+                LocalStorage.set("username", userInput);
                 // Update redux with username
                 dispatch(set_username(userInput));
             })
@@ -59,7 +51,7 @@ export const LoginPage = () => {
                     errorMessage: error.message,
                 });
                 // Handle error
-                console.log(error);
+                console.error(error);
             });
     };
 
