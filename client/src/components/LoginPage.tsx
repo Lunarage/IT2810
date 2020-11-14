@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
-import { logIn } from "../reducers/userSlice";
+import { AppState } from "../reducers/Reducer";
+import { set_username } from "../reducers/Actions";
 import { LoginForm } from "./LoginForm";
 import HttpClient from "../modules/HttpClient";
 import { SessionStorageWrapper, LocalStorageWrapper } from "../modules/Storage";
@@ -16,8 +17,7 @@ type SubmitState = {
 export const LoginPage = () => {
     //redux-funksjonene som henter state fra store og kjører dispacth, som trigger en endring i state
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state: RootStateOrAny) => state.loggedIn)
-        .value;
+    const isLoggedIn = useSelector((state: AppState) => state.loggedIn);
 
     // Create a state with the content of the username input
     const [userInput, setUserInput] = useState<string>("");
@@ -51,7 +51,7 @@ export const LoginPage = () => {
                 const localStorage = new LocalStorageWrapper();
                 localStorage.set("username", userInput);
                 // Update redux with username
-                dispatch(logIn(userInput));
+                dispatch(set_username(userInput));
             })
             .catch((error) => {
                 setSubmitState({

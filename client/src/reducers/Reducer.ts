@@ -1,5 +1,6 @@
 import { toggle_loggedIn, logout, set_username } from "./Actions"
-import { createStore } from "@reduxjs/toolkit";
+import { createStore, Store } from "redux";
+import { createSlice } from "@reduxjs/toolkit";
 
 type Actions =
   | ReturnType<typeof toggle_loggedIn>
@@ -8,15 +9,15 @@ type Actions =
 
 export type AppState = {
     loggedIn: boolean;
-    userName?: string | null
+    userName?: string | null;
 };
 
 const initialAppState: AppState = {
     loggedIn: false,
     userName: null,
-}
+};
 
-const rootReducer = (state: AppState = initialAppState,  action: Actions) => {
+export const rootReducer = (state: AppState = initialAppState,  action: Actions) => {
     switch (action.type) {
         case 'TOGGLE_LOGGED_IN':
             return {
@@ -36,33 +37,21 @@ const rootReducer = (state: AppState = initialAppState,  action: Actions) => {
                 loggedIn: action.payload,
                 userName: null
             };
+        default:
+            return state
     }
 };
 
-const store = createStore(rootReducer)
+function configureStore(): Store<AppState> {
+    return createStore(
+      rootReducer,
+      (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+    );
+  }
 
-export default store
-    
-/*
-    {
-        login: (state, action) => {
-            const baseURL = "http://it2810-22.idi.ntnu.no:3000";
-            const client = new HttpClient(baseURL);
-            const localStorage = new LocalStorageWrapper();
-            localStorage.set("username", action.payload);
-            client.createUser(action.payload);
-            state.value = true;
-            state.username = action.payload;
-        },
-        logout: (state) => {
-            const localStorage = new LocalStorageWrapper();
-            localStorage.remove("username");
-            state.value = false;
-            state.username = null;
-        },
-    },
-});
-*/
+export const store = configureStore()
+
+console.log(store.getState)
 
 
 /* These sites are used as src for this code: 

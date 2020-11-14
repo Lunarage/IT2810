@@ -5,11 +5,12 @@ import "semantic-ui-css/semantic.min.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import store from "../src/reducers/Reducer";
+import { store } from "./reducers/Reducer";
+
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
+        <Provider store = {store}>
             <App />
         </Provider>
     </React.StrictMode>,

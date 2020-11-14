@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "./reducers/Reducer";
 import { LocalStorageWrapper, SessionStorageWrapper } from "./modules/Storage";
 import "./css/App.css";
@@ -11,6 +11,7 @@ import Menu from "./components/Menu";
 import StartPage from "./components/StartPage";
 import { set_username } from "./reducers/Actions";
 
+
 const App = () => {
     // Set initial state
     const [state, setState] = useState<State>({
@@ -20,20 +21,21 @@ const App = () => {
         loginPage: false,
     });
 
+
     // Setup Redux store and actions
     const dispatch = useDispatch();
-    const loggedIn = useSelector((state: AppState ) => state.loggedIn);
-    const username = useSelector((state: AppState ) => state.userName);
+    const loggedIn: boolean = useSelector((state: AppState ) => state.loggedIn);
+    const userName: string = useSelector((state: AppState ) => state.userName);
 
     // Set up use of local storage
     const localStorage = new LocalStorageWrapper();
 
     // Log in with same user as last time
     useEffect(() => {
-        if (!loggedIn || username == null) {
-            const username = localStorage.get("username")
-            if ( username != null) {
-                dispatch(set_username(username));
+        if (!loggedIn || userName == null) {
+            const userName = localStorage.get("username")
+            if ( userName != null) {
+                dispatch(set_username(userName));
             }
         }
     });
@@ -122,6 +124,7 @@ const App = () => {
     };
     return (
         <div className="app">
+            
             <Banner onLogoClick={handleLogoClick} />
             <Menu
                 page={state}
