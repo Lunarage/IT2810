@@ -10,13 +10,23 @@ import HttpClient from "../modules/HttpClient";
  * searchInput søkestreng for tittel til film
  * orderDir om resultatet skal sorteres stigende eller synkende
  * titleType hvilken type filmen har (Movie, TV Episode etc.)
- * page er hivlken side av søket man ønsker
  */
 interface InputState {
     searchInput: string;
     orderDir: string;
     titleType: string;
-    page: number;
+}
+
+/*
+ * activePage - Hvilen side man er på
+ * totalPages - Hvor mange sider det er totalt
+ *   (Utvides dynamisk)
+ *
+ */
+interface PageState {
+    activePage: number;
+    totalPages: number;
+    disabled: boolean;
 }
 
 /*
@@ -48,7 +58,12 @@ const SearchPage = () => {
         searchInput: "",
         orderDir: "",
         titleType: "",
-        page: 1,
+    });
+
+    const [pageState, setPageState] = useState<PageState>({
+        activePage: 1,
+        totalPages: 2,
+        disabled: false,
     });
 
     const [searchState, setSearchState] = useState<SearchState>({
@@ -71,19 +86,18 @@ const SearchPage = () => {
             searchInput: input,
             orderDir: orderDir,
             titleType: titleType,
-            page: 1,
+        });
+        // Set sidetilstanden tilbake til start
+        setPageState({
+            activePage: 1,
+            totalPages: 2,
+            disabled: false,
         });
         search(input, titleType, orderDir, 1);
     };
 
     // This function is called by the component SearchNavigation on interaction whith the pagination bar.
     const pageChange = (page: number) => {
-        setInputState({
-            searchInput: inputState.searchInput,
-            orderDir: inputState.orderDir,
-            titleType: inputState.titleType,
-            page: page,
-        });
         search(
             inputState.searchInput,
             inputState.titleType,
@@ -129,6 +143,32 @@ const SearchPage = () => {
                     searchStatus: "success",
                     errorMessage: null,
                 });
+                // Oppdater sidetilstanden
+                if (response.length >= 20) {
+                    // Det finnes kanskje flere resultater
+                    // Gjør det mulig å spørre om neste side:
+                    setPageState({
+                        activePage: page,
+                        totalPages: page + 1,
+                        disabled: false,
+                    });
+                } else if (page === 1) {
+                    // Det finnes ikke flere resultater
+                    // Vi er på den eneste siden:
+                    setPageState({
+                        activePage: page,
+                        totalPages: page,
+                        disabled: true,
+                    });
+                } else {
+                    // Det finnes ikke flere resultater
+                    // Vi er på siste side:
+                    setPageState({
+                        activePage: page,
+                        totalPages: page,
+                        disabled: false,
+                    });
+                }
             })
             .catch((error) => {
                 setSearchState({
@@ -148,8 +188,12 @@ const SearchPage = () => {
                 movies={searchState.movies}
                 searchInput={inputState.searchInput}
             />
-            <SearchNavigation page={inputState.page} pageChange={pageChange} />
-            {/* Dersom key blir endret vil det opprettes en ny instans av SearchResult. SearchResult kjører search(searchInput)-funksjonen i konstruktøren sin. Slik sikrer vi at det kun søkes om skjemaet er sendt inn (og endret)*/}
+            <SearchNavigation
+                activePage={pageState.activePage}
+                totalPages={pageState.totalPages}
+                disabled={pageState.disabled}
+                pageChange={pageChange}
+            />
         </div>
     );
 };
