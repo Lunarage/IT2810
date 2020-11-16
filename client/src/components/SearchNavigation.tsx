@@ -2,7 +2,9 @@ import React, { SyntheticEvent } from "react";
 import { Pagination } from "semantic-ui-react";
 
 type NavigationProps = {
-    page: number;
+    totalPages: number;
+    activePage: number;
+    disabled: boolean;
     pageChange: (page: number) => void;
 };
 
@@ -13,13 +15,12 @@ const SearchNavigation = (props: NavigationProps) => {
 
     return (
         <Pagination
-            totalPages={10000}
-            activePage={props.page}
+            totalPages={props.totalPages}
+            activePage={props.activePage}
             onPageChange={handlePageChange}
-            boundaryRange={0}
-            ellipsisItem={null}
-            firstItem={null}
+            boundaryRange={1}
             lastItem={null}
+            disabled={props.disabled}
         />
     );
 };
