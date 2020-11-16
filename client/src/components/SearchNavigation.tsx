@@ -20,6 +20,7 @@ const SearchNavigation = (props: NavigationProps) => {
             activePage={props.activePage}
             onPageChange={handlePageChange}
             boundaryRange={1}
+            firstItem={null}
             lastItem={null}
             disabled={props.disabled}
         />
