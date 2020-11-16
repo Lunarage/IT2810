@@ -44,9 +44,10 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                 // Dette er "det skjulte innholdet". Ved klikk på title vises mer informasjon om filmen
                 as: Table.Row, // legges til som en rad
                 className: "accordion-content",
-                classID: "accordion-content-row",
+                // Hva gjør egentlig denne?
+                // classID: "accordion-content-row",
                 content: (
-                    <Table.Cell key={`${n.tconst}content`}>
+                    <Table.Cell key={`${n.tconst}content`} colSpan={5}>
                         {" "}
                         {/* i raden er en celle, inne i cellen er en ny tabell */}
                         <Table className="accordion-inner-table">
@@ -118,7 +119,7 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
 
     // Returnerer tabellen
     return (
-        <Table celled /*selectable={true}*/>
+        <Table celled /*selectable={true}*/ id="search-result-table">
             {/* Table header av semantic-ui-Table */}
             <Table.Header>
                 <Table.Row>
