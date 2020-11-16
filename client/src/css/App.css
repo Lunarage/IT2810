@@ -227,9 +227,6 @@ input:disabled {
   grid-area: navigation;
   justify-self: center;
 }
-.search-page .search-navigation * {
-  margin: 0.5em;
-}
 .search-page .advanced-search {
   border: #edf5cd solid;
   border-radius: 4px;
