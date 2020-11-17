@@ -3,11 +3,33 @@ import { Accordion } from "semantic-ui-react";
 import { Table } from "semantic-ui-react";
 import { Movie } from "../types/DatabaseTypes";
 import LikeButton from "./LikeButton";
-import HttpClient from "../modules/HttpClient";
+import { useSelector } from "react-redux";
+import { AppState } from "../reducers/Reducer";
 
 /* ResultTableAccordion får inn en liste av filmer movies fra SearchResult.
  * Disse presenteres som en tabell der radene er "trekkspill", altså at det vises mer info om filmen i den enkelte raden om den trykkes på. Dette innholdet ligger i en ny tabell.*/
 const ResultTableAccordion = (props: { movies: Movie[] }) => {
+    const isLoggedIn = useSelector((state: AppState) => state.loggedIn);
+
+    // Dersom en bruker er logget inn skal det rendres en kolonne med tittel "Liked"
+    const likedHeaderCell = () => {
+        if (isLoggedIn) {
+            return <Table.HeaderCell>Liked</Table.HeaderCell>;
+        }
+    };
+
+    // Dersom en bruker er logget inn skal liked-statusen til filmen n vises i kolonnen med tittel "Liked"
+    const likedRowCell = (n: Movie) => {
+        if (isLoggedIn) {
+            return (
+                <Table.Cell key={`${n.tconst}_liked`}>
+                    <LikeButton
+                        movieID={n.tconst}
+                    />
+                </Table.Cell>);
+        }
+    };
+
     const panels = props.movies.map((n) => {
         return {
             key: n.tconst, // Unik nøkkel, basert på tconst-ID i databasen
@@ -30,14 +52,7 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                     <Table.Cell key={`${n.tconst}_genres`}>
                         {isNull(n.genres)}
                     </Table.Cell>,
-                    <Table.Cell key={`${n.tconst}_liked`}>
-                        <LikeButton
-                            liked={n.liked}
-                            handleClick={handleLikeClick}
-                            movieID={n.tconst}
-                            disabled={false}
-                        />
-                    </Table.Cell>,
+                    likedRowCell(n), /* Dersom en bruker er logget inn vil filmens liked-status vises. */
                 ],
             },
             content: {
@@ -127,7 +142,7 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                     <Table.HeaderCell>Type</Table.HeaderCell>
                     <Table.HeaderCell>Year</Table.HeaderCell>
                     <Table.HeaderCell>Genre</Table.HeaderCell>
-                    <Table.HeaderCell>Liked</Table.HeaderCell>
+                    {likedHeaderCell() /* Om en bruker er logget inn skal kolonnen "Liked" vises.*/}
                 </Table.Row>
             </Table.Header>
             {/* Table body av semantic-ui-Accordion. Denne har rader med title (det som vises) og content (det som er skjult i "trekkspillet".*/}
@@ -145,15 +160,5 @@ const isNull = (value: any) => {
     }
 };
 
-// handleLikeClick is called onClick in likeButton. Takes in the movieID, the current username and wether or not the movie is liked.
-const handleLikeClick = (movieID: string, username: string, liked: boolean) => {
-    // Asking database
-    // If movie is liked: dislike, else like.
-    if (liked) {
-        HttpClient.unlikeMovie(movieID, username);
-    } else {
-        HttpClient.likeMovie(movieID, username);
-    }
-};
 
 export default ResultTableAccordion;
