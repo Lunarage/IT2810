@@ -15,7 +15,11 @@ export const Menu = (props: MenuProps) => {
         dispatch(logout(false));
         // Remove username from local storage
         LocalStorage.remove("username");
+        // Remove username from redux store
+        // Tell app we loged out
+        props.onLogoutClick();
     };
+
     //if statement for om man skal vise en login eller loggut knapp basert på state
     let button;
     if (isLoggedIn) {
@@ -36,20 +40,20 @@ export const Menu = (props: MenuProps) => {
         <div className={"site-menu"}>
             <PageButton
                 text="Home"
-                selected={props.page.homePage}
+                selected={props.currentPage === "home"}
                 onClick={props.onHomePageClick}
                 buttonClass="home-button"
             />
             <PageButton
                 text="Search"
-                selected={props.page.searchPage}
+                selected={props.currentPage === "search"}
                 onClick={props.onSearchPageClick}
                 buttonClass="search-button"
             />
             {isLoggedIn && (
                 <PageButton
                     text="My Page"
-                    selected={props.page.myPage}
+                    selected={props.currentPage === "my"}
                     onClick={props.onMyPageClick}
                     buttonClass="my-page-button"
                 />
@@ -82,12 +86,8 @@ interface MenuProps {
     onSearchPageClick(): void;
     onMyPageClick(): void;
     onLoginPageClick(): void;
-    page: {
-        homePage: boolean;
-        searchPage: boolean;
-        myPage: boolean;
-        loginPage: boolean;
-    };
+    onLogoutClick(): void;
+    currentPage: "home" | "search" | "my" | "login";
 }
 
 interface ButtonProps {

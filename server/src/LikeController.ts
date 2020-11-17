@@ -26,7 +26,8 @@ class LikeController {
                             "SELECT title_basics.*, true AS liked " +
                             "FROM title_likes " +
                             "JOIN title_basics ON title_likes.tconst = title_basics.tconst " +
-                            "WHERE title_likes.username = $1",
+                            "WHERE title_likes.username = $1 " +
+                            "ORDER BY tconst",
                         values: [request.params.userId],
                     };
                     if (DEBUG) {

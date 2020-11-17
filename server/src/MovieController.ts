@@ -84,21 +84,25 @@ const buildSearchQuery = (request: Request): QueryConfig => {
     // Sorting
     // Allowed columns for sorting
     const allowedColumns = ["title_type", "primary_title", "start_year"];
+    query += " ORDER BY ";
     if (
         // Check if ordering is requested and on an allowed column
         request.query.orderBy &&
         allowedColumns.includes(request.query.orderBy.toString())
     ) {
-        query += " ORDER BY " + request.query.orderBy;
-        // Apply order direction if requested
-        // Order direction cannot be defined as a parameter
-        // To defeat SQL injections,
-        // orderDir is checked and explicitly applied
-        if (request.query.orderDir == "ASC") {
-            query += " ASC";
-        } else if (request.query.orderDir == "DESC") {
-            query += " DESC";
-        }
+        query += request.query.orderBy + ",";
+    }
+    // Always sort by something to ensure deterministic results
+    query += " tconst";
+
+    // Apply order direction if requested
+    // Order direction cannot be defined as a parameter
+    // To defeat SQL injections,
+    // orderDir is checked and explicitly applied
+    if (request.query.orderDir == "ASC") {
+        query += " ASC";
+    } else if (request.query.orderDir == "DESC") {
+        query += " DESC";
     }
 
     // Limit
@@ -119,7 +123,7 @@ const buildSearchQuery = (request: Request): QueryConfig => {
     }
 
     // Return the query and parameters
-    return { text: query, values: parameters } as QueryConfig;
+    return { text: query, values: parameters };
 };
 
 class MovieController {

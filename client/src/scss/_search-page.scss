@@ -70,3 +70,11 @@
     font-weight: bold;
   }
 }
+
+// Prevent semantic ui from trying to display
+// a table row as a block
+#search-result-table {
+  tr.content.active.accordion-content {
+    display: table-row;
+  }
+}

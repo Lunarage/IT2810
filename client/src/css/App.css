@@ -259,6 +259,10 @@ input:disabled {
   font-weight: bold;
 }
 
+#search-result-table tr.content.active.accordion-content {
+  display: table-row;
+}
+
 /* Styling my-page */
 .my-page {
   display: grid;
