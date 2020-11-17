@@ -1,6 +1,5 @@
 import React, { FormEvent } from "react";
-import { useDispatch } from "react-redux";
-import { toggle_loggedIn, set_username } from "../reducers/Actions";
+
 interface Props {
     userInput: string;
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
