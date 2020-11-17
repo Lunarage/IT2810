@@ -10,13 +10,13 @@ const MyPage = () => {
         if (username) {
             return (
                 <div className={"my-page"}>
-                    <h2 className={"my-page-title"}>{"Min side"}</h2>
-                    <h3>Lagrede søk</h3>
+                    <h2 className={"my-page-title"}>{"My page"}</h2>
+                    <h3>{username + "s saved searches:"}</h3>
                     <LikedMoviesTable />
                 </div>
             );
         } else {
-            return <p>Hvordan kom du deg hit?</p>;
+            return <p>How did you even get here??</p>;
         }
     };
     return render();
