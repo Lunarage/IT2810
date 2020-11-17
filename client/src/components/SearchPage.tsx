@@ -73,8 +73,7 @@ const SearchPage = () => {
     });
 
     // Get username from Redux
-    const username = useSelector((state: RootStateOrAny) => state.loggedIn)
-        .username;
+    const username = useSelector((state: RootStateOrAny) => state.userName);
 
     // Funksjon som kalles i SearchBar. Der sender den tekststrengen i inputfeltet, sorteringsrekkefølge og titleType "opp hit". State blir oppdatert tilsvarende, og et et søk blir utført.
     const searchButtonClicked = (

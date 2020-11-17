@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { AppState } from "../reducers/Reducer";
-import { set_username } from "../reducers/Actions";
+import { set_username, toggle_loggedIn } from "../reducers/Actions";
 import { LoginForm } from "./LoginForm";
 import HttpClient from "../modules/HttpClient";
 import { LocalStorage } from "../modules/Storage";
@@ -35,15 +35,15 @@ export const LoginPage = () => {
     // Attempt to log in on submit
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const result = HttpClient.loginOrCreateUser(userInput);
         setSubmitState({ status: "waiting", errorMessage: "" });
-        result
+        HttpClient.loginOrCreateUser(userInput)
             .then(() => {
                 setSubmitState({ status: "success", errorMessage: "" });
                 // Store username in local storage
                 LocalStorage.set("username", userInput);
                 // Update redux with username
                 dispatch(set_username(userInput));
+                dispatch(toggle_loggedIn(true));
             })
             .catch((error) => {
                 setSubmitState({
