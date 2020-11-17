@@ -9,8 +9,7 @@ import LoginPage from "./components/LoginPage";
 import MyPage from "./components/MyPage";
 import Menu from "./components/Menu";
 import StartPage from "./components/StartPage";
-import { set_username } from "./reducers/Actions";
-
+import { set_username, toggle_loggedIn } from "./reducers/Actions";
 
 const App = () => {
     // Set initial state
@@ -18,11 +17,10 @@ const App = () => {
         currentPage: "home",
     });
 
-
     // Setup Redux store and actions
     const dispatch = useDispatch();
-    const loggedIn = useSelector((state: AppState ) => state.loggedIn);
-    const userName = useSelector((state: AppState ) => state.userName);
+    const loggedIn = useSelector((state: AppState) => state.loggedIn);
+    const userName = useSelector((state: AppState) => state.userName);
 
     // Set up use of local storage
     const localStorage = new LocalStorageWrapper();
@@ -30,9 +28,10 @@ const App = () => {
     // Log in with same user as last time
     useEffect(() => {
         if (!loggedIn || userName == null) {
-            const userName = localStorage.get("username")
-            if ( userName != null) {
+            const userName = localStorage.get("username");
+            if (userName != null) {
                 dispatch(set_username(userName));
+                dispatch(toggle_loggedIn(true));
             }
         }
     });
@@ -78,7 +77,6 @@ const App = () => {
     };
     return (
         <div className="app">
-            
             <Banner onLogoClick={handleLogoClick} />
             <Menu
                 currentPage={state.currentPage}

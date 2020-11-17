@@ -8,14 +8,6 @@ interface Props {
 }
 
 export const LoginForm = (props: Props) => {
-    
-    const dispatch = useDispatch();
-
-    const onLogInButtonClicked = () => {
-        dispatch(toggle_loggedIn(true));
-        dispatch(set_username(props.userInput))
-    };
-
     return (
         <div className={"login-section"}>
             <h2 className={"login-page-title"}>Log in</h2>
@@ -51,7 +43,7 @@ export const LoginForm = (props: Props) => {
                 </div>
 
                 <div className={"form-group"} />
-                <button className={"login-button"} type={"submit"} onClick={onLogInButtonClicked}>
+                <button className={"login-button"} type={"submit"}>
                     Log in
                 </button>
             </form>

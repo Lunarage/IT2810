@@ -23,7 +23,7 @@ type SearchParameters = {
     titleType?: string;
     minYear?: number;
     maxYear?: number;
-    username?: string;
+    username?: string | null;
     page?: number;
     orderBy?: string;
     orderDir?: string;
