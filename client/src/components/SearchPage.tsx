@@ -130,7 +130,7 @@ const SearchPage = () => {
         // Set state to waiting
         setSearchState({
             searchStatus: "waiting",
-            movies: [],
+            movies: searchState.movies,
             errorMessage: null,
         });
 
@@ -189,6 +189,20 @@ const SearchPage = () => {
             });
     };
 
+    let navigation;
+    if (searchState.movies.length > 0) {
+        navigation = (
+            <SearchNavigation
+                activePage={pageState.activePage}
+                totalPages={pageState.totalPages}
+                disabled={pageState.disabled}
+                pageChange={pageChange}
+            />
+        );
+    } else {
+        navigation = "";
+    }
+
     return (
         <div className={"search-page"}>
             <SearchBar searchButtonClicked={searchButtonClicked} />
@@ -198,12 +212,7 @@ const SearchPage = () => {
                 movies={searchState.movies}
                 searchInput={inputState.searchInput}
             />
-            <SearchNavigation
-                activePage={pageState.activePage}
-                totalPages={pageState.totalPages}
-                disabled={pageState.disabled}
-                pageChange={pageChange}
-            />
+            {navigation}
         </div>
     );
 };

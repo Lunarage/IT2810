@@ -17,14 +17,6 @@
   .search-navigation {
     grid-area: navigation;
     justify-self: center;
-
-    * {
-      margin: 0.5em;
-    }
-
-    a {
-      //Possibly fit these into a grid or something
-    }
   }
 
   /* Styling advanced search */

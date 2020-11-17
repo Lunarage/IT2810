@@ -15,10 +15,13 @@ const SearchNavigation = (props: NavigationProps) => {
 
     return (
         <Pagination
+            className={"search-navigation"}
             totalPages={props.totalPages}
             activePage={props.activePage}
             onPageChange={handlePageChange}
             boundaryRange={1}
+            siblingRange={0}
+            firstItem={null}
             lastItem={null}
             disabled={props.disabled}
         />
