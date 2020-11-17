@@ -75,14 +75,8 @@ describe("MyPage", () => {
     });
 
     it("should contain MyPage text", async () => {
-        const MinSide = component.getByText("Min side");
+        const MinSide = component.getByText("My page");
         expect(MinSide).toBeVisible()
     });
-
-    it("should contain MyPage text", async () => {
-      
-        const MinSide = component.getByText("Min side");
-        expect(MinSide).toBeVisible()
-      });
     
 });

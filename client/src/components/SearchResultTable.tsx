@@ -8,7 +8,7 @@ import { AppState } from "../reducers/Reducer";
 
 /* ResultTableAccordion får inn en liste av filmer movies fra SearchResult.
  * Disse presenteres som en tabell der radene er "trekkspill", altså at det vises mer info om filmen i den enkelte raden om den trykkes på. Dette innholdet ligger i en ny tabell.*/
-const ResultTableAccordion = (props: { movies: Movie[] }) => {
+const SearchResultTable = (props: { movies: Movie[] }) => {
     const isLoggedIn = useSelector((state: AppState) => state.loggedIn);
 
     // Dersom en bruker er logget inn skal det rendres en kolonne med tittel "Liked"
@@ -161,4 +161,4 @@ const isNull = (value: any) => {
 };
 
 
-export default ResultTableAccordion;
+export default SearchResultTable;
