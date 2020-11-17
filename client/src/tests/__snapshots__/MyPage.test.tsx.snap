@@ -53,3 +53,11 @@ exports[`Menu renders 1`] = `
   </div>
 </div>
 `;
+
+exports[`MyPage renders 1`] = `
+<div>
+  <p>
+    How did you even get here??
+  </p>
+</div>
+`;
