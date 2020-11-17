@@ -1,14 +1,13 @@
 import React from "react";
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector } from "react-redux";
+import { AppState } from "../reducers/Reducer";
 
 //Denne komponenten viser banneret helt øverst på siden med Logo og hvem som er logget inn
 const Banner = (props: Props) => {
-    const loggedIn = useSelector((state: RootStateOrAny) => state.loggedIn).value;
-    const username = useSelector((state: RootStateOrAny) => state.loggedIn)
-        .username;
+    const username = useSelector((state: AppState) => state.userName);
 
-    const loginInfo = (loggedIn: boolean, username: string) => {
-        if (loggedIn) {
+    const loginInfo = (username: string | null | undefined) => {
+        if (username) {
             return (
                 <div className={"banner-login"}>
                     <p className="login-info">Logged in as</p>
@@ -23,7 +22,7 @@ const Banner = (props: Props) => {
             <h1 className={"logo"} onClick={props.onLogoClick}>
                 Logo
             </h1>
-            {loginInfo(loggedIn, username)}
+            {loginInfo(username)}
         </div>
     );
 };
