@@ -85,6 +85,12 @@ const SearchPage = () => {
         movies: searchStateStore.searchMovies,
     });
 
+<<<<<<< HEAD
+=======
+    // Get username from Redux
+    const username = useSelector((state: AppState) => state.userName);
+
+>>>>>>> master
     // Funksjon som kalles i SearchBar. Der sender den tekststrengen i inputfeltet, sorteringsrekkefølge og titleType "opp hit". State blir oppdatert tilsvarende, og et et søk blir utført.
     const searchButtonClicked = (
         input: string,
@@ -133,16 +139,28 @@ const SearchPage = () => {
             movies: searchState.movies,
             errorMessage: null,
         });
+        let searchParameters;
+        if (username) {
+            searchParameters = {
+                title: searchInput,
+                titleType: titleType,
+                orderBy: "start_year",
+                orderDir: orderDir,
+                username: username,
+                page: page,
+            };
+        } else {
+            searchParameters = {
+                title: searchInput,
+                titleType: titleType,
+                orderBy: "start_year",
+                orderDir: orderDir,
+                page: page,
+            };
+        }
 
         // Spør databasen
-        const result = HttpClient.searchMovies({
-            title: searchInput,
-            titleType: titleType,
-            orderBy: "start_year",
-            orderDir: orderDir,
-            username: username,
-            page: page,
-        });
+        const result = HttpClient.searchMovies(searchParameters);
 
         // Sett state hos SearchResult
         result
