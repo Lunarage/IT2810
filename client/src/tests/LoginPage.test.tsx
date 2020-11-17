@@ -7,7 +7,7 @@ import configureStore, {
 } from "redux-mock-store";
 import LoginPage from "../components/LoginPage";
 import HttpClient from "../modules/HttpClient";
-import { toggle_loggedIn } from "../reducers/Actions";
+import { toggle_loggedIn, set_username } from "../reducers/Actions";
 import { store } from "../reducers/Reducer";
 import { act } from "react-dom/test-utils";
 
@@ -50,11 +50,7 @@ describe("My Connected React-Redux Component", () => {
             </Provider>
         );
     });
-    /*
-    it("should render with given state from Redux store", () => {
-        expect(component.toJSON()).toMatchSnapshot();
-    });
-*/
+
     it("should dispatch an action on handle submit", async () => {
         // Find the input field
         const input = component.getByPlaceholderText(
@@ -75,18 +71,7 @@ describe("My Connected React-Redux Component", () => {
             // The implementation of handleSubmit calls dispatch 2 times.
             expect(store.dispatch).toHaveBeenCalledTimes(2);
             expect(store.dispatch).toHaveBeenCalledWith(toggle_loggedIn(true));
+            expect(store.dispatch).toHaveBeenCalledWith(set_username("testUser123"))
         });
     });
 });
-/*
-  test('handle login click'), () => {
-
-}
-  it('handle home click', () => {
-    const { getByRole } = documentBody
-    const history = createMemoryHistory()
-
-    fireEvent.click(getByRole('homeButton'));
-
-    expect(history.location.pathname).toBe('/')
-  })*/
