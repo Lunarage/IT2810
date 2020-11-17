@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector } from "react-redux";
 import { AppState } from "../reducers/Reducer";
 
 //Denne komponenten viser banneret helt øverst på siden med Logo og hvem som er logget inn

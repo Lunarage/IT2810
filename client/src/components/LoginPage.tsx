@@ -1,12 +1,11 @@
-import React, { useState, FormEvent } from "react";
-import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
-import { AppState } from "../reducers/Reducer";
-import { set_username, toggle_loggedIn } from "../reducers/Actions";
-import { LoginForm } from "./LoginForm";
+import React, { FormEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "semantic-ui-react";
 import HttpClient from "../modules/HttpClient";
 import { LocalStorage } from "../modules/Storage";
-import { User } from "../types/DatabaseTypes";
-import { Loader } from "semantic-ui-react";
+import { set_username, toggle_loggedIn } from "../reducers/Actions";
+import { AppState } from "../reducers/Reducer";
+import { LoginForm } from "./LoginForm";
 
 type SubmitState = {
     status: "none" | "waiting" | "success" | "failure";

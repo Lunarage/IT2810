@@ -1,7 +1,7 @@
 import React from "react";
-import LikedMoviesTable from "./LikedMoviesTable";
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector } from "react-redux";
 import { AppState } from "../reducers/Reducer";
+import LikedMoviesTable from "./LikedMoviesTable";
 
 const Mypage = () => {
     const username = useSelector((state: AppState) => state.userName);
