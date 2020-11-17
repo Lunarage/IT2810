@@ -1,11 +1,22 @@
-import { render, fireEvent } from "@testing-library/react";
-import LoginPage from "../components/LoginPage";
+import { fireEvent, render, RenderResult, wait } from "@testing-library/react";
 import React from "react";
 import { Provider } from "react-redux";
-import { store } from "../reducers/Reducer";
-import renderer from "react-test-renderer";
-import configureStore from "redux-mock-store";
+import configureStore, {
+    MockStoreCreator,
+    MockStoreEnhanced,
+} from "redux-mock-store";
+import LoginPage from "../components/LoginPage";
+import HttpClient from "../modules/HttpClient";
 import { toggle_loggedIn } from "../reducers/Actions";
+import { store } from "../reducers/Reducer";
+import { act } from "react-dom/test-utils";
+
+jest.mock("../modules/HttpClient");
+
+const fakeHttpClient = HttpClient as jest.Mocked<typeof HttpClient>;
+fakeHttpClient.loginOrCreateUser.mockReturnValue(
+    Promise.resolve({ username: "testUser123" })
+);
 
 test("LoginPage renders", () => {
     const { container } = render(
@@ -16,39 +27,55 @@ test("LoginPage renders", () => {
     expect(container).toMatchSnapshot();
 });
 
-const mockStore = configureStore([]);
+const mockStore: MockStoreCreator = configureStore([]);
 
 describe("My Connected React-Redux Component", () => {
-    let store;
-    let component;
+    let store: MockStoreEnhanced;
+    let component: RenderResult;
 
     beforeEach(() => {
+        // Initialize mockStore with initial state
         store = mockStore({
             LoggedIn: false,
             userName: null,
         });
 
+        // Mock the dispatch function
         store.dispatch = jest.fn();
 
+        // Render the page, and store it in a variable
         component = render(
             <Provider store={store}>
                 <LoginPage />
             </Provider>
         );
     });
-/*
+    /*
     it("should render with given state from Redux store", () => {
         expect(component.toJSON()).toMatchSnapshot();
     });
 */
-    it("should dispatch an action on handle submit", () => {
-        renderer.act(() => {
-            const button = component.root.findByType("button");
-            fireEvent.click(button)
+    it("should dispatch an action on handle submit", async () => {
+        // Find the input field
+        const input = component.getByPlaceholderText(
+            "OlaNordmann"
+        ) as HTMLInputElement;
+        // Type in test username
+        fireEvent.change(input, { target: { value: "testUser123" } });
+        // Find the submit button and click it
+        fireEvent.click(
+            component.getByRole("button"),
+            new MouseEvent("click", { bubbles: true })
+        );
+        // Because the implementation uses asynchronous
+        // we have to wait for the operation to finish.
+        // In this case it is the calls to HttpClient.
+        // They return Promises, which are asynchronous.
+        await wait(() => {
+            // The implementation of handleSubmit calls dispatch 2 times.
+            expect(store.dispatch).toHaveBeenCalledTimes(2);
+            expect(store.dispatch).toHaveBeenCalledWith(toggle_loggedIn(true));
         });
-
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith(toggle_loggedIn(true));
     });
 });
 /*
