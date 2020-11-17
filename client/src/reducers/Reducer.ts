@@ -4,7 +4,7 @@ import { createStore, Store } from "redux";
 type Actions =
     | ReturnType<typeof toggle_loggedIn>
     | ReturnType<typeof logout>
-    | ReturnType<typeof set_username>;
+    | ReturnType<typeof set_username>
 
 //Creates the types AppState
 export type AppState = {

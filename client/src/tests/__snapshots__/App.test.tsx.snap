@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders 1`] = `
+<div>
+  <div
+    class="app"
+  >
+    <div
+      class="banner"
+    >
+      <h1
+        class="logo"
+      >
+        Logo
+      </h1>
+    </div>
+    <div
+      class="site-menu"
+    >
+      <p>
+        Home
+      </p>
+      <a
+        class="search-button"
+        tabindex="0"
+      >
+        Search
+      </a>
+      <button
+        class="login-button"
+      >
+        Log in
+      </button>
+    </div>
+    <div
+      class="content"
+    >
+      <div
+        class="start-page"
+      >
+        <h2
+          class="welcome"
+        >
+          Welcome!
+        </h2>
+        <p
+          class="welcome-p"
+        >
+          This website gives you the oppurtunity to search in over 7.2 million movies, TV-series and other film media
+        </p>
+        <h3
+          class="how-to-use"
+        >
+          How to use?
+        </h3>
+        <p
+          class="how-to-use-p"
+        >
+          In the search section of webpage you can type in any word or title of a movie and will get all the matches from the database. you can also like your favorite movies if you are logged in. When you are logged in, myPage will appear on the site and here you can see all your liked movies and shows.
+        </p>
+        <p
+          class="how-to-use-p"
+        >
+          To log in you can either write user1 in the username field and see an example of a user with data, or you can write any other name in the user field and make your own data. Password is not required.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

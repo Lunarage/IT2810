@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu renders 1`] = `
+<div>
+  <div
+    class="site-menu"
+  >
+    <a
+      class="home-button"
+      tabindex="0"
+    >
+      Home
+    </a>
+    <a
+      class="search-button"
+      tabindex="0"
+    >
+      Search
+    </a>
+    <button
+      class="login-button"
+    >
+      Log in
+    </button>
+  </div>
+</div>
+`;
