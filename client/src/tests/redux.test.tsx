@@ -4,11 +4,12 @@ import { cleanup } from "@testing-library/react";
 afterEach(cleanup);
 
 //Test for initial state, has a TypeScript error, but the test still works as expected
+//Eventhough there is a TypeScript error, the reducer has a default and returns state as expected
 test("Initial state", () => {
   let state;
   state = rootReducer(
       undefined,
-      {}
+      { }
   );
   expect(state).toEqual({
       loggedIn: false,

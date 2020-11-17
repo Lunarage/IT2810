@@ -9,7 +9,7 @@ import LoginPage from "../components/LoginPage";
 import HttpClient from "../modules/HttpClient";
 import { toggle_loggedIn, set_username } from "../reducers/Actions";
 import { store } from "../reducers/Reducer";
-import { act } from "react-dom/test-utils";
+import userEvent from '@testing-library/user-event'
 
 // Mock HttpClient module
 jest.mock("../modules/HttpClient");
@@ -65,9 +65,8 @@ describe("LoginPage handles", () => {
         // Type in test username
         fireEvent.change(input, { target: { value: "testUser123" } });
         // Find the submit button and click it
-        fireEvent.click(
+        userEvent.click(
             component.getByRole("button"),
-            new MouseEvent("click", { bubbles: true })
         );
         // Because the implementation uses asynchronous
         // we have to wait for the operation to finish.
