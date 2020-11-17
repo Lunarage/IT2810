@@ -1,6 +1,6 @@
 import React, { FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { toggle_loggedIn } from "../reducers/Actions";
+import { toggle_loggedIn, set_username } from "../reducers/Actions";
 interface Props {
     userInput: string;
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -13,6 +13,7 @@ export const LoginForm = (props: Props) => {
 
     const onLogInButtonClicked = () => {
         dispatch(toggle_loggedIn(true));
+        dispatch(set_username(props.userInput))
     };
 
     return (

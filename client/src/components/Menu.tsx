@@ -12,7 +12,7 @@ export const Menu = (props: MenuProps) => {
     const isLoggedIn = useSelector((state: AppState) => state.loggedIn);
 
     const onLogoutButtonClicked = () => {
-        dispatch(logout(false));
+        dispatch(logout());
         // Remove username from local storage
         LocalStorage.remove("username");
         // Remove username from redux store

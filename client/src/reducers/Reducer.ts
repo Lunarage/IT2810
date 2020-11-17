@@ -44,7 +44,7 @@ export const rootReducer = (
             return state;
     }
 };
-//Creating store
+//Configure store
 function configureStore(): Store<AppState> {
     return createStore(
         rootReducer,
@@ -53,5 +53,5 @@ function configureStore(): Store<AppState> {
     );
 }
 
-//Oppretter en store
+//Create and exports store 
 export const store = configureStore();
