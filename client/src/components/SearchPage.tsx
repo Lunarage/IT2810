@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HttpClient from "../modules/HttpClient";
+import { setStoreSearchState } from "../reducers/Actions";
 import { AppState } from "../reducers/Reducer";
 import { Movie } from "../types/DatabaseTypes";
 import SearchBar from "./SearchBar";
@@ -14,7 +15,7 @@ import SearchResult from "./SearchResult";
  */
 interface InputState {
     searchInput: string;
-    orderDir: string;
+    orderDir: "ASC" | "DESC";
     titleType: string;
 }
 
@@ -54,33 +55,41 @@ interface SearchState {
  *  SearchNavigation (sidevalg)
  */
 const SearchPage = () => {
-    // Initialize states
-    const [inputState, setInputState] = useState<InputState>({
-        searchInput: "",
-        orderDir: "",
-        titleType: "",
-    });
+    // Set up redux dispatch
+    const dispatch = useDispatch();
 
-    const [pageState, setPageState] = useState<PageState>({
-        activePage: 1,
-        totalPages: 2,
-        disabled: false,
-    });
-
-    const [searchState, setSearchState] = useState<SearchState>({
-        searchStatus: "none",
-        errorMessage: null,
-        movies: [],
-    });
+    // Get initial search state from redux
+    const searchStateStore = useSelector(
+        (state: AppState) => state.searchState
+    );
 
     // Get username from Redux
     const username = useSelector((state: AppState) => state.userName);
+
+    // Initialize states
+    const [inputState, setInputState] = useState<InputState>({
+        searchInput: searchStateStore.inputSearch,
+        orderDir: searchStateStore.inputOrderDir,
+        titleType: searchStateStore.inputTitleType,
+    });
+
+    const [pageState, setPageState] = useState<PageState>({
+        activePage: searchStateStore.pageActivePage,
+        totalPages: searchStateStore.pageTotalPages,
+        disabled: searchStateStore.pageDisabled,
+    });
+
+    const [searchState, setSearchState] = useState<SearchState>({
+        searchStatus: searchStateStore.searchStatus,
+        errorMessage: searchStateStore.searchErrorMessage,
+        movies: searchStateStore.searchMovies,
+    });
 
     // Funksjon som kalles i SearchBar. Der sender den tekststrengen i inputfeltet, sorteringsrekkefølge og titleType "opp hit". State blir oppdatert tilsvarende, og et et søk blir utført.
     const searchButtonClicked = (
         input: string,
         titleType: string,
-        orderDir: string
+        orderDir: "ASC" | "DESC"
     ) => {
         setInputState({
             searchInput: input,
@@ -115,7 +124,7 @@ const SearchPage = () => {
     const search = (
         searchInput: string,
         titleType: string,
-        orderDir: string,
+        orderDir: "ASC" | "DESC",
         page: number
     ) => {
         // Set state to waiting
@@ -156,31 +165,32 @@ const SearchPage = () => {
                     errorMessage: null,
                 });
                 // Oppdater sidetilstanden
-                if (response.length >= 20) {
-                    // Det finnes kanskje flere resultater
-                    // Gjør det mulig å spørre om neste side:
-                    setPageState({
-                        activePage: page,
-                        totalPages: page + 1,
-                        disabled: false,
-                    });
-                } else if (page === 1) {
-                    // Det finnes ikke flere resultater
-                    // Vi er på den eneste siden:
-                    setPageState({
-                        activePage: page,
-                        totalPages: page,
-                        disabled: true,
-                    });
-                } else {
-                    // Det finnes ikke flere resultater
-                    // Vi er på siste side:
-                    setPageState({
-                        activePage: page,
-                        totalPages: page,
-                        disabled: false,
-                    });
-                }
+                // Hvis det bare en en side i søkeresultatet,
+                // diable pagination navigaion
+                const disablePage = response.length < 20 && page === 1;
+                // Hvis søkeresultatet er har færre enn 20 rader,
+                // tillat en side til i pagination navigation
+                const totalPages = response.length >= 20 ? page + 1 : page;
+                // Oppdater sidetilstand
+                setPageState({
+                    activePage: page,
+                    totalPages: totalPages,
+                    disabled: disablePage,
+                });
+                // Oppdater søketilstanden i redux
+                dispatch(
+                    setStoreSearchState({
+                        inputSearch: searchInput,
+                        inputOrderDir: orderDir,
+                        inputTitleType: titleType,
+                        pageActivePage: page,
+                        pageTotalPages: totalPages,
+                        pageDisabled: disablePage,
+                        searchStatus: "success",
+                        searchErrorMessage: null,
+                        searchMovies: response,
+                    })
+                );
             })
             .catch((error) => {
                 setSearchState({
