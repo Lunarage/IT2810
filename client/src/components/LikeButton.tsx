@@ -35,24 +35,20 @@ const LikeButton = (props: LikeButtonProps) => {
     // this will be handled in handleClick.
     const username = useSelector((state: AppState) => state.userName);
 
-    // Updating state when promise is returned
-    const getLikedStatus = () => {
-        if (username) {
-            HttpClient.getMovie(props.movieID, username).then((response) => {
-                setState({ likedStatus: response.liked });
-                setStateDisabled({ disabled: false });
-            });
-        }
-    };
-
     // useEffect runs additional code after react has updated the DOM
     // The empty list-argument ("deps", dependencies) makes sure
     // the function ("effect") is run only once.
     useEffect(() => {
         // If button is disabled (initial state)
         if (stateDisabled) {
-            // Call getLikedStatus sets correct likedStatus, and sets disabled to false.
-            getLikedStatus();
+            // Sets correct likedStatus, and sets disabled to false.
+            // Updating state when promise is returned
+            if (username) {
+                HttpClient.getMovie(props.movieID, username).then((response) => {
+                    setState({ likedStatus: response.liked });
+                    setStateDisabled({ disabled: false });
+                });
+            }
         }
     }, []);
 
@@ -67,7 +63,6 @@ const LikeButton = (props: LikeButtonProps) => {
         // likedStatus should only be updated if a user is logged in
         // -> when username is a string.
         if (username) {
-
             // Communicating with database. If movie is liked: dislike, else like.
             // Waiting for Promise to get resolved, then calling updateLikedStatus.
             if (state.likedStatus) {
