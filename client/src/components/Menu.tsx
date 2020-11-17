@@ -1,21 +1,21 @@
 import React from "react";
-import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
-import { logOut } from "../reducers/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../reducers/Actions";
+import { AppState } from "../reducers/Reducer";
 import { LocalStorage } from "../modules/Storage";
 
 //Dette komponentet returnerer menyknappene øverst på siden, under banneret. den får inn props med logikken til knappene fra App
 //Den tar også inn informasjon fra store og viser ulike knapper basert på dette
 export const Menu = (props: MenuProps) => {
-    //Henter informasjon fra store om en bruker er logget inn og logut action fra userSlice
+    //Henter informasjon fra store om en bruker er logget inn og logut action fra reducer
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state: RootStateOrAny) => state.loggedIn)
-        .value;
+    const isLoggedIn = useSelector((state: AppState) => state.loggedIn);
 
     const onLogoutButtonClicked = () => {
+        dispatch(logout());
         // Remove username from local storage
         LocalStorage.remove("username");
         // Remove username from redux store
-        dispatch(logOut());
         // Tell app we loged out
         props.onLogoutClick();
     };
