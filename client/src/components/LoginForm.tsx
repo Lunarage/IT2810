@@ -1,5 +1,4 @@
 import React, { FormEvent } from "react";
-
 interface Props {
     userInput: string;
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
