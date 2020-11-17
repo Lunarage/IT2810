@@ -1,7 +1,11 @@
-# Prosjekt 3 Gruppe 22
+# Prosjekt 4 Gruppe 22
 
 ## Generelt
-For å starte prosjektet: klon repoet lokalt og kjør npm install og npm start i client mappen. 
+For å starte prosjektet: klon repoet lokalt og kjør npm install og npm start i client mappen. Husk å bruke VPN inn på NTNU
+
+Vi har valgt å velge alternativ B og videreutviklet og testet prosjekt 3. Dette var fordi vi fikk mange gode tilbakmeldinger på prosjekt 3 med forbedringer vi kunne gjøre, og ville jobbe videre med prosjektet da det var mange ting vi ikke rakk og ønsket å få ferdig. I tillegg så vi det som hensiktsmessig og ikke måtte bruke tid på å sette oss inn i ny teknologi da vi hadde mye mindre tid på dette prosjektet enn tidligere prosjekter.
+
+Denne ReadMe er basert på ReadMe fra prosjekt 3 så det skal være greit å sette seg inn i prosjeket, men vi har gjort det tydelig hvor vi har gjort endringer fra forrige prosjekt så det skal være lett å identifisere. 
 
 ### Komponenthierarki
 Følgende diagram viser hvordan komponentene våre henger sammen:
@@ -10,6 +14,8 @@ Følgende diagram viser hvordan komponentene våre henger sammen:
 ## Krav til innhold + funksjonalitet
 
 Vi har laget en nettside med React og Typescript ved bruk av IMDB sitt datasett av filmer. Det er en søkeside hvor man kan søke blant alle filmene i datasettet som er på 7.2 millioner datapunkter. Grunnen til at vi valgte å gjøre dette er fordi det er et open-source datasett som er veldig stort og var derfor tilstrekkelig til å vise faktisk funksjonalitet på siden. 
+
+En viktig endring vi har gjort siden sist er å slette rundt 6 millioner datapunkter, dette hovedsakelig for å gjøre søk raskere. Det var mange filmer uten årstall, veldig gamle og andre typer som ikke var hensiktsmessig å ha med. Dette har gjort søk raskere og vi har fortsatt 1 million datapunkter å teste siden på. 
 
 På nettsiden har man en homepage som man kommer automatisk til når man åpner siden. Her står det kort forklart hvordan man brukes siden og hva slags side det er. Når man ikke er logget inn, har man bare tilgang til homepage, searchpage. Er man logget inn får man også tilgang til mypage og man kan like filmer.
 
@@ -76,9 +82,11 @@ Vi har posgreSQL med  åpne datasett fra IMDb.
 
 Vi har brukt create-react-app til å sette opp prosjektet, og hele prosjektet er skrevet i Typescript. Dette var veldig i greit i dette prosjektet da hele gruppen var mye mer komfortable med react i dette prosjektet enn forrige.
 ### Redux
-Vi har valgt å bruke redux til å implementere state håndtering på om noen er logget inn eller ikke, og ut i fra det endre hvilken komponenter som skal vises. Det er nok ikke egentlig nødvendig å bruke redux i et prosjekt som dette, da det er ganske komplisert å sette seg inn, men det var fint å gjøre for læringen. Det var også veldig greit å ha når vi hadde fått konfigurert alt sammen, da det er en del ulike komponenter som ser på om isLoggedin = true/false. 
+Vi har endret hele logikken til Redux i prosjektet siden prosjekt 3. Dette er fordi vi oppdaget helt på slutten at vi hadde gjort mye som ikke var anbefalt practice og fikk tilbakemeldinger i medstudentvurderingene på hvordan det kunne gjøres bedre. Vi har derfor delt opp Actions og reducers, i tillegg til å lage en rootReducer som håndetere alt og ikke en slice som vi gjorde i forrige prosjekt. I tillegg har vi brukt redux til å enkelt implementere lagring av søk, noe som manglet fra forrige prosjekt. 
 
-Vi hadde bare en reucer og to actions, logg inn/logg ut. Når vi testet prosjektet helt på slutten oppdaget vi en feil, hvor det vi har i reducer filen endret direkte på state som skal være immutable. Dette vet vi er veldig dårlig practice, men siden vi oppdaget dette såpass sent lot vi det være i prosjektet, men nevner her i dokumentasjonen at dette er noe vi vet.
+Vi har nå som sagt over en rootReducer som bruker switch case, og denne importere alle actions fra Actions filen. Vi har 4 actions, toggle_logged_in som brukes til innlogging, set_username som brukes til innlogging, logout og setSearchState. Vi vet at loggedin/username logikken kunne vært løste mer elegant og med færre actions, men kom fram til at vi ikke hadde tid til å gå gjennom prosjektet og endre det, i tillegg til at vi ikke anså det som et stort nok problem når vi har så få actions som vi har. 
+
+Vi har også fått enhetstestet reduceren grundigere fordi vi oppdaget at redux sin chrome DevTool lager forslag til tester for deg. Disse har vi brukt flittig fot å teste at reduceren oppfører seg som den skal på ulike inputs.
 
 #### Kode-eksempel
 Dette eksempletet viser hvordan man i et komponent kan sette opp og bruke actions fra redux og hvordan man henter ut data.
