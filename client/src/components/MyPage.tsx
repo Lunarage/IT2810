@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { AppState } from "../reducers/Reducer";
 import LikedMoviesTable from "./LikedMoviesTable";
 
-const Mypage = () => {
+const MyPage = () => {
     const username = useSelector((state: AppState) => state.userName);
 
     const render = () => {
@@ -12,7 +12,7 @@ const Mypage = () => {
                 <div className={"my-page"}>
                     <h2 className={"my-page-title"}>{"Min side"}</h2>
                     <h3>Lagrede søk</h3>
-                    <LikedMoviesTable username={username} />
+                    <LikedMoviesTable />
                 </div>
             );
         } else {
@@ -22,4 +22,4 @@ const Mypage = () => {
     return render();
 };
 
-export default Mypage;
+export default MyPage;
