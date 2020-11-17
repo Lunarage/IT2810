@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ResultTableAccordion from "./ResultTableAccordion";
+import SearchResultTable from "./SearchResultTable";
 import { Movie } from "../types/DatabaseTypes";
 import { Loader } from "semantic-ui-react";
 
@@ -49,7 +49,7 @@ class SearchResult extends Component<Props> {
                 return (
                     <div className={"search-result"}>
                         <h3>Søkeresultat:</h3>
-                        <ResultTableAccordion movies={this.props.movies} />
+                        <SearchResultTable movies={this.props.movies} />
                     </div>
                 );
             }

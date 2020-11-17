@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Menu renders 1`] = `
+exports[`MyPage renders 1`] = `
 <div>
   <p>
-    Hvordan kom du deg hit?
+    How did you even get here??
   </p>
 </div>
 `;
