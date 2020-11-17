@@ -51,7 +51,7 @@ export const LoginForm = (props: Props) => {
                 </div>
 
                 <div className={"form-group"} />
-                <button className={"login-button"} type={"submit"} onClick={onLogInButtonClicked}>
+                <button className={"login-button"} type={"submit"} >
                     Log in
                 </button>
             </form>
