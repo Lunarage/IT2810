@@ -135,6 +135,7 @@ const SearchPage = () => {
         });
         let searchParameters;
         if (username) {
+            console.log("username exists")
             searchParameters = {
                 title: searchInput,
                 titleType: titleType,
@@ -144,6 +145,8 @@ const SearchPage = () => {
                 page: page,
             };
         } else {
+            console.log("no username exists")
+
             searchParameters = {
                 title: searchInput,
                 titleType: titleType,

@@ -46,7 +46,7 @@ class LikedMoviesTable extends Component<Props, State> {
                         </Table.Cell>
                         <Table.Cell key={`${n.tconst}_liked`}>
                             <LikeButton
-                                liked={n.liked}
+                                initialLikedStatus={n.liked}
                                 handleClick={(
                                     movieID: string,
                                     username: string,

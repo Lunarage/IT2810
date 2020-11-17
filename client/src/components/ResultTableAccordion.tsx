@@ -3,7 +3,6 @@ import { Accordion } from "semantic-ui-react";
 import { Table } from "semantic-ui-react";
 import { Movie } from "../types/DatabaseTypes";
 import LikeButton from "./LikeButton";
-import HttpClient from "../modules/HttpClient";
 
 /* ResultTableAccordion får inn en liste av filmer movies fra SearchResult.
  * Disse presenteres som en tabell der radene er "trekkspill", altså at det vises mer info om filmen i den enkelte raden om den trykkes på. Dette innholdet ligger i en ny tabell.*/
@@ -32,10 +31,7 @@ const ResultTableAccordion = (props: { movies: Movie[] }) => {
                     </Table.Cell>,
                     <Table.Cell key={`${n.tconst}_liked`}>
                         <LikeButton
-                            liked={n.liked}
-                            handleClick={handleLikeClick}
                             movieID={n.tconst}
-                            disabled={false}
                         />
                     </Table.Cell>,
                 ],
@@ -145,15 +141,5 @@ const isNull = (value: any) => {
     }
 };
 
-// handleLikeClick is called onClick in likeButton. Takes in the movieID, the current username and wether or not the movie is liked.
-const handleLikeClick = (movieID: string, username: string, liked: boolean) => {
-    // Asking database
-    // If movie is liked: dislike, else like.
-    if (liked) {
-        HttpClient.unlikeMovie(movieID, username);
-    } else {
-        HttpClient.likeMovie(movieID, username);
-    }
-};
 
 export default ResultTableAccordion;
