@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu renders 1`] = `
+<div>
+  <div
+    class="my-page"
+  >
+    <h2
+      class="my-page-title"
+    >
+      Min side
+    </h2>
+    <h3>
+      Lagrede søk
+    </h3>
+    <table
+      class="ui table"
+    >
+      <thead
+        class=""
+      >
+        <tr
+          class=""
+        >
+          <th
+            class=""
+          >
+            Movie
+          </th>
+          <th
+            class=""
+          >
+            Liked
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class=""
+      >
+        <tr
+          class=""
+        >
+          <td
+            class=""
+            colspan="2"
+          >
+            No liked movies
+          </td>
+        </tr>
+         
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
