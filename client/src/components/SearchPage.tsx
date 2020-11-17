@@ -60,11 +60,8 @@ const SearchPage = () => {
 
     // Get initial search state from redux
     const searchStateStore = useSelector(
-        (state: AppState) => state.searchState
+        (state: AppState) => state.searchState,
     );
-
-    // Get username from Redux
-    const username = useSelector((state: AppState) => state.userName);
 
     // Initialize states
     const [inputState, setInputState] = useState<InputState>({
@@ -89,7 +86,7 @@ const SearchPage = () => {
     const searchButtonClicked = (
         input: string,
         titleType: string,
-        orderDir: "ASC" | "DESC"
+        orderDir: "ASC" | "DESC",
     ) => {
         setInputState({
             searchInput: input,
@@ -111,7 +108,7 @@ const SearchPage = () => {
             inputState.searchInput,
             inputState.titleType,
             inputState.orderDir,
-            page
+            page,
         );
     };
 
@@ -125,7 +122,7 @@ const SearchPage = () => {
         searchInput: string,
         titleType: string,
         orderDir: "ASC" | "DESC",
-        page: number
+        page: number,
     ) => {
         // Set state to waiting
         setSearchState({
@@ -133,28 +130,15 @@ const SearchPage = () => {
             movies: searchState.movies,
             errorMessage: null,
         });
-        let searchParameters;
-        if (username) {
-            searchParameters = {
-                title: searchInput,
-                titleType: titleType,
-                orderBy: "start_year",
-                orderDir: orderDir,
-                username: username,
-                page: page,
-            };
-        } else {
-            searchParameters = {
-                title: searchInput,
-                titleType: titleType,
-                orderBy: "start_year",
-                orderDir: orderDir,
-                page: page,
-            };
-        }
 
         // Spør databasen
-        const result = HttpClient.searchMovies(searchParameters);
+        const result = HttpClient.searchMovies({
+            title: searchInput,
+            titleType: titleType,
+            orderBy: "start_year",
+            orderDir: orderDir,
+            page: page,
+        });
 
         // Sett state hos SearchResult
         result
@@ -189,7 +173,7 @@ const SearchPage = () => {
                         searchStatus: "success",
                         searchErrorMessage: null,
                         searchMovies: response,
-                    })
+                    }),
                 );
             })
             .catch((error) => {

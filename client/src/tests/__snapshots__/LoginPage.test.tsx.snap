@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPage renders 1`] = `
+<div>
+  <div
+    class="login-page"
+  >
+    <div
+      class="login-section"
+    >
+      <h2
+        class="login-page-title"
+      >
+        Log in
+      </h2>
+      <form
+        class="login-page-form"
+      >
+        <div
+          class="form-group username"
+        >
+          <label
+            class="input-label"
+            for="username"
+          >
+            Username
+          </label>
+          <input
+            class="input"
+            name="username"
+            pattern="[a-zA-Z0-9]{3,}"
+            placeholder="OlaNordmann"
+            required=""
+            title="At least 3 characters: a-z, A-Z, 0-9."
+            value=""
+          />
+        </div>
+        <div
+          class="form-group password"
+        >
+          <label
+            class="input-label"
+            for="password"
+          >
+            Password
+          </label>
+          <input
+            class="input"
+            disabled=""
+            name="password"
+            placeholder="Password"
+            type="password"
+          />
+        </div>
+        <div
+          class="form-group"
+        />
+        <button
+          class="login-button"
+          type="submit"
+        >
+          Log in
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;
