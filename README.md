@@ -3,6 +3,10 @@
 ## Generelt
 For å starte prosjektet: klon repoet lokalt og kjør npm install og npm start i client mappen. Husk å bruke VPN inn på NTNU
 
+Vi har valgt å velge alternativ B og videreutviklet og testet prosjekt 3. Dette var fordi vi fikk mange gode tilbakmeldinger på prosjekt 3 med forbedringer vi kunne gjøre, og ville jobbe videre med prosjektet da det var mange ting vi ikke rakk og ønsket å få ferdig. I tillegg så vi det som hensiktsmessig og ikke måtte bruke tid på å sette oss inn i ny teknologi da vi hadde mye mindre tid på dette prosjektet enn tidligere prosjekter.
+
+Denne ReadMe er basert på ReadMe fra prosjekt 3 så det skal være greit å sette seg inn i prosjeket, men vi har gjort det tydelig hvor vi har gjort endringer fra forrige prosjekt så det skal være lett å identifisere. 
+
 ### Komponenthierarki
 Følgende diagram viser hvordan komponentene våre henger sammen:
 ![Client Component Structure](ClientComponentStructure.png)
@@ -10,6 +14,8 @@ Følgende diagram viser hvordan komponentene våre henger sammen:
 ## Krav til innhold + funksjonalitet
 
 Vi har laget en nettside med React og Typescript ved bruk av IMDB sitt datasett av filmer. Det er en søkeside hvor man kan søke blant alle filmene i datasettet som er på 7.2 millioner datapunkter. Grunnen til at vi valgte å gjøre dette er fordi det er et open-source datasett som er veldig stort og var derfor tilstrekkelig til å vise faktisk funksjonalitet på siden. 
+
+En viktig endring vi har gjort siden sist er å slette rundt 6 millioner datapunkter, dette hovedsakelig for å gjøre søk raskere. Det var mange filmer uten årstall, veldig gamle og andre typer som ikke var hensiktsmessig å ha med. Dette har gjort søk raskere og vi har fortsatt 1 million datapunkter å teste siden på. 
 
 På nettsiden har man en homepage som man kommer automatisk til når man åpner siden. Her står det kort forklart hvordan man brukes siden og hva slags side det er. Når man ikke er logget inn, har man bare tilgang til homepage, searchpage. Er man logget inn får man også tilgang til mypage og man kan like filmer.
 
