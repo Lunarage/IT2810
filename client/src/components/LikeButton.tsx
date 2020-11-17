@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import HttpClient from "../modules/HttpClient";
 import { Like } from "../types/DatabaseTypes";
@@ -46,7 +46,8 @@ const LikeButton = (props: LikeButtonProps) => {
     };
 
     // useEffect runs additional code after react has updated the DOM
-    // The empty list-argument ("deps", dependencies) makes sure the function ("effect") is run only once.
+    // The empty list-argument ("deps", dependencies) makes sure
+    // the function ("effect") is run only once.
     useEffect(() => {
         // If button is disabled (initial state)
         if (stateDisabled) {
@@ -57,12 +58,11 @@ const LikeButton = (props: LikeButtonProps) => {
 
     // handleClick likes/unlikes a movie (movieID) in the database, and updates state.likedStatus
     const handleClick = () => {
-        // updateLikedStatus takes response of type Like and updates state.LikedState with the boolean Like.liked-value.
-        /*
+        // updateLikedStatus takes response of type Like
+        // and updates state.LikedState with the boolean Like.liked-value.
         const updateLikedStatus = (response: Like) => {
             setState({ likedStatus: response.liked });
         };
-        */
 
         // likedStatus should only be updated if a user is logged in
         // -> when username is a string.
@@ -72,15 +72,16 @@ const LikeButton = (props: LikeButtonProps) => {
             // Waiting for Promise to get resolved, then calling updateLikedStatus.
             if (state.likedStatus) {
                 HttpClient.unlikeMovie(props.movieID, username).then((response) => {
-                    setState({ likedStatus: response.liked });
+                    updateLikedStatus(response);
                 });
             } else {
                 HttpClient.likeMovie(props.movieID, username).then((response) => {
-                    setState({ likedStatus: response.liked });
+                    updateLikedStatus(response);
                 });
             }
         } else {
-            // No user is logged in, the LikeButton should not even be reachable, but handleClick is called.
+            // No user is logged in, the LikeButton should not even be reachable,
+            // but handleClick is called.
             console.log("How did you manage to reach LikeButton without being logged in???");
         }
     };
@@ -100,16 +101,15 @@ const LikeButton = (props: LikeButtonProps) => {
     const returnButton = () => {
         //getLikedStatus();
         return (
-            <Button
+            <button
                 id={"like-button"}
                 disabled={stateDisabled.disabled}
                 onClick={handleClick}
-                icon
             >
                 <div className={"heart-icon-container"}>
                     <Icon id={"heart-icon"} name={chooseHeartIcon()} />
                 </div>
-            </Button>
+            </button>
         );
     };
 

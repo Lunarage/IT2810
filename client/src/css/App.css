@@ -94,10 +94,8 @@ body * {
 /* Styling buttons */
 button {
   background-color: #eaeeed;
-  border: solid;
-  border-color: #c4d3ce;
+  border: 2px solid #c4d3ce;
   border-radius: 8px;
-  border-width: 1px;
   box-shadow: 3px 3px 3px #95b2a9;
   cursor: pointer;
   margin: 2px;
@@ -122,23 +120,10 @@ button:focus {
   transition: 30ms;
 }
 
+/* Styling the like-buttons */
 #like-button {
-  background-color: #eaeeed;
-  padding: 0;
-}
-#like-button:hover {
-  cursor: auto;
-}
-#like-button .heart-icon-container {
-  border: solid #eaeeed;
-  border-radius: 4px;
-  padding: 1em 0.8em 0.8em 1em;
-}
-#like-button .heart-icon-container:hover {
-  background-color: #c4d3ce;
-  border-color: #c4d3ce;
-  cursor: pointer;
-  transition: 30ms;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 0.5em 0.35em 0.5em 0.6em;
 }
 
 /* Styling input-fields */

@@ -23,6 +23,9 @@ class LikedMoviesTable extends Component<Props, State> {
         this.getMovies = this.getMovies.bind(this);
         this.movieRows = this.movieRows.bind(this);
 
+    }
+
+    componentDidMount() {
         // Henter filmene ved opprettelsen av objektet
         this.getMovies(this.props.username);
     }
@@ -46,16 +49,7 @@ class LikedMoviesTable extends Component<Props, State> {
                         </Table.Cell>
                         <Table.Cell key={`${n.tconst}_liked`}>
                             <LikeButton
-                                initialLikedStatus={n.liked}
-                                handleClick={(
-                                    movieID: string,
-                                    username: string,
-                                    liked: boolean
-                                ) => {
-                                    return;
-                                }}
                                 movieID={n.tconst}
-                                disabled={true}
                             />
                         </Table.Cell>
                     </Table.Row>
@@ -75,7 +69,7 @@ class LikedMoviesTable extends Component<Props, State> {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {this.movieRows()} {/* henter filmradene */}
+                    {this.movieRows() /* henter filmradene */}
                 </Table.Body>
             </Table>
         );
@@ -87,8 +81,6 @@ class LikedMoviesTable extends Component<Props, State> {
         const result = HttpClient.getLikedMovies(username);
 
         // Venter på resultat, og oppdaterer this.state.
-        //result.then((response) => this.state = {movies: response,})
-
         result.then((response) => this.setState({ movies: response }));
     }
 }
